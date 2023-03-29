@@ -1,0 +1,25 @@
+{
+  "name": "rimjobs",
+  "version": "1.0.0",
+  "description": "CSCI 467 RimJobs Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/467Group3A/rimjobs.git"
+  },
+  "author": "Matt David Cesar Ryan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/467Group3A/rimjobs/issues"
+  },
+  "homepage": "https://github.com/467Group3A/rimjobs#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "scss": "^0.2.4",
+    "sqlite3": "^5.1.6",
+    "vue": "^3.2.47"
+  }
+}
