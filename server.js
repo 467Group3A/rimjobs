@@ -12,6 +12,8 @@ app.use(
   })
 );
 
+app.use(express.static('public'))
+
 // If url is /, send the index.html file
 app.get("/", (req, res) => {
   //send the index.html file for all requests
