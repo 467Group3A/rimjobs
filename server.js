@@ -109,9 +109,6 @@ app.get('/viewinventory', (req, res) => {
 })
 
 
-
-
-
 // Routing requests
 
 // Legacy database request + inventory amount
