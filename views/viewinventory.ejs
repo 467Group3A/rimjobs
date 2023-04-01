@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>All legacy parts</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+  <div id="app">
+    <div>
+      <label for="search">Search for a part by name:</label>
+      <input type="text" id="search" v-model="searchFor">
+    </div>
+    <div>Search for part in a price range:</div>
+    <div>
+      <label for="minPrice">Min price:</label>
+      <input type="number" id="minPrice" v-model="minPrice">
+    </div>
+    <div>
+      <label for="maxPrice">Max price:</label>
+      <input type="number" id="maxPrice" v-model="maxPrice">
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Part number</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Weight</th>
+          <th>pictureURL</th>
+          <th>Inventory Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="row in filteredParts" :key="row.id">
+          <td>{{ row.number }}</td>
+          <td>{{ row.description }}</td>
+          <td>{{ row.price }}</td>
+          <td>{{ row.weight }}</td>
+          <td><img v-bind:src=row.pictureURL width="30" height="30"></td>
+          <td>{{ row.amount }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          finalRows: [],
+          searchFor: '',
+          minPrice: null,
+          maxPrice: null
+        };
+      },
+      computed: {
+        filteredParts() {
+          let parts = this.finalRows.filter(part => {
+            return part.description.toLowerCase().includes(this.searchFor.toLowerCase());
+          });
+          
+          if (this.minPrice !== null && this.maxPrice !== null && this.minPrice !== '' && this.maxPrice !== '') {
+            parts = parts.filter(part => {
+              return parseFloat(part.price) >= parseFloat(this.minPrice) &&
+                     parseFloat(part.price) <= parseFloat(this.maxPrice);
+            });
+          }
+          
+          return parts;
+        }
+      },
+      mounted() {
+        fetch('/legacyparts')
+          .then(response => response.json())
+          .then(data => {
+            this.finalRows = data;
+            console.log('parts have been received!')
+          })
+          .catch(error => {
+            console.log('Error:', error);
+          });
+      },
+    }).mount('#app');
+  </script>
+</body>
+</html>
