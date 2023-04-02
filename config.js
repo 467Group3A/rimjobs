@@ -1,5 +1,5 @@
 // This file contains the configuration for the database connection
-const config = {
+const legacyconfig = {
     db: {
         host: 'blitz.cs.niu.edu',
         user: 'student',

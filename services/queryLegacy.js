@@ -2,7 +2,7 @@
 // Compare this snippet from services/queryLegacy.js:
 const db = require('./db');
 const helper = require('../helper');
-const config = require('../config');
+const legacyconfig = require('../config');
 
 // Current Query
 // SELECT number, description, price, weight FROM parts LIMIT 50,50

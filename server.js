@@ -13,7 +13,11 @@ app.use(
   })
 );
 
+// CSS and image files
 app.use(express.static(path.join(__dirname,'assets')));
+
+// Javascript files
+app.use(express.static(path.join(__dirname,'components')));
 
 // If url is /, send the index.html file
 app.get("/", (req, res) => {
