@@ -1,3 +1,5 @@
+// This is a work in progress
+// This does not show up on the page yet
 $(document).ready(function () {
     const nav = Vue.createApp({
         el: "#cart",

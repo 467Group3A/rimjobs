@@ -1,3 +1,14 @@
+// This file is used to fetch the parts from the database and display them on the page
+// The page number is incremented or decremented when the user clicks the next or previous page buttons
+// Another way to do this would be to append the page number to the end of the URL.
+// Like so:
+// .com/legacy-parts?page=1
+// .com/legacy-parts?page=2
+// .com/legacy-parts?page=3
+//
+// TODO:
+// 1. Add a search bar to search for parts
+//
 $(document).ready(function() {
     legacyParts = '/legacy-parts?page=';
     pageNumber = 1;
