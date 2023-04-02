@@ -1,4 +1,5 @@
 const express = require("express");
+var path = require('path');
 const app = express();
 const port = 4000;
 
@@ -12,7 +13,7 @@ app.use(
   })
 );
 
-app.use(express.static('public'))
+app.use(express.static(path.join(__dirname,'assets')));
 
 // If url is /, send the index.html file
 app.get("/", (req, res) => {
