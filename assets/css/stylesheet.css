@@ -1,0 +1,78 @@
+@font-face {
+  font-family: Alkatra;
+  src: url(/./Alkatra-VariableFont_wght.ttf);
+}
+@font-face {
+  font-family: Shrikhand;
+  src: url(/./Shrikhand-Regular.ttf);
+}
+.nav-link {
+  font-family: Shrikhand;
+  color: #DDD8CF;
+}
+
+.nav-link:hover {
+  --bs-nav-link-hover-color: #d4d3d5;
+}
+
+a {
+  background-size: 200% 100%;
+  background-position: -100%;
+  display: inline-block;
+  padding: 5px 0;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+a:before {
+  content: "";
+  background: #d4d3d5;
+  display: block;
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+a:hover {
+  background-position: 0;
+}
+
+a:hover::before {
+  width: 100%;
+}
+
+body {
+  font-family: Alkatra;
+  background-color: #DDD8CF;
+  color: #686868;
+}
+
+.blurit {
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+}
+
+.Stillwater {
+  color: #DDD8CF;
+}
+
+.Ultor {
+  color: #824538;
+}
+
+.Steelport {
+  color: #686868;
+}
+
+.Pierce {
+  color: #d4d3d5;
+}
+
+.borderSilver {
+  border: 3px solid #686868;
+}
+
+/*# sourceMappingURL=stylesheet.css.map */
