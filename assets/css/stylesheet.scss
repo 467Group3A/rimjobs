@@ -1,0 +1,152 @@
+$Stillwater: #DDD8CF;
+$Ultor: #824538;
+$Steelport: #686868;
+$Pierce: #d4d3d5;
+
+//Fonts
+@font-face {
+    font-family: Alkatra;
+    src: url(../fonts/Alkatra-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: Shrikhand;
+    src: url(../fonts/Shrikhand-Regular.ttf);
+}
+
+//Navbar
+.nav-link {
+    font-family: Shrikhand;
+    &:hover {
+        --bs-nav-link-hover-color: #d4d3d5;
+    }
+}
+
+a {
+    background-size: 200% 100%;
+    background-position: -100%; 
+    display: inline-block;
+    padding: 5px 0;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+
+    &:before {
+        content: '';
+        background: $Pierce;
+        display: block;
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 0;
+        height: 3px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    &:hover {
+        background-position: 0;
+        &:before {
+            width:100%;
+        }
+    } 
+}
+
+//Body and modifier classes
+body {
+    font-family: Alkatra;
+    background-color: $Stillwater;
+    color: $Steelport
+}
+
+.blurit {
+    filter: blur(4px);
+    -webkit-filter: blur(4px);
+}
+
+.Stillwater {
+    color: $Stillwater;
+}
+
+.StillwaterBG {
+    background-color: $Stillwater;
+}
+
+.Ultor {
+    color: $Ultor;
+}
+
+.UltorBG {
+    background-color: $Ultor;
+}
+
+
+.Steelport {
+    color: $Steelport;
+}
+
+.SteelportBG {
+    background-color: $Steelport;
+}
+
+.Pierce {
+    color: $Pierce;
+}
+
+.PierceBG {
+    background-color: $Pierce;
+}
+
+.borderSilver
+{
+    border: 5px solid $Steelport;
+}
+
+//Gradients
+@mixin img-gradient($gradient) {
+    position: relative;
+    display: inline-block;
+    &:after {
+        content:'';
+        position:absolute;
+        left:0; top:0;
+        width:100%; height:100%;
+        display:inline-block;
+        background: linear-gradient(rgba(0,0,0,0), $gradient 100%);
+    }
+    img {
+        display:block;
+    }
+}
+
+.img-gradient-shadow {
+    @include img-gradient($Steelport);
+}
+
+.img-gradient-red {
+    @include img-gradient(rgb(207, 42, 30));
+}
+
+.img-gradient-orng {
+    @include img-gradient(rgb(184, 57, 11));
+}
+
+.img-gradient-ylw {
+    @include img-gradient(rgb(255, 220, 46));
+}
+
+.img-gradient-grn {
+    @include img-gradient(rgb(51, 184, 11));
+}
+
+.img-gradient-blu {
+    @include img-gradient(rgb(11, 173, 184));
+}
+
+.img-gradient-idgo {
+    @include img-gradient(rgb(30, 48, 105));
+}
+
+.img-gradient-vlt {
+    @include img-gradient(rgb(100, 11, 184));
+}
+
+
