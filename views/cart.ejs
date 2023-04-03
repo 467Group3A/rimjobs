@@ -56,4 +56,22 @@
           </nav>
           </header>
     <h1>Parts in My Shopping Cart</h1>
+    <ul>
+        <table width="600">
+        <tr align="center">
+            <th width="300">Part Number</th>
+            <th width="300">Amount in Cart</th>
+        </tr>
+        <% cartItems.forEach(function(item) { %>
+            <tr align="center">
+            <td><%= item.number %></td>
+            <td><%= item.quantity %></td>
+            <td><%= item.description %></td>
+            <td><%= item.price %></td>
+            <td><%= item.weight %></td>
+            <td><%= item.image %></td>
+            </tr>
+        <% }); %>
+        </table>
+    </ul>
 </html>
