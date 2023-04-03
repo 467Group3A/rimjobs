@@ -7,16 +7,24 @@ const { newConnection, legacyConnection } = require('./dbconfig');
 //    and a random amount of inventory from 1-100
 //    into the new database rimjobs.db
 //
-// ******** I SHOULD REALLY BE DROPPING AND INITALIZING CONNECTIONS WHEN NEED BE *******
-//
 // Known bug right now: I ran the server ~15 times and 1 time it had a problem where the table
 //                      was not created in the newDB
+//
+//
+//   New DB called 'rimjobs.db'
+//                  - parts_inventory table
+//                    - number INT, amount INT
 //
 //***************************************************************** */
 async function loadInventory() {
     try{
+        const connect = await legacyConnection.getConnection();
+
         // Grab parts from legacy storing in an array
-        const [legacyRows] = await legacyConnection.query('SELECT number FROM parts')
+        const [legacyRows] = await connect.query('SELECT number FROM parts')
+
+        // Drop the connection
+        connect.release();
 
         // Drop the table if exists, this is a tactic that will stop ege from bamboozling
         const dropTableQuery = 'DROP TABLE IF EXISTS parts_inventory'
@@ -50,6 +58,9 @@ async function loadInventory() {
         });
 
         console.log('loadInventory() had no problems!')
+
+        // Drop new database connection  - Caused problem but, now im not sure if we need to drop the new db connection
+        //newConnection.close();
     } catch(err) {
         console.log(err)
         console.log('loadInventory() had a problem connecting and querying from the databases!')
