@@ -16,7 +16,7 @@ app.use(
 // CSS and image files
 app.use(express.static(path.join(__dirname,'assets')));
 
-// Javascript files
+// Vue Component files
 app.use(express.static(path.join(__dirname,'components')));
 
 // If url is /, send the index.html file
@@ -24,6 +24,12 @@ app.get("/", (req, res) => {
   //send the index.html file for all requests
   res.sendFile(__dirname + "/views/index.html");
 });
+
+// Another example:
+// If url is /about, send the about.html file
+// app.get("/about", (req, res) => {
+//   res.sendFile(__dirname + "/views/about.html");
+// });
 
 // If url is /legacy-parts, send the legacyPartsRouter
 app.use("/legacy-parts", legacyPartsRouter);
@@ -37,5 +43,5 @@ app.use((err, req, res, next) => {
 
 // Displays the port number the server is listening on
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`Node Server listening at http://45.33.66.75:${port}`);
 });
