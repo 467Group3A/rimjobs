@@ -56,5 +56,30 @@
       </nav>
       </header>
     <h1>All Parts</h1>
+        <table width="1500">
+            <tr align="center">
+                <th width="300">Part Number</th>
+                <th width="300">Description</th>
+                <th width="300">Price</th>
+                <th width="300">Weight</th>
+                <th width="300">Image</th>
+            </tr>
+            <% parts.forEach(function(part) { %>
+            <tr align="center">
+                <td><%= part.number %></td>
+                <td><%= part.description %></td>
+                <td>$<%= part.price %></td>
+                <td><%= part.weight %></td>
+                <td><img src="<%= part.pictureURL %>"></td>
+                <td>
+                    <form action="/parts" method="POST" style="display: flex; flex-direction: row;">
+                    <input type="hidden" name="number" value="<%= part.number %>">
+                    <input type="number" name="quantity" placeholder="Qty" min="0" max="" style="margin-right: 10px">
+                    <input type="submit" value="Add to Cart">
+                    </form>            
+                </td>
+            </tr>
+            <% }); %>
+      </table>
 </body>
 </html>
