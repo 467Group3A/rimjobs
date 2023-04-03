@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/467Group3A/rimjobs#readme",
   "dependencies": {
+    "ejs": "^3.1.9",
     "express": "^4.18.2",
+    "mysql2": "^3.2.0",
     "scss": "^0.2.4",
     "sqlite3": "^5.1.6",
     "vue": "^3.2.47"
