@@ -35,7 +35,7 @@ function newConnection() {
 // Inserts orders, brackets, orderitems into the db
 async function initializeNewDB() {
 
-    const db = newConnection();
+    const db = newConnection()
         
     const createBrackets = `CREATE TABLE IF NOT EXISTS brackets (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
