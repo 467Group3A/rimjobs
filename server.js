@@ -1,13 +1,32 @@
 //modules
 const express = require('express');
 const mysql = require('mysql2');
-const path = require('path');
 const bodyParser = require('body-parser');
+var path = require('path');
+const port = 4000;
+
+const legacyPartsRouter = require("./routes/legacyParts");
+const { loadInventory } = require('./services/loadinventory')
+const { legacyConnection , newConnection } = require('./services/dbconfig')
 
 const app = express();
 
 //Handle HTTP POST requests
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.json());
+
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+
+// CSS and image files
+app.use(express.static(path.join(__dirname,'assets')));
+
+// Vue Component files
+app.use(express.static(path.join(__dirname,'components')));
 
 // legacy database info
 const connection = mysql.createConnection({
@@ -85,29 +104,6 @@ app.post('/parts', (req, res) => {
     res.redirect('/parts');
 });
 
-//start express server
-const express = require("express");
-var path = require('path');
-const app = express();
-const port = 4000;
-
-const legacyPartsRouter = require("./routes/legacyParts");
-const { loadInventory } = require('./services/loadinventory')
-const { legacyConnection , newConnection } = require('./services/dbconfig')
-
-app.use(express.json());
-
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
-
-// CSS and image files
-app.use(express.static(path.join(__dirname,'assets')));
-
-// Vue Component files
-app.use(express.static(path.join(__dirname,'components')));
 
 // If url is /, send the index.html file
 app.get("/", (req, res) => {
