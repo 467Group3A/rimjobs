@@ -114,6 +114,6 @@ app.listen(port, () => {
   // Populate inventory in new db using legacy part ids
   // Could do when server runs or manually/scheduled run it in future
    loadInventory()
-   cleanOrders()
+   //cleanOrders()
    initializeNewDB()
 });
