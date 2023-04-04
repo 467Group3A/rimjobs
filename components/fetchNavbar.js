@@ -11,7 +11,7 @@ $(document).ready(function () {
         <nav class="navbar navbar-expand-lg UltorBG borderSilver">
             <div class="container-fluid">
                 <a class="navbar-brand" href="">
-                    <img src="../assets/img/Logo2x.png" alt="Rim Jobs" width="320" height="40">
+                    <img src="/img/Logo2x.png" alt="Rim Jobs" width="320" height="40">
                 </a>
                 <div class="collapse navbar-collapse" id="collapsibleNavId">
                     <ul class="navbar-nav me-auto mt-2 mt-lg-0">
