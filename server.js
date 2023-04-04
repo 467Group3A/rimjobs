@@ -16,6 +16,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.json());
 
+app.engine('html', require('ejs').renderFile);
+
 app.use(
   express.urlencoded({
     extended: true,
@@ -58,11 +60,6 @@ function getAllParts() {
     });
 }
 
-//GET request to homepage
-app.get('/', (req, res) => {
-    res.render('index');
-});
-
 //endpoint for parts page
 app.get('/parts', async (req, res) => {
     try {
@@ -75,11 +72,12 @@ app.get('/parts', async (req, res) => {
     }
 });
 
+// TODO: Fix Render. It keeps saying theres no renderer chosen
 //GET request for cart page
-app.get('/cart', (req, res) => {
-    const cartTotal = products.length;
-    res.render('cart', {cartItems: products, cartTotal});
-});
+// app.get('/cart', (req, res) => {
+//     const cartTotal = products.length;
+//     res.render('cart', {cartItems: products, cartTotal});
+// });
 
 //parts endpoint
 const products = [];
