@@ -76,7 +76,7 @@ app.get('/legacyparts', async (req, res) => {
           };
         }
       });
-  
+
       // Send the final rows to Vue
       res.json(combinedRows);
       console.log('Retrieved information from legacy database correctly!');
@@ -107,5 +107,5 @@ app.listen(port, () => {
   console.log(`Node Server listening at http://45.33.66.75:${port}`);
   // Populate inventory in new db using legacy part ids
   // Could do when server runs or manually/scheduled run it in future
-  // loadInventory()
+   //loadInventory()
 });

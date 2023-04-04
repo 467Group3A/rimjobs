@@ -26,15 +26,18 @@ async function loadInventory() {
         // Drop the connection
         connect.release();
 
+        // Establish new db
+        const db = newConnection()
+
         // Drop the table if exists, this is a tactic that will stop ege from bamboozling
         const dropTableQuery = 'DROP TABLE IF EXISTS parts_inventory'
-        newConnection.run(dropTableQuery,  (err) => {
+        db.run(dropTableQuery,  (err) => {
             if(err)
                 console.log(err.message)
         })
 
         const createTableQuery = 'CREATE TABLE IF NOT EXISTS parts_inventory (number INT, amount INT)'
-        newConnection.run(createTableQuery, [], async (err) => {
+        db.run(createTableQuery, [], async (err) => {
             if (err) {
                 console.log(err)
                 console.log('loadInventory() could not create a new table!')
@@ -47,7 +50,7 @@ async function loadInventory() {
                 const randomAmount = Math.floor(Math.random() * 100) + 1;
                 // Insert the part ID(number) and random amount into the parts_inventory table
                 const insertQuery = `INSERT INTO parts_inventory (number, amount) VALUES (${part.number}, ${randomAmount})`
-                newConnection.run(insertQuery, [], (err) => {
+                db.run(insertQuery, [], (err) => {
                     if (err) {
                         console.log(err)
                         console.log(`loadInventory() could not insert part with ID ${part.number} into rimjobsdb!`)
@@ -59,8 +62,8 @@ async function loadInventory() {
 
         console.log('loadInventory() had no problems!')
 
-        // Drop new database connection  - Caused problem but, now im not sure if we need to drop the new db connection
-        //newConnection.close();
+        // Drop new database connection
+        db.close();
     } catch(err) {
         console.log(err)
         console.log('loadInventory() had a problem connecting and querying from the databases!')

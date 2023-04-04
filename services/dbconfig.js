@@ -18,16 +18,19 @@ const legacyConnection = mysql.createPool({
 
 // Establishes connection to new DB
 // './rimjobs.db' will be the name of our newDB
-const newConnection = new sqlite3.Database('./rimjobs.db' , sqlite3.OPEN_READWRITE, (err) => {
-    if(err)
-    {
-        return console.error(err.message)
-    }
-    else
-    {
-        console.log('New Database connected')
-    }
-})
+function newConnection() {
+    const newConnection = new sqlite3.Database('./rimjobs.db' , sqlite3.OPEN_READWRITE, (err) => {
+        if(err)
+        {
+            return console.error(err.message)
+        }
+        else
+        {
+            console.log('New Database connected')
+        }
+    })
+    return newConnection
+}
  
 module.exports = {
     legacyConnection,
