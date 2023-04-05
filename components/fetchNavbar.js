@@ -17,7 +17,7 @@ $(document).ready(function () {
                     <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                         <li class="nav-item">
                             <a id="bouncify" class="nav-link Stillwater fs-5" href="/">
-                                <i class="fa-solid fa-warehouse"></i> Home</a>
+                                <i class="fa-solid fa-warehouse"></i> Home</a> 
                         </li>
                         <li class="nav-item">
                             <a id="spinnify" class="nav-link Stillwater fs-5" href="/parts">
