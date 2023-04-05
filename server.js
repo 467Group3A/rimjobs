@@ -3,13 +3,16 @@ const express = require('express');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 var path = require('path');
-const port = 4000;
+const port = 3100;
 
 const legacyPartsRouter = require("./routes/legacyParts");
 const { loadInventory } = require('./services/loadinventory')
 const { legacyConnection , newConnection } = require('./services/dbconfig')
 
 const app = express();
+
+//use ejs as view engine
+app.set('view engine', 'ejs');
 
 //Handle HTTP POST requests
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -74,10 +77,10 @@ app.get('/parts', async (req, res) => {
 
 // TODO: Fix Render. It keeps saying theres no renderer chosen
 //GET request for cart page
-// app.get('/cart', (req, res) => {
-//     const cartTotal = products.length;
-//     res.render('cart', {cartItems: products, cartTotal});
-// });
+app.get('/cart', (req, res) => {
+    const cartTotal = products.length;
+    res.render('cart', {cartItems: products, cartTotal});
+});
 
 //parts endpoint
 const products = [];

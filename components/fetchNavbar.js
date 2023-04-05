@@ -16,11 +16,11 @@ $(document).ready(function () {
                 <div class="collapse navbar-collapse" id="collapsibleNavId">
                     <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                         <li class="nav-item">
-                            <a id="bouncify" class="nav-link Stillwater fs-5" href="">
+                            <a id="bouncify" class="nav-link Stillwater fs-5" href="/">
                                 <i class="fa-solid fa-warehouse"></i> Home</a>
                         </li>
                         <li class="nav-item">
-                            <a id="spinnify" class="nav-link Stillwater fs-5" href="">
+                            <a id="spinnify" class="nav-link Stillwater fs-5" href="/parts">
                                 <i class="fas fa-dharmachakra"></i> View All Products</a>
                         </li>
                         <li class="nav-item">
@@ -32,7 +32,7 @@ $(document).ready(function () {
                                 <i class="fas fa-door-closed"></i> Employee Portal</a>
                         </li>
                     </ul>
-                    <a class="nav-link justify-content-end Stillwater fs-5" href="">
+                    <a class="nav-link justify-content-end Stillwater fs-5" href="/cart">
                         <i class="fas fa-shopping-cart"></i> My Cart:
                         <span class="fw-2">(0)</span> </a>
                 </div>
