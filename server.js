@@ -3,7 +3,7 @@ const express = require('express');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 var path = require('path');
-const port = 3300; 
+const port = 3300;
 
 const legacyPartsRouter = require("./routes/legacyParts");
 const { loadInventory } = require('./services/loadinventory')
