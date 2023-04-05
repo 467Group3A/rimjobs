@@ -130,42 +130,42 @@ app.get('/legacyparts', async (req, res) => {
     // Drop connection
     connect.release();
 
-    const db = newConnection()
+    res.send(rows);
 
-    // Grab inventory from new db taking number and amount
-    const newRows = await new Promise((resolve, reject) => {
-      db.all('SELECT * FROM parts_inventory', (err, rows) => {
-        if (err) {
-          reject(err);
-        }
-        resolve(rows);
-      });
-    });
+    // // Grab inventory from new db taking number and amount
+    // const newRows = await new Promise((resolve, reject) => {
+    //   db.all('SELECT * FROM parts_inventory', (err, rows) => {
+    //     if (err) {
+    //       reject(err);
+    //     }
+    //     resolve(rows);
+    //   });
+    // });
 
-    // Drop connection to new db.
-    db.close()
+    // // Drop connection to new db.
+    // db.close()
 
-    // Combine legacy and new db rows by part number
-    const combinedRows = rows.map((row) => {
-      const matchedRow = newRows.find((newRow) => newRow.number === row.number);
+    // // Combine legacy and new db rows by part number
+    // const combinedRows = rows.map((row) => {
+    //   const matchedRow = newRows.find((newRow) => newRow.number === row.number);
 
-      // Add the .amount if the number(part_id) are the same
-      if (matchedRow) {
-        return {
-          ...row,
-          amount: matchedRow.amount,
-        };
-      } else { // If part ID is not found amount is 0, idealy this wont occur sense loadInventory()
-        return {
-          ...row,
-          amount: 0,
-        };
-      }
-    });
+    //   // Add the .amount if the number(part_id) are the same
+    //   if (matchedRow) {
+    //     return {
+    //       ...row,
+    //       amount: matchedRow.amount,
+    //     };
+    //   } else { // If part ID is not found amount is 0, idealy this wont occur sense loadInventory()
+    //     return {
+    //       ...row,
+    //       amount: 0,
+    //     };
+    //   }
+    // });
 
-    // Send the final rows to Vue
-    res.json(combinedRows);
-    console.log('Retrieved information from legacy database correctly!');
+    // // Send the final rows to Vue
+    // res.json(combinedRows);
+    // console.log('Retrieved information from legacy database correctly!');
   } catch (err) {
     console.log(err);
     console.log('Problem connecting and querying from legacy database!');
