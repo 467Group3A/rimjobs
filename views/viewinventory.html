@@ -56,9 +56,21 @@
           </tr>
         </tbody>
       </table>
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <button class="btn btn-light" @click="subPage">Previous Page</button>
+          </div>
+          <div class="col">
+            <button class="btn btn-light" @click="addPage">Next Page</button>
+          </div>
+        </div>
+      </div>
     </div>
 </body>
 <script>
+  legacyParts = '/legacyparts?page=';
+  pageNumber = 1;
   const app = Vue.createApp({
     data() {
       return {
@@ -85,7 +97,7 @@
       }
     },
     mounted() {
-      fetch('/legacyparts')
+      fetch(legacyParts + pageNumber)
         .then(response => response.json())
         .then(data => {
           this.finalRows = data;
@@ -100,9 +112,39 @@
       // Capitalizes the first letter of each word
       capitalize(str) {
         return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+      },
+      //
+      // Increments the page number and fetches the next page
+      subPage() {
+        if (pageNumber > 1) {
+          pageNumber--;
+          fetch(legacyParts + pageNumber)
+            .then(response => response.json())
+            .then(data => {
+              this.finalRows = data;
+              console.log(`Page #${page} sent.`)
+            })
+            .catch(error => {
+              console.log('Error:', error);
+            });
+        }
+      },
+      //
+      // Increment the page number and fetches the next page
+      addPage() {
+        pageNumber++;
+        fetch(legacyParts + pageNumber)
+          .then(response => response.json())
+          .then(data => {
+            this.finalRows = data;
+            console.log(`Page #${page} sent.`)
+          })
+          .catch(error => {
+            console.log('Error:', error);
+          });
       }
     }
-}).mount('#app');
+  }).mount('#app');
 </script>
 <!-- Bootstrap JavaScript Libraries -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
