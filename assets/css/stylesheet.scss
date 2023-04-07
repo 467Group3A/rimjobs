@@ -1,7 +1,7 @@
 $Stillwater: #DDD8CF;
 $Ultor: #824538;
 $Steelport: #686868;
-$Pierce: #d4d3d5;
+$Pierce: #e6e5e7;
 
 //Fonts
 @font-face {
@@ -18,7 +18,28 @@ $Pierce: #d4d3d5;
 .nav-link {
     font-family: Shrikhand;
     &:hover {
-        --bs-nav-link-hover-color: #d4d3d5;
+        --bs-nav-link-hover-color: #e6e5e7;
+    }
+    &:focus {
+        --bs-nav-link-hover-color: #e6e5e7;
+    }
+}
+.dropdown-toggle::after {
+    display:none;
+}
+.dropdown-item {
+    color: $Stillwater;
+    &:active {
+        color: $Pierce;
+        background-color: $Steelport;
+    }
+    &:focus {
+        color: $Pierce;
+        background-color: $Steelport;
+    }
+    &:hover {
+        color: $Steelport;
+        background-color: $Stillwater;
     }
 }
 

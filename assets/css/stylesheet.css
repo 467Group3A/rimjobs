@@ -10,7 +10,30 @@
   font-family: Shrikhand;
 }
 .nav-link:hover {
-  --bs-nav-link-hover-color: #d4d3d5;
+  --bs-nav-link-hover-color: #e6e5e7;
+}
+.nav-link:focus {
+  --bs-nav-link-hover-color: #e6e5e7;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.dropdown-item {
+  color: #DDD8CF;
+}
+.dropdown-item:active {
+  color: #e6e5e7;
+  background-color: #686868;
+}
+.dropdown-item:focus {
+  color: #e6e5e7;
+  background-color: #686868;
+}
+.dropdown-item:hover {
+  color: #686868;
+  background-color: #DDD8CF;
 }
 
 a {
@@ -23,7 +46,7 @@ a {
 }
 a:before {
   content: "";
-  background: #d4d3d5;
+  background: #e6e5e7;
   display: block;
   position: absolute;
   bottom: -3px;
@@ -75,11 +98,11 @@ body {
 }
 
 .Pierce {
-  color: #d4d3d5;
+  color: #e6e5e7;
 }
 
 .PierceBG {
-  background-color: #d4d3d5;
+  background-color: #e6e5e7;
 }
 
 .borderSilver {
