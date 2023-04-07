@@ -3,16 +3,13 @@ const express = require('express');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 var path = require('path');
-const port = 3300;
+const port = 3500;
 
 const legacyPartsRouter = require("./routes/legacyParts");
 const { loadInventory } = require('./services/loadinventory')
 const { legacyConnection , newConnection } = require('./services/dbconfig')
 
 const app = express();
-
-//use ejs as view engine
-app.set('view engine', 'ejs');
 
 //Handle HTTP POST requests
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -52,23 +49,35 @@ connection.connect((error) => {
 
 // Get all info from database
 function getAllParts() {
-    return new Promise((resolve, reject) => {
-        connection.query('SELECT * FROM parts', function (error, results, fields) {
-            if (error) {
-                reject(error);
-            } else {
-                resolve(results);
-            }
-        });
-    });
+  return new Promise((resolve, reject) => {
+      connection.query('SELECT * FROM parts', function (error, results, fields) {
+          if (error) {
+              reject(error);
+          } else {
+              console.log('Query results:', results);
+              resolve(results);
+          }        
+      });
+  });
 }
+
+// endpoint for data from legacy database
+app.get('/getallparts', async (req, res) => {
+  try {
+      const results = await getAllParts();
+      res.json(results);  
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Error retrieving parts');
+  }
+});
 
 //endpoint for parts page
 app.get('/parts', async (req, res) => {
     try {
         const results = await getAllParts();
         const cartTotal = products.length;
-        res.render('parts', { parts: results, cartTotal, cartItems: products});
+        res.sendFile(__dirname + "/views/parts.html");
     } catch (error) {
         console.error(error);
         res.status(500).send('Error retrieving parts');
@@ -194,4 +203,3 @@ app.listen(port, () => {
   // Could do when server runs or manually/scheduled run it in future
    //loadInventory()
 });
-
