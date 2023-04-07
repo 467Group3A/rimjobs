@@ -24,9 +24,11 @@ $Pierce: #e6e5e7;
         --bs-nav-link-hover-color: #e6e5e7;
     }
 }
+
 .dropdown-toggle::after {
     display:none;
 }
+
 .dropdown-item {
     color: $Stillwater;
     &:active {
@@ -75,7 +77,6 @@ a {
 body {
     font-family: Alkatra;
     background-color: $Stillwater;
-    color: $Steelport
 }
 
 .blurit {
