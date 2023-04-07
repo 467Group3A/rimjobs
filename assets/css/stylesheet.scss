@@ -84,6 +84,13 @@ body {
     -webkit-filter: blur(4px);
 }
 
+.textCutoff {
+    text-overflow: ellipsis; 
+    white-space: nowrap; 
+    overflow:hidden;
+    max-width: 250px;
+}
+
 .Stillwater {
     color: $Stillwater;
 }
@@ -171,4 +178,8 @@ body {
     @include img-gradient(rgb(100, 11, 184));
 }
 
-
+@media print and (max-width: 600px) {
+    #navbar {
+        display: none !important;
+    }
+}

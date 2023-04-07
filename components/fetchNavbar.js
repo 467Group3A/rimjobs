@@ -12,7 +12,7 @@ $(document).ready(function () {
             <div class="container-fluid">
                 <div class="navbar-brand dropdown">
                     <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                        <img src="../assets/img/Logo2x.png" alt="Rim Jobs" width="320" height="40">
+                        <img src="/img/Logo2x.png" alt="Rim Jobs" width="320" height="40">
                     </a>
                     <ul class="dropdown-menu UltorBG borderSilver">
                         <li><a class="dropdown-item" href="#"><i class="fa-solid fa-warehouse"></i> Home</a></li>

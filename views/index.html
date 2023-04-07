@@ -3,7 +3,7 @@
 
 <head>
   <title>Rim Jobs</title>
-  <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,7 +15,7 @@
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
     crossorigin="anonymous" referrerpolicy="no-referrer"/>
   <!-- Rim Jobs CSS -->
-  <link rel="stylesheet" href="../assets/css/stylesheet.css">
+  <link rel="stylesheet" href="/css/stylesheet.css">
   <style>
   </style>
 </head>
@@ -78,6 +78,52 @@
     <div class="container-fluid UltorBG borderSilver">
       <h1 class="Stillwater" style="font-family: Shrikhand;">Featured Deals</h1>
     </div>
+    <div id="featured" class="container-fluid py-2 SteelportBG">
+      <div class="row align-items-center">
+        <div class="col-lg-12" id="slider">
+          <div id="thumbCarousel" class="carousel slide">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="row text-center">
+                  <div v-for="row in finalRows.slice(0,6)" class="col"><img v-bind:src="row.pictureURL" class="img-fluid"
+                      data-bs-target="#myCarousel" data-bs-slide-to="0"></div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="row text-center">
+                  <div v-for="row in finalRows.slice(6, 12)" class="col">
+                    <div class="card text-center StillwaterBG">
+                      <div class="card-header">
+                        <h5 class="card-title textCutoff">{{row.description}}</h5>
+                      </div>
+                      <div class="card-body StillwaterBG">
+                        <img v-bind:src="row.pictureURL" class="borderSilver" style="margin-bottom:15px;">
+                        <div class="d-flex justify-content-around col">
+                            <span class="badge rounded-pill UltorBG Stillwater fs-6 row" style="line-height:2;">${{row.price}}</span>
+                            <button class="btn row">Add To Cart</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a class="carousel-control-prev w-auto" href="#thumbCarousel" role="button" data-bs-target="#thumbCarousel"
+              data-bs-slide="prev">
+              <div class="fa-2x">
+                <i class="fas fa-angle-left" data-fa-transform="shrink-8"></i>
+              </div>
+            </a>
+            <a class="carousel-control-next w-auto" href="#thumbCarousel" role="button" data-bs-target="#thumbCarousel"
+              data-bs-slide="next">
+              <div class="fa-2x">
+                <i class="fas fa-angle-right" data-fa-transform="shrink-8"></i>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="container">
 
@@ -89,7 +135,7 @@
         </div>
         <div class="col-md-5">
           <div class="img-gradient-shadow">
-            <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="../assets/img/Rim_jobs_garagedoorred.webp" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="/img/Rim_jobs_garagedoorred.webp" preserveAspectRatio="xMidYMid slice" focusable="false">
           </div>
         </div>
       </div>
@@ -102,7 +148,7 @@
         </div>
         <div class="col-md-5 order-md-1">
           <div class="img-gradient-red">
-            <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="../assets/img/Rim_jobs_garagedoorred.webp" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="/img/Rim_jobs_garagedoorred.webp" preserveAspectRatio="xMidYMid slice" focusable="false">
           </div>
           <div class="label_ctn"><span class="label">All Sports</span></div>
         </div>
@@ -116,7 +162,7 @@
         </div>
         <div class="col-md-5">
           <div class="img-gradient-orng">
-            <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="../assets/img/Rim_jobs_garagedoorred.webp" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="/img/Rim_jobs_garagedoorred.webp" preserveAspectRatio="xMidYMid slice" focusable="false">
           </div>
         </div>
       </div>
@@ -129,7 +175,7 @@
         </div>
         <div class="col-md-5">
           <div class="img-gradient-ylw">
-            <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="../assets/img/Rim_jobs_garagedoorred.webp" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="/img/Rim_jobs_garagedoorred.webp" preserveAspectRatio="xMidYMid slice" focusable="false">
           </div>
         </div>
       </div>
@@ -142,7 +188,7 @@
         </div>
         <div class="col-md-5">
           <div class="img-gradient-grn">
-            <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="../assets/img/Rim_jobs_garagedoorred.webp" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="/img/Rim_jobs_garagedoorred.webp" preserveAspectRatio="xMidYMid slice" focusable="false">
           </div>
         </div>
       </div>
@@ -155,7 +201,7 @@
         </div>
         <div class="col-md-5">
           <div class="img-gradient-blu">
-            <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="../assets/img/Rim_jobs_garagedoorred.webp" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="/img/Rim_jobs_garagedoorred.webp" preserveAspectRatio="xMidYMid slice" focusable="false">
           </div>
         </div>
       </div>
@@ -168,7 +214,7 @@
         </div>
         <div class="col-md-5">
           <div class="img-gradient-idgo">
-            <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="../assets/img/Rim_jobs_garagedoorred.webp" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="/img/Rim_jobs_garagedoorred.webp" preserveAspectRatio="xMidYMid slice" focusable="false">
           </div>
         </div>
       </div>
@@ -181,7 +227,7 @@
         </div>
         <div class="col-md-5">
           <div class="img-gradient-vlt">
-            <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="../assets/img/Rim_jobs_garagedoorred.webp" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="/img/Rim_jobs_garagedoorred.webp" preserveAspectRatio="xMidYMid slice" focusable="false">
           </div>
         </div>
       </div>
@@ -205,7 +251,47 @@
   <!-- Vue.js -->
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <!-- Components -->
-  <script src="../components/fetchNavbar.js"></script>
+  <script src="/fetchNavbar.js"></script>
+  <script>
+  legacyParts = '/legacyparts?page=';
+  pageNumber = 1;
+  const app = Vue.createApp({
+    data() {
+      return {
+        finalRows: []
+      };
+    },
+    mounted() {
+      fetch(legacyParts + pageNumber)
+        .then(response => response.json())
+        .then(data => {
+          this.finalRows = data;
+          console.log('parts have been received!')
+        })
+        .catch(error => {
+          console.log('Error:', error);
+        });
+    }
+  }).mount('#featured');
+  </script>
+  <script>
+    $('#thumbCarousel').on('slide.bs.carousel', function (e) {
+      // advance main carousel
+      var nextSlide = e.to
+      $('#myCarousel').carousel(nextSlide * 6)
+    })
+
+    $('#myCarousel').on('slid.bs.carousel', function (e) {
+      // sync thumb years carousel on first and 7th slide
+      var currSlide = e.to
+      if (currSlide === 6) {
+        $('#thumbCarousel').carousel(1)
+      }
+      else if (currSlide === 0) {
+        $('#thumbCarousel').carousel(0)
+      }
+    })
+  </script>
 </body>
 
 </html>

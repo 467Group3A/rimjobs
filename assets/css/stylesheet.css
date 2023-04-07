@@ -72,6 +72,13 @@ body {
   -webkit-filter: blur(4px);
 }
 
+.textCutoff {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 250px;
+}
+
 .Stillwater {
   color: #DDD8CF;
 }
@@ -250,6 +257,12 @@ body {
 }
 .img-gradient-vlt img {
   display: block;
+}
+
+@media print and (max-width: 600px) {
+  #navbar {
+    display: none !important;
+  }
 }
 
 /*# sourceMappingURL=stylesheet.css.map */
