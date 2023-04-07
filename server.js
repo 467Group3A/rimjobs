@@ -1,4 +1,5 @@
 const express = require("express");
+const axios = require("axios");
 var path = require('path');
 const app = express();
 const port = 3001;
@@ -32,9 +33,14 @@ app.get('/viewinventory', (req, res) => {
   res.sendFile(__dirname + "/views/viewinventory.html");
 })
 
-// If url is /viewinventory, send the viewinventory.html file
+// If url is /template, send the template.html file
 app.get('/template', (req, res) => {
   res.sendFile(__dirname + "/views/template.html");
+})
+
+// If url is /ccauth, send the ccauth.html file
+app.get('/ccauth', (req, res) => {
+  res.sendFile(__dirname + "/views/ccauth.html");
 })
 
 
@@ -91,6 +97,35 @@ app.get('/legacyparts', async (req, res) => {
       console.log('Problem connecting and querying from legacy database!');
     }
 });
+
+// Used to add someone to the new db
+app.post('/creditcardauth', (req, res) => {
+  const formData = req.body
+  const url = "http://blitz.cs.niu.edu/CreditCard/"
+
+  // Send post request to ege's cc auth
+  axios.post(url, formData, {
+    headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json'
+    },
+  })
+    .then((response) => {
+      console.log(response.data)
+      // If there is an error from credit card auth, send to user.
+      if('errors' in response.data){
+        res.status(500).json(response.data)
+      }
+      else{ // Otherwise send the whole json back as confirmation ( for now )
+        res.status(200).json(response.data)
+      }
+    })
+    .catch((error) => {
+      console.log(error)
+      res.status(501).send("An error occured with third party credit card authorization!")
+    });
+});
+
 
 // Another example:
 // If url is /about, send the about.html file
