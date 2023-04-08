@@ -19,7 +19,7 @@ const app = Vue.createApp({
     },
     methods: {
       submitForm() {
-        fetch('/creditcardauth', {
+        fetch('/api/creditcardauth', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
