@@ -69,8 +69,9 @@
     </div>
 </body>
 <script>
-  legacyParts = '/legacyparts?page=';
+  endpoint = '/legacyparts?page=';
   pageNumber = 1;
+  perPage = '&per=30';
   const app = Vue.createApp({
     data() {
       return {
@@ -97,7 +98,7 @@
       }
     },
     mounted() {
-      fetch(legacyParts + pageNumber)
+      fetch(endpoint + pageNumber + perPage)
         .then(response => response.json())
         .then(data => {
           this.finalRows = data;
@@ -116,24 +117,22 @@
       //
       // Increments the page number and fetches the next page
       subPage() {
-        if (pageNumber > 1) {
-          pageNumber--;
-          fetch(legacyParts + pageNumber)
-            .then(response => response.json())
-            .then(data => {
-              this.finalRows = data;
-              console.log(`Page #${page} sent.`)
-            })
-            .catch(error => {
-              console.log('Error:', error);
-            });
-        }
+        pageNumber--;
+        fetch(endpoint + pageNumber + perPage)
+          .then(response => response.json())
+          .then(data => {
+            this.finalRows = data;
+            console.log(`Page #${page} sent.`)
+          })
+          .catch(error => {
+            console.log('Error:', error);
+          });
       },
       //
       // Increment the page number and fetches the next page
       addPage() {
         pageNumber++;
-        fetch(legacyParts + pageNumber)
+        fetch(endpoint + pageNumber + perPage)
           .then(response => response.json())
           .then(data => {
             this.finalRows = data;
