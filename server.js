@@ -46,7 +46,7 @@ connection.connect((error) => {
   if (error) {
     console.error('Error connecting to database:', error);
   } else {
-    console.log('Connected to database successfully!');
+    console.log('--- CONNECTED TO DATABASE ---');
   }
 });
 
@@ -123,6 +123,8 @@ app.get('/legacyparts', async (req, res) => {
   let page = parseInt(req.query.page) || 1;
   let itemsAmount = "100";
 
+  console.log("-- REQUEST LEGACY PARTS --");
+
   connection.query(`SELECT COUNT(number) FROM parts`, (error, results) => {
     if (error) {
       console.error(error);
@@ -133,12 +135,12 @@ app.get('/legacyparts', async (req, res) => {
 
   let numberOfPages = Math.ceil(itemsAmount / perPage);
 
-  // TODO: This doesn't work lmao
-  if (page > numberOfPages) {
-    res.redirect(`/legacyparts?page=1&per=${perPage}`);
-  } else if (page <= 0) {
-    res.redirect(`/legacyparts?page=${numberOfPages}&per=${perPage}`);
-  }
+  // // TODO: This doesn't work lmao
+  // if (page > numberOfPages) {
+  //   res.redirect(`/viewinventory?page=1&per=${perPage}`);
+  // } else if (page <= 0) {
+  //   res.redirect(`/viewinventory?page=${numberOfPages}&per=${perPage}`);
+  // }
 
   const offset = (page - 1) * perPage;
 
@@ -164,7 +166,7 @@ app.use((err, req, res, next) => {
 
 // Displays the port number the server is listening on
 app.listen(port, () => {
-  console.log(`Node Server listening at http://45.33.66.75:${port}`);
+  console.log(`Node Server listening at http://rimjobs.store:${port}`);
   // Populate inventory in new db using legacy part ids
   // Could do when server runs or manually/scheduled run it in future
   //loadInventory()

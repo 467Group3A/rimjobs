@@ -18,7 +18,7 @@
 
 <body>
   <header id="navbar" style="background-color: #824538;"> </header>
-  <div id="app" style="margin-top: 30px;">
+  <div id="inventory" style="margin-top: 30px;">
     <div class="container">
       <div class="row">
         <div class="col">
@@ -59,7 +59,7 @@
       <div class="container">
         <div class="row">
           <div class="col">
-            <button class="btn btn-light" style="width: 100%;" @click="subPage">Previous Page</button>
+            <button class="btn btn-light" style="width: 100%;" :disabled="firstPage" @click="subPage">Previous Page</button>
           </div>
           <div class="col">
             <button class="btn btn-light" style="width: 100%;" @click="addPage">Next Page</button>
@@ -68,88 +68,11 @@
       </div>
     </div>
 </body>
-<script>
-  endpoint = '/legacyparts?page=';
-  pageNumber = 1;
-  perPage = '&per=30';
-  const app = Vue.createApp({
-    data() {
-      return {
-        finalRows: [],
-        searchFor: '',
-        minPrice: null,
-        maxPrice: null
-      };
-    },
-    computed: {
-      filteredParts() {
-        let parts = this.finalRows.filter(part => {
-          return part.description.toLowerCase().includes(this.searchFor.toLowerCase());
-        });
-
-        if (this.minPrice !== null && this.maxPrice !== null && this.minPrice !== '' && this.maxPrice !== '') {
-          parts = parts.filter(part => {
-            return parseFloat(part.price) >= parseFloat(this.minPrice) &&
-              parseFloat(part.price) <= parseFloat(this.maxPrice);
-          });
-        }
-
-        return parts;
-      }
-    },
-    mounted() {
-      fetch(endpoint + pageNumber + perPage)
-        .then(response => response.json())
-        .then(data => {
-          this.finalRows = data;
-          console.log('parts have been received!')
-        })
-        .catch(error => {
-          console.log('Error:', error);
-        });
-    },
-    methods: {
-      //
-      // Capitalizes the first letter of each word
-      capitalize(str) {
-        return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
-      },
-      //
-      // Increments the page number and fetches the next page
-      subPage() {
-        pageNumber--;
-        fetch(endpoint + pageNumber + perPage)
-          .then(response => response.json())
-          .then(data => {
-            this.finalRows = data;
-            console.log(`Page #${page} sent.`)
-          })
-          .catch(error => {
-            console.log('Error:', error);
-          });
-      },
-      //
-      // Increment the page number and fetches the next page
-      addPage() {
-        pageNumber++;
-        fetch(endpoint + pageNumber + perPage)
-          .then(response => response.json())
-          .then(data => {
-            this.finalRows = data;
-            console.log(`Page #${page} sent.`)
-          })
-          .catch(error => {
-            console.log('Error:', error);
-          });
-      }
-    }
-  }).mount('#app');
-</script>
 <!-- Bootstrap JavaScript Libraries -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
 <!-- JQuery -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <!-- Components -->
 <script src="/fetchNavbar.js"></script>
-
+<script src="/fetchParts.js"></script>
 </html>
