@@ -85,22 +85,34 @@
             <div class="carousel-inner">
               <div class="carousel-item active">
                 <div class="row text-center">
-                  <div v-for="row in finalRows.slice(0,6)" class="col"><img v-bind:src="row.pictureURL" class="img-fluid"
-                      data-bs-target="#myCarousel" data-bs-slide-to="0"></div>
+                  <div v-for="row in finalRows" class="col">
+                    <div class="card text-center StillwaterBG">
+                      <div class="card-header">
+                        <h5 class="card-title textCutoff Ultor" v-bind:title="row.description">{{row.description}}</h5>
+                      </div>
+                      <div class="card-body StillwaterBG">
+                        <img v-bind:src="row.pictureURL" v-bind:title="row.description" class="borderSilver" style="margin-bottom:15px;">
+                        <div class="d-flex justify-content-around">
+                            <span class="badge rounded-pill UltorBG Stillwater fs-6" style="line-height:2;">${{row.price}}</span>
+                            <button class="btn">Add To Cart</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="carousel-item">
                 <div class="row text-center">
-                  <div v-for="row in finalRows.slice(6, 12)" class="col">
+                  <div v-for="row in finalRows" class="col">
                     <div class="card text-center StillwaterBG">
                       <div class="card-header">
-                        <h5 class="card-title textCutoff">{{row.description}}</h5>
+                        <h5 class="card-title textCutoff Ultor" v-bind:title="row.description">{{row.description}}</h5>
                       </div>
                       <div class="card-body StillwaterBG">
-                        <img v-bind:src="row.pictureURL" class="borderSilver" style="margin-bottom:15px;">
-                        <div class="d-flex justify-content-around col">
-                            <span class="badge rounded-pill UltorBG Stillwater fs-6 row" style="line-height:2;">${{row.price}}</span>
-                            <button class="btn row">Add To Cart</span>
+                        <img v-bind:src="row.pictureURL" v-bind:title="row.description" class="borderSilver" style="margin-bottom:15px;">
+                        <div class="d-flex justify-content-around ">
+                            <span class="badge rounded-pill UltorBG Stillwater fs-6" style="line-height:2;">${{row.price}}</span>
+                            <button class="btn">Add To Cart</span>
                         </div>
                       </div>
                     </div>
@@ -108,16 +120,14 @@
                 </div>
               </div>
             </div>
-            <a class="carousel-control-prev w-auto" href="#thumbCarousel" role="button" data-bs-target="#thumbCarousel"
-              data-bs-slide="prev">
-              <div class="fa-2x">
-                <i class="fas fa-angle-left" data-fa-transform="shrink-8"></i>
+            <a class="carousel-control-prev w-auto" href="#thumbCarousel" role="button" data-bs-slide="prev" @click="subPage">
+              <div class="fa-4x">
+                <i class="fas fa-angle-left Ultor"></i>
               </div>
             </a>
-            <a class="carousel-control-next w-auto" href="#thumbCarousel" role="button" data-bs-target="#thumbCarousel"
-              data-bs-slide="next">
-              <div class="fa-2x">
-                <i class="fas fa-angle-right" data-fa-transform="shrink-8"></i>
+            <a class="carousel-control-next w-auto" href="#thumbCarousel" role="button" data-bs-slide="next" @click="addPage">
+              <div class="fa-4x">
+                <i class="fas fa-angle-right Ultor"></i>
               </div>
             </a>
           </div>
@@ -253,7 +263,7 @@
   <!-- Components -->
   <script src="/fetchNavbar.js"></script>
   <script>
-  legacyParts = '/legacyparts?page=';
+  legacyParts = '/legacypartsspinner?page=';
   pageNumber = 1;
   const app = Vue.createApp({
     data() {
@@ -271,26 +281,45 @@
         .catch(error => {
           console.log('Error:', error);
         });
-    }
-  }).mount('#featured');
-  </script>
-  <script>
-    $('#thumbCarousel').on('slide.bs.carousel', function (e) {
-      // advance main carousel
-      var nextSlide = e.to
-      $('#myCarousel').carousel(nextSlide * 6)
-    })
-
-    $('#myCarousel').on('slid.bs.carousel', function (e) {
-      // sync thumb years carousel on first and 7th slide
-      var currSlide = e.to
-      if (currSlide === 6) {
-        $('#thumbCarousel').carousel(1)
+      },
+      methods: {
+        // Increments the page number and fetches the next page
+        subPage() {
+          pageNumber--;
+          // If previous page is 0, set the page to 23 (end of DB)
+          if (pageNumber == 0) {
+            pageNumber = 23;
+          }
+          fetch(legacyParts + pageNumber)
+            .then(response => response.json())
+            .then(data => {
+              this.finalRows = data;
+              console.log(`Page #${pageNumber} sent.`)
+            })
+            .catch(error => {
+              console.log('Error:', error);
+            });
+        },
+        //
+        // Increment the page number and fetches the next page
+        addPage() {
+          pageNumber++;
+          // If next page is the end, send back to the first
+          if (pageNumber == 24) {
+            pageNumber = 1;
+          }    
+          fetch(legacyParts + pageNumber)
+            .then(response => response.json())
+            .then(data => {
+              this.finalRows = data;
+              console.log(`Page #${pageNumber} sent.`)
+            })
+            .catch(error => {
+              console.log('Error:', error);
+            });
+        }
       }
-      else if (currSlide === 0) {
-        $('#thumbCarousel').carousel(0)
-      }
-    })
+    }).mount('#featured');
   </script>
 </body>
 
