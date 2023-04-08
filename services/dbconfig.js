@@ -109,10 +109,39 @@ async function cleanOrders() {
 
     db.close()
 }
+
+// This function is used when combining legacy part information with orderItem to send back to the employees panel
+const getOrderDetails = async (orderItems) => {
+    const updatedOrderItems = [];
+    const connect = await legacyConnection.getConnection();
+    for (const orderItem of orderItems) {
+      const [rows] = await connect.query('SELECT * FROM parts WHERE number = ?', [orderItem.partnumber])
+      if (rows.length === 0) {
+        console.error(`Could not find part with ID: ${orderItem.partnumber}`);
+        updatedOrderItems.push(orderItem); // Keep the original order item if the part is not found
+      } else {
+        const part = rows[0];
+        const orderItemDetails = {
+          number: part.number,
+          quantity: orderItem.quantity,
+          description: part.description,
+          price: part.price,
+          weight: part.weight,
+          pictureURL: part.pictureURL
+        };
+        const updatedOrderItem = Object.assign({}, orderItem, orderItemDetails);
+        updatedOrderItems.push(updatedOrderItem);
+      }
+    }
+    return updatedOrderItems;
+    connect.release()
+  };
+  
  
 module.exports = {
     legacyConnection,
     newConnection,
     initializeNewDB,
-    cleanOrders
+    cleanOrders,
+    getOrderDetails
 }
