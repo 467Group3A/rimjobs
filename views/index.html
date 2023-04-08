@@ -88,13 +88,13 @@
                   <div v-for="row in finalRows" class="col">
                     <div class="card text-center StillwaterBG">
                       <div class="card-header">
-                        <h5 class="card-title textCutoff Ultor" v-bind:title="row.description">{{row.description}}</h5>
+                        <h4 class="card-title textCutoff Ultor fw-bold" v-bind:title="row.description">{{row.description}}</h4>
                       </div>
                       <div class="card-body StillwaterBG">
                         <img v-bind:src="row.pictureURL" v-bind:title="row.description" class="borderSilver" style="margin-bottom:15px;">
                         <div class="d-flex justify-content-around">
                             <span class="badge rounded-pill UltorBG Stillwater fs-6" style="line-height:2;">${{row.price}}</span>
-                            <button class="btn">Add To Cart</span>
+                            <a href="#" class="btn btn-rim">Add To Cart</a>
                         </div>
                       </div>
                     </div>
@@ -106,13 +106,13 @@
                   <div v-for="row in finalRows" class="col">
                     <div class="card text-center StillwaterBG">
                       <div class="card-header">
-                        <h5 class="card-title textCutoff Ultor" v-bind:title="row.description">{{row.description}}</h5>
+                        <h4 class="card-title textCutoff Ultor fw-bold" v-bind:title="row.description">{{row.description}}</h4>
                       </div>
                       <div class="card-body StillwaterBG">
                         <img v-bind:src="row.pictureURL" v-bind:title="row.description" class="borderSilver" style="margin-bottom:15px;">
                         <div class="d-flex justify-content-around ">
                             <span class="badge rounded-pill UltorBG Stillwater fs-6" style="line-height:2;">${{row.price}}</span>
-                            <button class="btn">Add To Cart</span>
+                            <a href="#" class="btn btn-rim">Add To Cart</a>
                         </div>
                       </div>
                     </div>

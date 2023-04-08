@@ -73,6 +73,10 @@ a {
     } 
 }
 
+.carousel-indicators .active {
+    color: $Pierce;
+}
+
 //Body and modifier classes
 body {
     font-family: Alkatra;
@@ -87,8 +91,30 @@ body {
 .textCutoff {
     text-overflow: ellipsis; 
     white-space: nowrap; 
-    overflow:hidden;
+    overflow: hidden;
     max-width: 250px;
+}
+
+.btn-rim {
+    font-size: large;
+    color: $Pierce;
+    background: linear-gradient(rgba(0,0,0,0), $Steelport 100%);
+    &:hover {
+        color: $Stillwater;
+        background: linear-gradient($Steelport, $Ultor 100%);
+    }
+    &:focus {
+        color: $Stillwater;
+        background: linear-gradient($Steelport, $Ultor 100%);
+    }
+    &:active {
+        color: $Stillwater !important;
+        background: linear-gradient($Steelport, $Ultor 100%);
+    }
+}
+
+.SilverBG {
+    background: linear-gradient(rgba(0,0,0,0), $Steelport 100%);
 }
 
 .Stillwater {
@@ -124,8 +150,7 @@ body {
     background-color: $Pierce;
 }
 
-.borderSilver
-{
+.borderSilver {
     border: 5px solid $Steelport;
 }
 
