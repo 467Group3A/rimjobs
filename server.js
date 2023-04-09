@@ -121,30 +121,7 @@ app.get('/viewinventory', (req, res) => {
 app.get('/legacyparts', async (req, res) => {
   const perPage = parseInt(req.query.per) || 10;
   let page = parseInt(req.query.page) || 1;
-  let itemsAmount = "100";
-
-  console.log("-- REQUEST LEGACY PARTS --");
-
-  connection.query(`SELECT COUNT(number) FROM parts`, (error, results) => {
-    if (error) {
-      console.error(error);
-    } else {
-      itemsAmount = parseInt(results[0]['COUNT(number)']);
-    }
-  });
-
-  let numberOfPages = Math.ceil(itemsAmount / perPage);
-
-  // // TODO: This doesn't work lmao
-  // if (page > numberOfPages) {
-  //   res.redirect(`/viewinventory?page=1&per=${perPage}`);
-  // } else if (page <= 0) {
-  //   res.redirect(`/viewinventory?page=${numberOfPages}&per=${perPage}`);
-  // }
-
   const offset = (page - 1) * perPage;
-
-  console.log(`Page ${page} / ${numberOfPages}`);
 
   // Query the database with the requested offset
   connection.query(`SELECT * FROM parts LIMIT ${perPage} OFFSET ${offset}`, (error, results) => {
@@ -152,6 +129,7 @@ app.get('/legacyparts', async (req, res) => {
       console.error(error);
       res.status(500).send('Error retrieving data from database');
     } else {
+      console.log(`--- FETCH ${perPage} ITEMS: OFFSET ${offset} ---`);
       res.send(results);
     }
   });

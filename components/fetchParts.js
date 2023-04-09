@@ -2,17 +2,15 @@
 // The page number is incremented or decremented when the user clicks the next or previous page buttons
 // Another way to do this would be to append the page number to the end of the URL.
 // Like so:
-// .com/legacy-parts?page=1
-// .com/legacy-parts?page=2
-// .com/legacy-parts?page=3
-//
-// TODO:
-// 1. Add a search bar to search for parts
+// .com/legacy-parts?page=1 & per=30
+// .com/legacy-parts?page=2 & per=10
+// .com/legacy-parts?page=3 & per=25
 //
 $(document).ready(function () {
     endpoint = '/legacyparts?page=';
     pageNumber = 1;
     perQuery = '&per=';
+    // Change this number to get more or less per page
     perPage = 30;
     const app = Vue.createApp({
         data() {
@@ -59,9 +57,8 @@ $(document).ready(function () {
             //
             // Increments the page number and fetches the next page
             subPage() {
-                if (pageNumber = 1){
-                    firstPage = true;
-                } else {
+                // If youre on the first page, theres nowhere else to go.
+                if (pageNumber != 1){
                     pageNumber--;
                 }
                 fetch(endpoint + pageNumber + perQuery + perPage)
@@ -76,9 +73,10 @@ $(document).ready(function () {
             //
             // Increment the page number and fetches the next page
             addPage() {
-                console.log(this.finalRows.length);
-                console.log(perPage);
+                // If the amount of items displayed does not equal
+                // how many should be displayed, you are at the end
                 if (this.finalRows.length != perPage) {
+                    // Send pack to page 1
                     pageNumber = 1;
                 } else {
                     pageNumber++;
