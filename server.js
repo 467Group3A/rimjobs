@@ -86,10 +86,17 @@ app.get('/parts', async (req, res) => {
 
 // TODO: Fix Render. It keeps saying theres no renderer chosen
 //GET request for cart page
+// app.get('/cart', (req, res) => {
+//     const cartTotal = products.length;
+//     res.render('cart', {cartItems: products, cartTotal});
+// });
 app.get('/cart', (req, res) => {
-    const cartTotal = products.length;
-    res.render('cart', {cartItems: products, cartTotal});
+  const cartTotal = products.length;
+  const cartItems = JSON.stringify(products);
+  const responseText = `Cart Total: ${cartTotal}\n\nCart Items:\n${cartItems}`;
+  res.send(responseText);
 });
+
 
 //parts endpoint
 const products = [];
@@ -114,6 +121,12 @@ app.post('/parts', (req, res) => {
     res.redirect('/parts');
 });
 
+//Store amount in cart(in navbar)
+const cartTotal = products.length;
+app.get('/cartTotal', (req, res) => {
+  const cartTotal = products.length;
+  res.json({ cartTotal });
+});
 
 // If url is /, send the index.html file
 app.get("/", (req, res) => {

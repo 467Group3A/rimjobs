@@ -4,13 +4,13 @@ $(document).ready(function () {
     const nav = Vue.createApp({
         data() {
             return {
-                arg: null
+                cartTotal: null
             }
         },
         template: `
         <nav class="navbar navbar-expand-lg UltorBG borderSilver">
             <div class="container-fluid">
-                <a class="navbar-brand" href="">
+                <a class="navbar-brand" href="/">
                     <img src="/img/Logo2x.png" alt="Rim Jobs" width="320" height="40">
                 </a>
                 <div class="collapse navbar-collapse" id="collapsibleNavId">
@@ -34,11 +34,20 @@ $(document).ready(function () {
                     </ul>
                     <a class="nav-link justify-content-end Stillwater fs-5" href="/cart">
                         <i class="fas fa-shopping-cart"></i> My Cart:
-                        <span class="fw-2">(0)</span> </a>
+                        <span class="fw-2">({{ cartTotal }})</span> </a>
                 </div>
             </div>
         </nav>
         `}).mount('#navbar')
+
+        fetch('/cartTotal')
+        .then(response => response.json())
+        .then(data => {
+            nav.cartTotal = data.cartTotal;
+        })
+        .catch(error => {
+            console.error(error);
+        });
 });
 
 jQuery(document).ready(function ($) {
