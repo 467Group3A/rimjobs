@@ -25,11 +25,19 @@ $(document).ready(function () {
                 <div class="collapse navbar-collapse" id="collapsibleNavId">
                     <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                         <li class="nav-item">
+<<<<<<< HEAD
+                            <a id="bouncify" class="nav-link Stillwater fs-5" href="/">
+                                <i class="fa-solid fa-warehouse"></i> Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="spinnify" class="nav-link Stillwater fs-5" href="/viewinventory">
+=======
                             <a id="bouncify" class="nav-link Stillwater fs-5 dropShadow" href="#">
                                 <i class="fa-solid fa-warehouse"></i> Home</a>
                         </li>
                         <li class="nav-item">
                             <a id="spinnify" class="nav-link Stillwater fs-5 dropShadow" href="#">
+>>>>>>> d9b1dee76a9c73e524abb1898b223f0d7f4710c3
                                 <i class="fas fa-dharmachakra"></i> View All Products</a>
                         </li>
                         <li class="nav-item">
