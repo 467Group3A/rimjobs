@@ -3,7 +3,7 @@
 
 <head>
   <title>Rim Jobs</title>
-  <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -74,10 +74,71 @@
           </button>
       </div>
     </div>
+
+    <div class="container-fluid UltorBG borderSilver">
+      <h1 class="Stillwater" style="font-family: Shrikhand;">Featured Deals</h1>
+    </div>
+    <div id="featured" class="container-fluid py-2 SteelportBG">
+      <div class="row align-items-center">
+        <div class="col-lg-12" id="slider">
+          <div id="thumbCarousel" class="carousel slide">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="row text-center">
+                  <div v-for="row in finalRows" class="col">
+                    <div class="card text-center StillwaterBG">
+                      <div class="card-header">
+                        <h4 class="card-title textCutoff Ultor fw-bold" v-bind:title="row.description">{{row.description}}</h4>
+                      </div>
+                      <div class="card-body StillwaterBG">
+                        <img v-bind:src="row.pictureURL" v-bind:title="row.description" class="borderSilver dropShadow" style="margin-bottom:15px;">
+                        <div class="d-flex justify-content-around">
+                            <span class="badge rounded-pill UltorBG Stillwater lineHeight2 fs-6">${{row.price}}</span>
+                            <a href="#" class="btn btn-rim">Add To Cart</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="row text-center">
+                  <div v-for="row in finalRows" class="col">
+                    <div class="card text-center StillwaterBG">
+                      <div class="card-header">
+                        <h4 class="card-title textCutoff Ultor fw-bold" v-bind:title="row.description">{{row.description}}</h4>
+                      </div>
+                      <div class="card-body StillwaterBG">
+                        <img v-bind:src="row.pictureURL" v-bind:title="row.description" class="borderSilver dropShadow" style="margin-bottom:15px;">
+                        <div class="d-flex justify-content-around ">
+                            <span class="badge rounded-pill UltorBG Stillwater lineHeight2 fs-6">${{row.price}}</span>
+                            <a href="#" class="btn btn-rim">Add To Cart</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a class="carousel-control-prev w-auto" href="#thumbCarousel" role="button" data-bs-slide="prev" @click="subPage">
+              <div class="fa-4x">
+                <i class="fas fa-angle-left Ultor"></i>
+              </div>
+            </a>
+            <a class="carousel-control-next w-auto" href="#thumbCarousel" role="button" data-bs-slide="next" @click="addPage">
+              <div class="fa-4x">
+                <i class="fas fa-angle-right Ultor"></i>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="container">
 
       <hr class="featurette-divider">
-      <div class="row featurette UltorBG borderSilver">
+      <div class="row featurette UltorBG Steelport borderSilver">
         <div class="col-md-7">
           <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It’ll blow your mind.</span></h2>
           <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
@@ -90,7 +151,7 @@
       </div>
   
       <hr class="featurette-divider">
-      <div class="row featurette UltorBG borderSilver">
+      <div class="row featurette UltorBG Steelport borderSilver">
         <div class="col-md-7 order-md-2">
           <h2 class="featurette-heading">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span></h2>
           <p class="lead">Another featurette? Of course. More placeholder content here to give you an idea of how this layout would work with some actual real-world content in place.</p>
@@ -104,7 +165,7 @@
       </div>
   
       <hr class="featurette-divider">
-      <div class="row featurette UltorBG borderSilver">
+      <div class="row featurette UltorBG Steelport borderSilver">
         <div class="col-md-7">
           <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
           <p class="lead">And yes, this is the last block of representative placeholder content. Again, not really intended to be actually read, simply here to give you a better view of what this would look like with some actual content. Your content.</p>
@@ -117,7 +178,7 @@
       </div>
 
       <hr class="featurette-divider">
-      <div class="row featurette UltorBG borderSilver">
+      <div class="row featurette UltorBG Steelport borderSilver">
         <div class="col-md-7">
           <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
           <p class="lead">And yes, this is the last block of representative placeholder content. Again, not really intended to be actually read, simply here to give you a better view of what this would look like with some actual content. Your content.</p>
@@ -130,7 +191,7 @@
       </div>
 
       <hr class="featurette-divider">
-      <div class="row featurette UltorBG borderSilver">
+      <div class="row featurette UltorBG Steelport borderSilver">
         <div class="col-md-7">
           <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
           <p class="lead">And yes, this is the last block of representative placeholder content. Again, not really intended to be actually read, simply here to give you a better view of what this would look like with some actual content. Your content.</p>
@@ -143,7 +204,7 @@
       </div>
 
       <hr class="featurette-divider">
-      <div class="row featurette UltorBG borderSilver">
+      <div class="row featurette UltorBG Steelport borderSilver">
         <div class="col-md-7">
           <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
           <p class="lead">And yes, this is the last block of representative placeholder content. Again, not really intended to be actually read, simply here to give you a better view of what this would look like with some actual content. Your content.</p>
@@ -156,7 +217,7 @@
       </div>
 
       <hr class="featurette-divider">
-      <div class="row featurette UltorBG borderSilver">
+      <div class="row featurette UltorBG Steelport borderSilver">
         <div class="col-md-7">
           <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
           <p class="lead">And yes, this is the last block of representative placeholder content. Again, not really intended to be actually read, simply here to give you a better view of what this would look like with some actual content. Your content.</p>
@@ -169,7 +230,7 @@
       </div>
 
       <hr class="featurette-divider">
-      <div class="row featurette UltorBG borderSilver">
+      <div class="row featurette UltorBG Steelport borderSilver">
         <div class="col-md-7">
           <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
           <p class="lead">And yes, this is the last block of representative placeholder content. Again, not really intended to be actually read, simply here to give you a better view of what this would look like with some actual content. Your content.</p>
@@ -201,6 +262,65 @@
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <!-- Components -->
   <script src="/fetchNavbar.js"></script>
+  <script>
+  legacyParts = '/legacypartsspinner?page=';
+  pageNumber = 1;
+  const app = Vue.createApp({
+    data() {
+      return {
+        finalRows: []
+      };
+    },
+    mounted() {
+      fetch(legacyParts + pageNumber)
+        .then(response => response.json())
+        .then(data => {
+          this.finalRows = data;
+          console.log('parts have been received!')
+        })
+        .catch(error => {
+          console.log('Error:', error);
+        });
+      },
+      methods: {
+        // Increments the page number and fetches the next page
+        subPage() {
+          pageNumber--;
+          // If previous page is 0, set the page to 23 (end of DB)
+          if (pageNumber == 0) {
+            pageNumber = 23;
+          }
+          fetch(legacyParts + pageNumber)
+            .then(response => response.json())
+            .then(data => {
+              this.finalRows = data;
+              console.log(`Page #${pageNumber} sent.`)
+            })
+            .catch(error => {
+              console.log('Error:', error);
+            });
+        },
+        //
+        // Increment the page number and fetches the next page
+        addPage() {
+          pageNumber++;
+          // If next page is the end, send back to the first
+          if (pageNumber == 24) {
+            pageNumber = 1;
+          }    
+          fetch(legacyParts + pageNumber)
+            .then(response => response.json())
+            .then(data => {
+              this.finalRows = data;
+              console.log(`Page #${pageNumber} sent.`)
+            })
+            .catch(error => {
+              console.log('Error:', error);
+            });
+        }
+      }
+    }).mount('#featured');
+  </script>
 </body>
 
 </html>

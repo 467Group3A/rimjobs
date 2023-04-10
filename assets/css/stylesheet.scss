@@ -1,7 +1,7 @@
 $Stillwater: #DDD8CF;
 $Ultor: #824538;
 $Steelport: #686868;
-$Pierce: #d4d3d5;
+$Pierce: #e6e5e7;
 
 //Fonts
 @font-face {
@@ -18,7 +18,30 @@ $Pierce: #d4d3d5;
 .nav-link {
     font-family: Shrikhand;
     &:hover {
-        --bs-nav-link-hover-color: #d4d3d5;
+        --bs-nav-link-hover-color: #e6e5e7;
+    }
+    &:focus {
+        --bs-nav-link-hover-color: #e6e5e7;
+    }
+}
+
+.dropdown-toggle::after {
+    display:none;
+}
+
+.dropdown-item {
+    color: $Stillwater;
+    &:active {
+        color: $Pierce;
+        background-color: $Steelport;
+    }
+    &:focus {
+        color: $Pierce;
+        background-color: $Steelport;
+    }
+    &:hover {
+        color: $Steelport;
+        background-color: $Stillwater;
     }
 }
 
@@ -50,16 +73,56 @@ a {
     } 
 }
 
+.carousel-indicators .active {
+    color: $Pierce;
+}
+
+.lineHeight2 {
+    line-height: 2;
+}
+
 //Body and modifier classes
 body {
     font-family: Alkatra;
     background-color: $Stillwater;
-    color: $Steelport
 }
 
 .blurit {
     filter: blur(4px);
     -webkit-filter: blur(4px);
+}
+
+.dropShadow {
+    filter: drop-shadow(10px 10px 8px #3d3d3d);
+}
+
+.textCutoff {
+    text-overflow: ellipsis; 
+    white-space: nowrap; 
+    overflow: hidden;
+    max-width: 250px;
+}
+
+.btn-rim {
+    font-size: large;
+    color: $Pierce;
+    background: linear-gradient(rgba(0,0,0,0), $Steelport 100%);
+    &:hover {
+        color: $Stillwater;
+        background: linear-gradient($Steelport, $Ultor 100%);
+    }
+    &:focus {
+        color: $Stillwater;
+        background: linear-gradient($Steelport, $Ultor 100%);
+    }
+    &:active {
+        color: $Stillwater !important;
+        background: linear-gradient($Steelport, $Ultor 100%);
+    }
+}
+
+.SilverBG {
+    background: linear-gradient(rgba(0,0,0,0), $Steelport 100%);
 }
 
 .Stillwater {
@@ -95,8 +158,7 @@ body {
     background-color: $Pierce;
 }
 
-.borderSilver
-{
+.borderSilver {
     border: 5px solid $Steelport;
 }
 
@@ -149,4 +211,8 @@ body {
     @include img-gradient(rgb(100, 11, 184));
 }
 
-
+@media print and (max-width: 600px) {
+    #navbar {
+        display: none !important;
+    }
+}
