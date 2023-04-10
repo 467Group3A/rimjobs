@@ -10,7 +10,30 @@
   font-family: Shrikhand;
 }
 .nav-link:hover {
-  --bs-nav-link-hover-color: #d4d3d5;
+  --bs-nav-link-hover-color: #e6e5e7;
+}
+.nav-link:focus {
+  --bs-nav-link-hover-color: #e6e5e7;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.dropdown-item {
+  color: #DDD8CF;
+}
+.dropdown-item:active {
+  color: #e6e5e7;
+  background-color: #686868;
+}
+.dropdown-item:focus {
+  color: #e6e5e7;
+  background-color: #686868;
+}
+.dropdown-item:hover {
+  color: #686868;
+  background-color: #DDD8CF;
 }
 
 a {
@@ -23,7 +46,7 @@ a {
 }
 a:before {
   content: "";
-  background: #d4d3d5;
+  background: #e6e5e7;
   display: block;
   position: absolute;
   bottom: -3px;
@@ -39,15 +62,55 @@ a:hover:before {
   width: 100%;
 }
 
+.carousel-indicators .active {
+  color: #e6e5e7;
+}
+
+.lineHeight2 {
+  line-height: 2;
+}
+
 body {
   font-family: Alkatra;
   background-color: #DDD8CF;
-  color: #686868;
 }
 
 .blurit {
   filter: blur(4px);
   -webkit-filter: blur(4px);
+}
+
+.dropShadow {
+  filter: drop-shadow(10px 10px 8px #3d3d3d);
+}
+
+.textCutoff {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 250px;
+}
+
+.btn-rim {
+  font-size: large;
+  color: #e6e5e7;
+  background: linear-gradient(rgba(0, 0, 0, 0), #686868 100%);
+}
+.btn-rim:hover {
+  color: #DDD8CF;
+  background: linear-gradient(#686868, #824538 100%);
+}
+.btn-rim:focus {
+  color: #DDD8CF;
+  background: linear-gradient(#686868, #824538 100%);
+}
+.btn-rim:active {
+  color: #DDD8CF !important;
+  background: linear-gradient(#686868, #824538 100%);
+}
+
+.SilverBG {
+  background: linear-gradient(rgba(0, 0, 0, 0), #686868 100%);
 }
 
 .Stillwater {
@@ -75,11 +138,11 @@ body {
 }
 
 .Pierce {
-  color: #d4d3d5;
+  color: #e6e5e7;
 }
 
 .PierceBG {
-  background-color: #d4d3d5;
+  background-color: #e6e5e7;
 }
 
 .borderSilver {
@@ -228,6 +291,12 @@ body {
 }
 .img-gradient-vlt img {
   display: block;
+}
+
+@media print and (max-width: 600px) {
+  #navbar {
+    display: none !important;
+  }
 }
 
 /*# sourceMappingURL=stylesheet.css.map */

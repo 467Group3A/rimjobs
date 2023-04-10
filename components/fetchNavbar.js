@@ -4,41 +4,67 @@ $(document).ready(function () {
     const nav = Vue.createApp({
         data() {
             return {
-                arg: null
+                cartTotal: null
             }
         },
         template: `
         <nav class="navbar navbar-expand-lg UltorBG borderSilver">
             <div class="container-fluid">
-                <a class="navbar-brand" href="">
-                    <img src="/img/Logo2x.png" alt="Rim Jobs" width="320" height="40">
-                </a>
+                <div class="navbar-brand dropdown">
+                    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <img src="/img/Logo2x.png" class="dropShadow" alt="Rim Jobs" width="320" height="40">
+                    </a>
+                    <ul class="dropdown-menu UltorBG borderSilver dropShadow">
+                        <li><a class="dropdown-item" href="#"><i class="fa-solid fa-warehouse"></i> Home</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-dharmachakra"></i> View All Products</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-truck-plane"></i> Find My Order</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-door-closed"></i> Employee Portal</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-shopping-cart"></i> My Cart</a></li>
+                    </ul>
+                </div>
                 <div class="collapse navbar-collapse" id="collapsibleNavId">
                     <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                         <li class="nav-item">
+<<<<<<< HEAD
                             <a id="bouncify" class="nav-link Stillwater fs-5" href="/">
                                 <i class="fa-solid fa-warehouse"></i> Home</a>
                         </li>
                         <li class="nav-item">
                             <a id="spinnify" class="nav-link Stillwater fs-5" href="/viewinventory">
+=======
+                            <a id="bouncify" class="nav-link Stillwater fs-5 dropShadow" href="#">
+                                <i class="fa-solid fa-warehouse"></i> Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="spinnify" class="nav-link Stillwater fs-5 dropShadow" href="#">
+>>>>>>> d9b1dee76a9c73e524abb1898b223f0d7f4710c3
                                 <i class="fas fa-dharmachakra"></i> View All Products</a>
                         </li>
                         <li class="nav-item">
-                            <a id="bouncify2" class="nav-link Stillwater fs-5" href="">
+                            <a id="bouncify2" class="nav-link Stillwater fs-5 dropShadow" href="#">
                                 <i class="fas fa-truck-plane"></i> Find My Order</a>
                         </li>
                         <li class="nav-item">
-                            <a id="bouncify3" class="nav-link Stillwater fs-5" href="">
+                            <a id="bouncify3" class="nav-link Stillwater fs-5 dropShadow" href="#">
                                 <i class="fas fa-door-closed"></i> Employee Portal</a>
                         </li>
                     </ul>
-                    <a class="nav-link justify-content-end Stillwater fs-5" href="">
+                    <a class="nav-link justify-content-end Stillwater fs-5 dropShadow" href="#">
                         <i class="fas fa-shopping-cart"></i> My Cart:
-                        <span class="fw-2">(0)</span> </a>
+                        <span class="fw-2">({{ cartTotal }})</span> </a>
                 </div>
             </div>
         </nav>
         `}).mount('#navbar')
+
+        fetch('/cartTotal')
+        .then(response => response.json())
+        .then(data => {
+            nav.cartTotal = data.cartTotal;
+        })
+        .catch(error => {
+            console.error(error);
+        });
 });
 
 jQuery(document).ready(function ($) {
