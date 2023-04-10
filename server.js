@@ -122,7 +122,6 @@ app.post('/parts', (req, res) => {
 });
 
 //Store amount in cart(in navbar)
-const cartTotal = products.length;
 app.get('/cartTotal', (req, res) => {
   const cartTotal = products.length;
   res.json({ cartTotal });
