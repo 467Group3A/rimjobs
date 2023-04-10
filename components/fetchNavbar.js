@@ -4,7 +4,7 @@ $(document).ready(function () {
     const nav = Vue.createApp({
         data() {
             return {
-                arg: null
+                cartTotal: null
             }
         },
         template: `
@@ -43,11 +43,20 @@ $(document).ready(function () {
                     </ul>
                     <a class="nav-link justify-content-end Stillwater fs-5 dropShadow" href="#">
                         <i class="fas fa-shopping-cart"></i> My Cart:
-                        <span class="fw-2">(0)</span> </a>
+                        <span class="fw-2">({{ cartTotal }})</span> </a>
                 </div>
             </div>
         </nav>
         `}).mount('#navbar')
+
+        fetch('/cartTotal')
+        .then(response => response.json())
+        .then(data => {
+            nav.cartTotal = data.cartTotal;
+        })
+        .catch(error => {
+            console.error(error);
+        });
 });
 
 jQuery(document).ready(function ($) {
