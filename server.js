@@ -10,8 +10,7 @@ const promise = require('mysql2/promise');
 const port = 4050;
 
 const { loadInventory } = require('./services/loadinventory')
-const { legacyConnection, newConnection } = require('./services/dbconfig')
-const { legacyConnection , newConnection, initializeNewDB , cleanOrders,  getOrderDetails } = require('./services/dbconfig') // Some of these functions will be removed
+const { legacyConnection, newConnection, initializeNewDB, cleanOrders, getOrderDetails } = require('./services/dbconfig') // Some of these functions will be removed
 
 const app = express();
 
@@ -77,13 +76,6 @@ app.get('/parts', async (req, res) => {
   }
 });
 
-// TODO: Fix Render. It keeps saying theres no renderer chosen
-//GET request for cart page
-// app.get('/cart', (req, res) => {
-//     const cartTotal = products.length;
-//     res.render('cart', {cartItems: products, cartTotal});
-// });
-
 //parts endpoint
 const products = [];
 app.post('/parts', (req, res) => {
@@ -111,7 +103,7 @@ app.post('/parts', (req, res) => {
 // If url is /, send the index.html file
 app.get("/", (req, res) => {
   //send the index.html file for all requests
-  res.sendFile(__dirname + "/views/matts.html");
+  res.sendFile(__dirname + "/views/index.html");
 });
 
 // If url is /viewinventory, send the viewinventory.html file
@@ -144,8 +136,21 @@ app.get('/replenish', (req, res) => {
   res.sendFile(__dirname + "/views/replenish.html");
 })
 
+app.get('/legacyparts', async (req, res) => {
+  const perPage = parseInt(req.query.per) || 10;
+  let page = parseInt(req.query.page) || 1;
+  const offset = (page - 1) * perPage;
 
-// REMOVED /legacy-parts as i know david has worked on it and will be adding it in
+  connection.query(`SELECT * FROM parts LIMIT ${perPage} OFFSET ${offset}`, (error, results) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send('Error retrieving data from database');
+    } else {
+      console.log(`--- FETCH ${perPage} ITEMS: OFFSET ${offset} ---`);
+      res.send(results);
+    }
+  });
+});
 
 // Sends back json objects that contain orders
 app.get('/api/orders-list', async (req, res) => {
@@ -188,7 +193,7 @@ app.get('/api/orderdetails/:id', async (req, res) => {
         else resolve(rows);
       });
     });
-    
+
     // grab order and combine
     const order = await new Promise((resolve, reject) => {
       db.get(`SELECT * FROM orders WHERE id = ?`, [orderId], (err, row) => {
@@ -196,7 +201,7 @@ app.get('/api/orderdetails/:id', async (req, res) => {
         else resolve(row);
       });
     });
-    
+
     db.close();
 
     //const updatedOrderItems = await getOrderDetails(orderItems);
@@ -232,8 +237,8 @@ app.post('/api/updateorder', async (req, res) => {
   db.run(
     'UPDATE orders SET status = ? WHERE id = ?',
     [updateTo, orderId],
-    function(err) {
-      if(err){
+    function (err) {
+      if (err) {
         console.log('Unable to update order status')
         res.sendStatus(500)
       } else {
@@ -241,7 +246,7 @@ app.post('/api/updateorder', async (req, res) => {
       }
     }
   )
-    
+
   db.close();
 });
 
@@ -314,9 +319,9 @@ app.post('/api/replenish/removal', async (req, res) => {
         const updatedQuantity = currentQuantity - removalStock
 
         // Update the inventory with the new quantity
-        if(updatedQuantity < 0) {
+        if (updatedQuantity < 0) {
           res.status(200).json({ message: `Unable to update part ${partId} from ${currentQuantity} to ${updatedQuantity}.` })
-        }else{
+        } else {
           db.run(
             'UPDATE inventory SET quantity = ? WHERE id = ?',
             [updatedQuantity, partId],
@@ -332,7 +337,7 @@ app.post('/api/replenish/removal', async (req, res) => {
       }
     }
   );
-    
+
   db.close()
 });
 
@@ -351,10 +356,10 @@ app.post('/api/creditcardauth', (req, res) => {
     .then((response) => {
       console.log(response.data)
       // If there is an error from credit card auth, send to user.
-      if('errors' in response.data){
+      if ('errors' in response.data) {
         res.status(500).json(response.data)
       }
-      else{ // Otherwise send the whole json back as confirmation ( for now )
+      else { // Otherwise send the whole json back as confirmation ( for now )
         res.status(200).json(response.data)
       }
     })
