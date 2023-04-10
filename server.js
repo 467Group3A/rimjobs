@@ -90,13 +90,6 @@ app.get('/parts', async (req, res) => {
 //     const cartTotal = products.length;
 //     res.render('cart', {cartItems: products, cartTotal});
 // });
-app.get('/cart', (req, res) => {
-  const cartTotal = products.length;
-  const cartItems = JSON.stringify(products);
-  const responseText = `Cart Total: ${cartTotal}\n\nCart Items:\n${cartItems}`;
-  res.send(responseText);
-});
-
 
 //parts endpoint
 const products = [];
@@ -119,6 +112,16 @@ app.post('/parts', (req, res) => {
     });
     
     res.redirect('/parts');
+});
+
+//cart.html endpoint
+app.get('/cart', (req, res) => {
+  res.sendFile(__dirname + "/views/cart.html");
+});
+
+//send products inside of cart
+app.get('/cartItems', (req, res) => {
+  res.send(JSON.stringify(products));
 });
 
 //Store amount in cart(in navbar)
