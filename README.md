@@ -7,7 +7,7 @@ We promise you'll always leave satisfied.
 
 ##  Rimjobs functionality
 
-**Customer**
+### **Customer**
  - [ ] View all products
 - [ ] Shopping cart
 	- [ ] Add items to cart
@@ -18,17 +18,17 @@ We promise you'll always leave satisfied.
 	- [ ] Creates order in db
 	- [ ] Upon succesfull payment received by 3rd party, a confirmation is sent to the customers email
 	
-**Employee**
+### **Employee**
 - [ ] View all orders
 	-  [ ] Should be able to sort by status, total cost, weight, ECT...
 - [ ] Update orders status
 - [ ] Update inventory upon arrival of new merchandise
 - [ ] Add shipping label and invoice 
 
-**Administrator**
+### **Administrator**
 - [ ] View all orders
    - [ ] Should be able to sort by status, total cost, weight, ECT...
 - [ ] Set shipping and handling charges (based on weight brackets)
 
-**Features to implement**
+### **Features to implement**
 - [ ] Employee and or Administrator login / verification system
