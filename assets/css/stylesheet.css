@@ -66,6 +66,10 @@ a:hover:before {
   color: #e6e5e7;
 }
 
+.lineHeight2 {
+  line-height: 2;
+}
+
 body {
   font-family: Alkatra;
   background-color: #DDD8CF;
@@ -74,6 +78,10 @@ body {
 .blurit {
   filter: blur(4px);
   -webkit-filter: blur(4px);
+}
+
+.dropShadow {
+  filter: drop-shadow(10px 10px 8px #3d3d3d);
 }
 
 .textCutoff {

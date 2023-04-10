@@ -77,6 +77,10 @@ a {
     color: $Pierce;
 }
 
+.lineHeight2 {
+    line-height: 2;
+}
+
 //Body and modifier classes
 body {
     font-family: Alkatra;
@@ -86,6 +90,10 @@ body {
 .blurit {
     filter: blur(4px);
     -webkit-filter: blur(4px);
+}
+
+.dropShadow {
+    filter: drop-shadow(10px 10px 8px #3d3d3d);
 }
 
 .textCutoff {

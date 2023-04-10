@@ -12,9 +12,9 @@ $(document).ready(function () {
             <div class="container-fluid">
                 <div class="navbar-brand dropdown">
                     <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                        <img src="/img/Logo2x.png" alt="Rim Jobs" width="320" height="40">
+                        <img src="/img/Logo2x.png" class="dropShadow" alt="Rim Jobs" width="320" height="40">
                     </a>
-                    <ul class="dropdown-menu UltorBG borderSilver">
+                    <ul class="dropdown-menu UltorBG borderSilver dropShadow">
                         <li><a class="dropdown-item" href="#"><i class="fa-solid fa-warehouse"></i> Home</a></li>
                         <li><a class="dropdown-item" href="#"><i class="fas fa-dharmachakra"></i> View All Products</a></li>
                         <li><a class="dropdown-item" href="#"><i class="fas fa-truck-plane"></i> Find My Order</a></li>
@@ -25,23 +25,23 @@ $(document).ready(function () {
                 <div class="collapse navbar-collapse" id="collapsibleNavId">
                     <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                         <li class="nav-item">
-                            <a id="bouncify" class="nav-link Stillwater fs-5" href="#">
+                            <a id="bouncify" class="nav-link Stillwater fs-5 dropShadow" href="#">
                                 <i class="fa-solid fa-warehouse"></i> Home</a>
                         </li>
                         <li class="nav-item">
-                            <a id="spinnify" class="nav-link Stillwater fs-5" href="#">
+                            <a id="spinnify" class="nav-link Stillwater fs-5 dropShadow" href="#">
                                 <i class="fas fa-dharmachakra"></i> View All Products</a>
                         </li>
                         <li class="nav-item">
-                            <a id="bouncify2" class="nav-link Stillwater fs-5" href="#">
+                            <a id="bouncify2" class="nav-link Stillwater fs-5 dropShadow" href="#">
                                 <i class="fas fa-truck-plane"></i> Find My Order</a>
                         </li>
                         <li class="nav-item">
-                            <a id="bouncify3" class="nav-link Stillwater fs-5" href="$">
+                            <a id="bouncify3" class="nav-link Stillwater fs-5 dropShadow" href="#">
                                 <i class="fas fa-door-closed"></i> Employee Portal</a>
                         </li>
                     </ul>
-                    <a class="nav-link justify-content-end Stillwater fs-5" href="#">
+                    <a class="nav-link justify-content-end Stillwater fs-5 dropShadow" href="#">
                         <i class="fas fa-shopping-cart"></i> My Cart:
                         <span class="fw-2">(0)</span> </a>
                 </div>
