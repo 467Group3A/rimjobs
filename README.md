@@ -16,6 +16,7 @@ We promise you'll always leave satisfied.
 - [ ] Checkout system
 	- [ ] Third party cc authorization linked
 	- [ ] Creates order in db
+	- [ ] Upon succesfull payment received by 3rd party, a confirmation is sent to the customers email
 	
 **Employee**
 - [ ] View all orders
@@ -30,5 +31,4 @@ We promise you'll always leave satisfied.
 - [ ] Set shipping and handling charges (based on weight brackets)
 
 **Features to implement**
-- [ ] Upon succesfull payment received by 3rd party, a confirmation is sent to the customers email
 - [ ] Employee and or Administrator login / verification system
