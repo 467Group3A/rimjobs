@@ -8,7 +8,7 @@ We promise you'll always leave satisfied.
 ##  Rimjobs functionality
 
 **Customer**
- - [ ] View all products
+ - [x] View all products
 - [ ] Shopping cart
 	- [ ] Add items to cart
 	- [ ] Remove items from cart
