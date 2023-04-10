@@ -61,7 +61,7 @@
             <!-- <td>{{ row.amount }}</td> -->
             <td>
                 <form action="/parts" method="POST" style="display: flex; flex-direction: row;">
-                <input type="hidden" name="number" value="{{ row.number }}">
+                <input type="hidden" name="number" v-bind:value="row.number">
                 <input type="number" name="quantity" placeholder="Qty" min="0" max="" style="margin-right: 10px">
                 <input type="submit" value="Add to Cart">
                 </form>            
