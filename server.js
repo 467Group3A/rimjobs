@@ -84,13 +84,6 @@ app.get('/parts', async (req, res) => {
     }
 });
 
-// TODO: Fix Render. It keeps saying theres no renderer chosen
-//GET request for cart page
-// app.get('/cart', (req, res) => {
-//     const cartTotal = products.length;
-//     res.render('cart', {cartItems: products, cartTotal});
-// });
-
 //parts endpoint
 const products = [];
 app.post('/parts', (req, res) => {

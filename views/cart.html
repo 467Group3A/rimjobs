@@ -28,13 +28,21 @@
     <h1>Parts in My Shopping Cart</h1>
     <div id="app">
       <ul>
-        <table width="600">
+        <table width="1500">
           <tr align="center">
-            <th width="300">Part Number</th>
-            <th width="300">Amount in Cart</th>
+            <th width="250">Part number</th>
+            <th width="250">Description</th>
+            <th width="250">Price</th>
+            <th width="250">Weight</th>
+            <th width="250">Picture URL</th>
+            <th width="250">Amount in Cart</th>
           </tr>
           <tr align="center" v-for="row in finalRows" :key="row.number">
             <td>{{ row.number }}</td>
+            <td>{{ row.description }}</td>
+            <td>{{ row.price }}</td>
+            <td>{{ row.weight }}</td>
+            <td><img v-bind:src="row.image"></td>
             <td>{{ row.quantity }}</td>
           </tr>
         </table>

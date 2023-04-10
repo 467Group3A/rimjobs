@@ -26,20 +26,19 @@
 <main>
     <header id="navbar"></header>
     <div id="app">
-        <div><p><strong>Search for part:</strong></p></div>
         <div>
-        <label for="search" class="input-label">Name:</label>
+        <label for="search" class="input-label" style="display: inline-block; width: 100px;">Name:</label>
         <input type="text" id="search" v-model="searchFor">
         </div>
         <div>
-        <label for="minPrice" class="input-label">Min price:</label>
+        <label for="minPrice" class="input-label" style="display: inline-block; width: 100px;">Min price:</label>
         <input type="number" id="minPrice" v-model="minPrice">
         </div>
         <div>
-        <label for="maxPrice" class="input-label">Max price:</label>
+        <label for="maxPrice" class="input-label" style="display: inline-block; width: 100px;">Max price:</label>
         <input type="number" id="maxPrice" v-model="maxPrice">
         </div>
-
+        
         <table width="1500">
         <thead>
             <tr align="center">
@@ -62,6 +61,10 @@
             <td>
                 <form action="/parts" method="POST" style="display: flex; flex-direction: row;">
                 <input type="hidden" name="number" v-bind:value="row.number">
+                <input type="hidden" name="description" v-bind:value="row.description">
+                <input type="hidden" name="price" v-bind:value="row.price">
+                <input type="hidden" name="weight" v-bind:value="row.weight">
+                <input type="hidden" name="image" v-bind:value="row.pictureURL">
                 <input type="number" name="quantity" placeholder="Qty" min="0" max="" style="margin-right: 10px">
                 <input type="submit" value="Add to Cart">
                 </form>            
