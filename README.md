@@ -30,5 +30,5 @@ We promise you'll always leave satisfied.
 - [ ] Set shipping and handling charges (based on weight brackets)
 
 **Features to implement**
-- [ ] Upon filling of an order / printing of an invoice and shipping label the customer shall receive a confirmation email
+- [ ] Upon succesfull payment received by 3rd party, a confirmation is sent to the customers email
 - [ ] Employee and or Administrator login / verification system
