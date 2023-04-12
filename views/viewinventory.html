@@ -44,10 +44,10 @@
           <tbody>
             <tr v-for="row in filteredParts" :key="row.id">
               <td><img v-bind:src="row.pictureURL" width="50" height="50"></td>
-              <td>{{ row.description}}</td>
-              <td>{{ row.price }}</td>
+              <td>{{ capitalize(row.description)}}</td>
+              <td>${{ row.price }}</td>
               <td>{{ row.weight }}</td>
-              <td>{{ inventory[row.number].quantity }}</td>
+              <td>{{ inventory[row.number - 1].quantity }}</td>
               <td><button type="button" class="btn btn-light">Add to Cart</button></td>
             </tr>
           </tbody>

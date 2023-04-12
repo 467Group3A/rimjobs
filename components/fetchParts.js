@@ -16,6 +16,8 @@ $(document).ready(function () {
         data() {
             return {
                 finalRows: [],
+                inventory: [],
+                newParts: [],
                 searchFor: '',
                 minPrice: null,
                 maxPrice: null
@@ -38,14 +40,16 @@ $(document).ready(function () {
             }
         },
         mounted() {
-            fetch(endpoint + pageNumber + perQuery + perPage)
-                .then(response => response.json())
-                .then(data => {
-                    this.finalRows = data;
-                    console.log('parts have been received!')
+            Promise.all([
+                fetch(endpoint + pageNumber + perQuery + perPage).then((res) => res.json()),
+                fetch('/inventory').then((res) => res.json()),
+              ])
+                .then(([legacyPartsResponse, inventoryResponse]) => {
+                  this.finalRows = legacyPartsResponse;
+                  this.inventory = inventoryResponse;
                 })
-                .catch(error => {
-                    console.log('Error:', error);
+                .catch((error) => {
+                  console.error(error);
                 });
         },
         methods: {
