@@ -106,6 +106,16 @@ app.get('/cartTotal', (req, res) => {
   res.json({ cartTotal });
 });
 
+//endpoint to send info of items in cart 
+app.get('/cartItems', (req, res) => {
+  res.send(JSON.stringify(products));
+});
+
+//if url is /cart, send to cart.html file
+app.get('/cart', (req, res) => {
+  res.sendFile(__dirname + "/views/cart.html");
+});
+
 // If url is /, send the index.html file
 app.get("/", (req, res) => {
   //send the index.html file for all requests
