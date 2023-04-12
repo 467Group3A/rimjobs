@@ -7,7 +7,7 @@ var path = require('path');
 const router = express.Router();
 const promise = require('mysql2/promise');
 
-const port = 4050;
+const port = 5050;
 
 const { loadInventory } = require('./services/loadinventory')
 const { legacyConnection, newConnection, initializeNewDB, cleanOrders, getOrderDetails } = require('./services/dbconfig') // Some of these functions will be removed
@@ -148,6 +148,21 @@ app.get('/legacyparts', async (req, res) => {
     } else {
       console.log(`--- FETCH ${perPage} ITEMS: OFFSET ${offset} ---`);
       res.send(results);
+    }
+  });
+});
+
+app.get('/inventory', (req, res) => {
+
+  const db = newConnection()
+
+  db.all('SELECT * FROM inventory', (err, rows) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send('Error retrieving data from database');
+    } else {
+      console.log('--- FETCHED INVENTORY ---');
+      res.send(rows);
     }
   });
 });
