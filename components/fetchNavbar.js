@@ -49,14 +49,14 @@ $(document).ready(function () {
         </nav>
         `}).mount('#navbar')
 
-        // fetch('/cartTotal')
-        // .then(response => response.json())
-        // .then(data => {
-        //     nav.cartTotal = data.cartTotal;
-        // })
-        // .catch(error => {
-        //     console.error(error);
-        // });
+        fetch('/cartTotal')
+        .then(response => response.json())
+        .then(data => {
+            nav.cartTotal = data.cartTotal;
+        })
+        .catch(error => {
+            console.error(error);
+        });
 });
 
 jQuery(document).ready(function ($) {
