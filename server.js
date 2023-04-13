@@ -136,6 +136,11 @@ app.get('/replenish', (req, res) => {
   res.sendFile(__dirname + "/views/replenish.html");
 })
 
+app.get('/cart', (req, res) => {
+  res.sendFile(__dirname + "/views/davidcart.html");
+})
+
+
 app.get('/legacyparts', async (req, res) => {
   const perPage = parseInt(req.query.per) || 10;
   let page = parseInt(req.query.page) || 1;

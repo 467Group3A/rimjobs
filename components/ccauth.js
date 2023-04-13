@@ -4,7 +4,7 @@ const app = Vue.createApp({
     data() {
       return {
         formData: {
-          vendor: '',
+          vendor: 'Rim Jobs Auto Parts',
           trans: '',
           cc: '',
           name: '',

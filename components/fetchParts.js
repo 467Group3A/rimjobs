@@ -43,13 +43,13 @@ $(document).ready(function () {
             Promise.all([
                 fetch(endpoint + pageNumber + perQuery + perPage).then((res) => res.json()),
                 fetch('/inventory').then((res) => res.json()),
-              ])
+            ])
                 .then(([legacyPartsResponse, inventoryResponse]) => {
-                  this.finalRows = legacyPartsResponse;
-                  this.inventory = inventoryResponse;
+                    this.finalRows = legacyPartsResponse;
+                    this.inventory = inventoryResponse;
                 })
                 .catch((error) => {
-                  console.error(error);
+                    console.error(error);
                 });
         },
         methods: {
@@ -62,7 +62,7 @@ $(document).ready(function () {
             // Increments the page number and fetches the next page
             subPage() {
                 // If youre on the first page, theres nowhere else to go.
-                if (pageNumber != 1){
+                if (pageNumber != 1) {
                     pageNumber--;
                 }
                 fetch(endpoint + pageNumber + perQuery + perPage)
@@ -93,6 +93,34 @@ $(document).ready(function () {
                     .catch(error => {
                         console.log('Error:', error);
                     });
+            },
+            addToCart(picture, item_id, item_name, weight, price, quantity) {
+                // Retrieve existing cart items from localStorage or create an empty array
+                let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+                // Check if the selected item is already in the cart
+                let itemIndex = cartItems.findIndex(item => item.item_id === item_id);
+                if (itemIndex > -1) {
+                    // Update the quantity if the item is already in the cart
+                    cartItems[itemIndex].quantity += quantity;
+                } else {
+                    // Add the selected item to the cart
+                    let newItem = {
+                        pictureURL: picture,
+                        item_id: item_id,
+                        item_name: item_name,
+                        weight: weight,
+                        price: price,
+                        quantity: quantity
+                    };
+                    cartItems.push(newItem);
+                }
+
+                // Store the updated cart items in localStorage
+                localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                event.target.style.backgroundColor="rgb(34, 139, 34)";
+                event.target.style.color="white";
+                event.target.innerHTML = "Added";
             }
         }
     }).mount('#inventory');

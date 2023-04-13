@@ -48,7 +48,12 @@
               <td>${{ row.price }}</td>
               <td>{{ row.weight }}</td>
               <td>{{ inventory[row.number - 1].quantity }}</td>
-              <td><button type="button" class="btn btn-light">Add to Cart</button></td>
+              <td><div class="form-outline">
+                <input type="number" v-model="qty" :disabled="inventory[row.number - 1].quantity === 0" class="form-control" v-bind:max="inventory[row.number - 1].quantity" min="1"/>
+              </div></td>
+              <td><button type="button" class="btn btn-light" :disabled="inventory[row.number - 1].quantity === 0"
+                  @click="addToCart(row.pictureURL, row.number, row.description, row.weight, row.price, qty)"
+                  style="width:100%;">Add to Cart</button></td>
             </tr>
           </tbody>
         </table>
@@ -85,4 +90,5 @@
 <!-- Components -->
 <script src="/fetchNavbar.js"></script>
 <script src="/fetchParts.js"></script>
+
 </html>

@@ -88,10 +88,10 @@
                   <div v-for="row in finalRows" class="col">
                     <div class="card text-center StillwaterBG">
                       <div class="card-header">
-                        <h4 class="card-title textCutoff Ultor fw-bold" v-bind:title="row.description">{{row.description}}</h4>
+                        <h4 class="card-title textCutoff Ultor fw-bold" v-bind:title="capitalize(row.description)">{{capitalize(row.description)}}</h4>
                       </div>
                       <div class="card-body StillwaterBG">
-                        <img v-bind:src="row.pictureURL" v-bind:title="row.description" class="borderSilver dropShadow" style="margin-bottom:15px;">
+                        <img v-bind:src="row.pictureURL" v-bind:title="capitalize(row.description)" class="borderSilver dropShadow" style="margin-bottom:15px;">
                         <div class="d-flex justify-content-around">
                             <span class="badge rounded-pill UltorBG Stillwater lineHeight2 fs-6">${{row.price}}</span>
                             <a href="#" class="btn btn-rim">Add To Cart</a>
@@ -106,7 +106,7 @@
                   <div v-for="row in finalRows" class="col">
                     <div class="card text-center StillwaterBG">
                       <div class="card-header">
-                        <h4 class="card-title textCutoff Ultor fw-bold" v-bind:title="row.description">{{row.description}}</h4>
+                        <h4 class="card-title textCutoff Ultor fw-bold" v-bind:title="row.description">{{capitalize(row.description)}}</h4>
                       </div>
                       <div class="card-body StillwaterBG">
                         <img v-bind:src="row.pictureURL" v-bind:title="row.description" class="borderSilver dropShadow" style="margin-bottom:15px;">
@@ -248,8 +248,6 @@
       <!-- /END THE FEATURETTES -->
   
     </div><!-- /.container -->
-
-
   </main>
   <footer>
     <!-- place footer here -->
@@ -262,65 +260,7 @@
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <!-- Components -->
   <script src="/fetchNavbar.js"></script>
-  <script>
-  legacyParts = '/legacypartsspinner?page=';
-  pageNumber = 1;
-  const app = Vue.createApp({
-    data() {
-      return {
-        finalRows: []
-      };
-    },
-    mounted() {
-      fetch(legacyParts + pageNumber)
-        .then(response => response.json())
-        .then(data => {
-          this.finalRows = data;
-          console.log('parts have been received!')
-        })
-        .catch(error => {
-          console.log('Error:', error);
-        });
-      },
-      methods: {
-        // Increments the page number and fetches the next page
-        subPage() {
-          pageNumber--;
-          // If previous page is 0, set the page to 23 (end of DB)
-          if (pageNumber == 0) {
-            pageNumber = 23;
-          }
-          fetch(legacyParts + pageNumber)
-            .then(response => response.json())
-            .then(data => {
-              this.finalRows = data;
-              console.log(`Page #${pageNumber} sent.`)
-            })
-            .catch(error => {
-              console.log('Error:', error);
-            });
-        },
-        //
-        // Increment the page number and fetches the next page
-        addPage() {
-          pageNumber++;
-          // If next page is the end, send back to the first
-          if (pageNumber == 24) {
-            pageNumber = 1;
-          }    
-          fetch(legacyParts + pageNumber)
-            .then(response => response.json())
-            .then(data => {
-              this.finalRows = data;
-              console.log(`Page #${pageNumber} sent.`)
-            })
-            .catch(error => {
-              console.log('Error:', error);
-            });
-        }
-      }
-    }).mount('#featured');
-  </script>
+  <script src="/featured.js"></script>
 </body>
 
 </html>

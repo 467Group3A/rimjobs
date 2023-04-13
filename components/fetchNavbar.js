@@ -4,7 +4,7 @@ $(document).ready(function () {
     const nav = Vue.createApp({
         data() {
             return {
-                cartTotal: null
+                cartTotal: 0
             }
         },
         template: `
@@ -15,11 +15,11 @@ $(document).ready(function () {
                         <img src="/img/Logo2x.png" class="dropShadow" alt="Rim Jobs" width="320" height="40">
                     </a>
                     <ul class="dropdown-menu UltorBG borderSilver dropShadow">
-                        <li><a class="dropdown-item" href="#"><i class="fa-solid fa-warehouse"></i> Home</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-dharmachakra"></i> View All Products</a></li>
+                        <li><a class="dropdown-item" href="/"><i class="fa-solid fa-warehouse"></i> Home</a></li>
+                        <li><a class="dropdown-item" href="/viewinventory"><i class="fas fa-dharmachakra"></i> View All Products</a></li>
                         <li><a class="dropdown-item" href="#"><i class="fas fa-truck-plane"></i> Find My Order</a></li>
                         <li><a class="dropdown-item" href="#"><i class="fas fa-door-closed"></i> Employee Portal</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-shopping-cart"></i> My Cart</a></li>
+                        <li><a class="dropdown-item" href="/cart"><i class="fas fa-shopping-cart"></i> My Cart</a></li>
                     </ul>
                 </div>
                 <div class="collapse navbar-collapse" id="collapsibleNavId">
@@ -41,7 +41,7 @@ $(document).ready(function () {
                                 <i class="fas fa-door-closed"></i> Employee Portal</a>
                         </li>
                     </ul>
-                    <a class="nav-link justify-content-end Stillwater fs-5 dropShadow" href="#">
+                    <a class="nav-link justify-content-end Stillwater fs-5 dropShadow" href="/cart">
                         <i class="fas fa-shopping-cart"></i> My Cart:
                         <span class="fw-2">({{ cartTotal }})</span> </a>
                 </div>
@@ -49,14 +49,14 @@ $(document).ready(function () {
         </nav>
         `}).mount('#navbar')
 
-        // fetch('/cartTotal')
-        // .then(response => response.json())
-        // .then(data => {
-        //     nav.cartTotal = data.cartTotal;
-        // })
-        // .catch(error => {
-        //     console.error(error);
-        // });
+    // fetch('/cartTotal')
+    // .then(response => response.json())
+    // .then(data => {
+    //     nav.cartTotal = data.cartTotal;
+    // })
+    // .catch(error => {
+    //     console.error(error);
+    // });
 });
 
 jQuery(document).ready(function ($) {
