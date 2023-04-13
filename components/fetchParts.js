@@ -27,6 +27,7 @@ $(document).ready(function () {
                     return part.description.toLowerCase().includes(this.searchFor.toLowerCase());
                 });
 
+                
                 if (this.minPrice !== null && this.maxPrice !== null && this.minPrice !== '' && this.maxPrice !== '') {
                     parts = parts.filter(part => {
                         return parseFloat(part.price) >= parseFloat(this.minPrice) &&
@@ -42,6 +43,7 @@ $(document).ready(function () {
                 .then(response => response.json())
                 .then(data => {
                     this.finalRows = data;
+                    console.log(this.finalRows[0])
                     console.log('parts have been received!')
                 })
                 .catch(error => {
