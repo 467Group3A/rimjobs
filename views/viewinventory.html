@@ -49,13 +49,31 @@
               <td>{{ row.weight }}</td>
               <td>{{ inventory[row.number - 1].quantity }}</td>
               <td>
+                <form class="row px-5" validate="" onsubmit="return false">
+                  <div class="col-3">
+                    <input value="1" class="form-control" min="1" :max="inventory[row.number - 1].quantity" type="number"
+                      :disabled="inventory[row.number - 1].quantity === 0" placeholder="#" v-model="qty"
+                      required="">
+                  </div>
+                  <div class="col-4 p-0 text-center">
+                    
+                    <button v-if="!isInCart(row.number)" class="btn btn-light" style="white-space:nowrap;" type="Submit"
+                      :disabled="inventory[row.number - 1].quantity === 0"
+                      @click="addToCart(row.pictureURL, row.number, row.description, row.weight, row.price, qty)">Add to
+                      Cart</button>
+                      <button v-else class="btn btn-light" style="white-space:nowrap;"><a href="/cart">In Cart</a></button>
+                  </div>
+                </form>
+              </td>
+              <!-- <form validate="">
                 <div class="form-outline">
-                  <input type="number" v-model="qty" :disabled="inventory[row.number - 1].quantity === 0" class="form-control" v-bind:max="inventory[row.number - 1].quantity" min="1" onkeydown="return false"/>
+                  <input type="number" v-model="qty" :disabled="inventory[row.number - 1].quantity === 0"
+                    class="form-control" v-bind:max="inventory[row.number - 1].quantity" min="1" />
                 </div>
               </td>
-              <td><button type="button" class="btn btn-light" :disabled="inventory[row.number - 1].quantity === 0"
+              <td><button type="Submit" class="btn btn-light" :disabled="inventory[row.number - 1].quantity === 0"
                   @click="addToCart(row.pictureURL, row.number, row.description, row.weight, row.price, qty)"
-                  style="width:100%;">Add to Cart</button></td>
+                  style="width:100%;">Add to Cart</button></td> -->
             </tr>
           </tbody>
         </table>

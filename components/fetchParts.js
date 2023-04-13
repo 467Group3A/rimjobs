@@ -37,7 +37,14 @@ $(document).ready(function () {
                 }
 
                 return parts;
-            }
+            },
+            isInCart() {
+                return (itemNumber) => {
+                    // Check if the item is already in the cart
+                    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+                    return cartItems.some((item) => item.item_id === itemNumber);
+                };
+            },
         },
         mounted() {
             Promise.all([
@@ -95,32 +102,43 @@ $(document).ready(function () {
                     });
             },
             addToCart(picture, item_id, item_name, weight, price, quantity) {
-                // Retrieve existing cart items from localStorage or create an empty array
-                let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
-                // Check if the selected item is already in the cart
-                let itemIndex = cartItems.findIndex(item => item.item_id === item_id);
-                if (itemIndex > -1) {
-                    // Update the quantity if the item is already in the cart
-                    cartItems[itemIndex].quantity += quantity;
+                // if quantity sent is higher than the quantity in stock, set quantity to the quantity in stock
+                if (quantity > this.inventory[item_id - 1].quantity || quantity == null || quantity == '' || quantity <= 0) {
+                    // nothing
                 } else {
-                    // Add the selected item to the cart
-                    let newItem = {
-                        pictureURL: picture,
-                        item_id: item_id,
-                        item_name: item_name,
-                        weight: weight,
-                        price: price,
-                        quantity: quantity
-                    };
-                    cartItems.push(newItem);
-                }
+                    // Retrieve existing cart items from localStorage or create an empty array
+                    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-                // Store the updated cart items in localStorage
-                localStorage.setItem('cartItems', JSON.stringify(cartItems));
-                event.target.style.backgroundColor="rgb(34, 139, 34)";
-                event.target.style.color="white";
-                event.target.innerHTML = "Added";
+                    // Check if the selected item is already in the cart
+                    let itemIndex = cartItems.findIndex(item => item.item_id === item_id);
+                    if (itemIndex > -1) {
+                        // Update the quantity if the item is already in the cart
+                        // If the quantity is higher than the quantity in stock, set quantity to the quantity in stock
+                        if (cartItems[itemIndex].quantity + quantity > this.inventory[item_id - 1].quantity) {
+                            cartItems[itemIndex].quantity = this.inventory[item_id - 1].quantity;
+                        }
+                        else {
+                            cartItems[itemIndex].quantity += quantity;
+                        }
+                    } else {
+                        // Add the selected item to the cart
+                        let newItem = {
+                            pictureURL: picture,
+                            item_id: item_id,
+                            item_name: item_name,
+                            weight: weight,
+                            price: price,
+                            quantity: quantity
+                        };
+                        cartItems.push(newItem);
+                    }
+
+                    // Store the updated cart items in localStorage
+                    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                    event.target.style.backgroundColor = "rgb(34, 139, 34)";
+                    event.target.style.color = "white";
+                    event.target.innerHTML = "Added";
+                }
             }
         }
     }).mount('#inventory');

@@ -40,10 +40,12 @@
                             <tr v-for="(item, index) in cartItems" :key="item.item_id">
                                 <td><img v-bind:src="item.pictureURL" width="50" height="50"></td>
                                 <td>{{ item.item_name }}</td>
-                                <td>{{ item.quantity }}x</td>
+                                <td>
+                                    <input type="number" min="1" v-model="item.quantity" @change="updateQuantity(index, item.quantity)">
+                                </td>
                                 <td>${{ item.price }}</td>
-                                <td>{{ item.weight }} lbs</td>
-                                <td>{{ item.quantity * item.price }}</td>
+                                <td>{{ getFixedNerd(item.weight) }} lbs</td>
+                                <td>{{ getFixedNerd(item.quantity * item.price) }}</td>
                                 <td>
                                     <button class="btn btn-light" @click="removeFromCart(index)">Remove</button>
                                 </td>
@@ -53,10 +55,10 @@
                             <tr>
                                 <td></td>
                                 <td><strong>Total Weight:</strong></td>
-                                <td>{{ totalWeight }}</td>
+                                <td>{{ getFixedNerd(totalWeight) }}</td>
                                 <td></td>
                                 <td><strong>Total:</strong></td>
-                                <td>{{ total }}</td>
+                                <td>{{ getFixedNerd(total) }}</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -100,6 +102,16 @@
             removeFromCart(index) {
                 this.cartItems.splice(index, 1);
                 localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+            },
+            updateQuantity(index, quantity) {
+                if (quantity < 1) {
+                    quantity = 1;
+                }
+                this.cartItems[index].quantity = quantity;
+                localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+            },
+            getFixedNerd(number){
+                return number.toFixed(2);
             }
         }
     }).mount('#cart');
