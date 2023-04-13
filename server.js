@@ -7,7 +7,7 @@ var path = require('path');
 const router = express.Router();
 const promise = require('mysql2/promise');
 
-const port = 4050;
+const port = 3001;
 
 const { loadInventory } = require('./services/loadinventory')
 const { legacyConnection, newConnection, initializeNewDB, cleanOrders, getOrderDetails } = require('./services/dbconfig') // Some of these functions will be removed
