@@ -22,40 +22,53 @@
   <header id="navbar"></header>
   <main>
     <div id="app">
-      <h1>Order Details</h1>
       <div v-if="selectedOrder">
-        <p>Order ID: {{ selectedOrder.orderId }}</p>
-        <div v-if="!hideForPrint">
-          <p>Order Status: {{ selectedOrder.order.status }}</p>
-        </div>
-        <p>Order Date: {{ selectedOrder.order.date }}</p>
-        <p>Weight: {{ selectedOrder.order.weight }}lbs</p>
-        <p>Part cost: ${{ selectedOrder.order.amount }}</p>
-        <p>Shipping cost: ${{ selectedOrder.order.shipping }}</p>
-        <p>Total cost: ${{selectedOrder.order.amount + selectedOrder.order.shipping}}</p>
-        <h2>Customer Information:</h2>
-        <p>Name: {{ selectedOrder.order.name}}</p>
-        <p>Email: {{ selectedOrder.order.email}}</p>
-        <p>Address: {{ selectedOrder.order.address }}</p>
-        <h2>Items in the order</h2>
-        <thead>
-          <th>Part Number -</th>
-          <th># of part -</th>
-        </thead>
-        <ul>
-          <li v-for="orderItem in selectedOrder.orderItems" :key="orderItem.id">
-            {{ orderItem.partnumber}} / {{ orderItem.quantity }}
-          </li>
-          </ul>
+        <div v-if="!printingLabel">
+          <h1>Order Details</h1>
+          <p>Order ID: {{ selectedOrder.orderId }}</p>
           <div v-if="!hideForPrint">
-            <label for="select-option">Order status:</label>
-            <select v-model="selectedOption" id="select-option">
-            <option v-for="option in options" :key="option.value" :value="option.value">{{ option.label }}</option>
-            </select>
-            <button @click="updateOrder" :disabled="!selectedOption">Update</button>
-            <div v-if="selectedOrder.order.status == 'Filled'">
-              <button @click="printPage">Print Invoice</button>
+            <p>Order Status: {{ selectedOrder.order.status }}</p>
+          </div>
+          <p>Order Date: {{ selectedOrder.order.date }}</p>
+          <p>Weight: {{ selectedOrder.order.weight }}lbs</p>
+          <p>Part cost: ${{ selectedOrder.order.amount }}</p>
+          <p>Shipping cost: ${{ selectedOrder.order.shipping }}</p>
+          <p>Total cost: ${{selectedOrder.order.amount + selectedOrder.order.shipping}}</p>
+          <h2>Customer Information:</h2>
+          <p>Name: {{ selectedOrder.order.name}}</p>
+          <p>Email: {{ selectedOrder.order.email}}</p>
+          <p>Address: {{ selectedOrder.order.address }}</p>
+          <h2>Items in the order</h2>
+          <thead>
+            <th>Part Number -</th>
+            <th># of part -</th>
+          </thead>
+          <ul>
+            <li v-for="orderItem in selectedOrder.orderItems" :key="orderItem.id">
+              {{ orderItem.partnumber}} / {{ orderItem.quantity }}
+            </li>
+            </ul>
+            <div v-if="!hideForPrint"> <!-- Shows drop down for updating status if its not printing page-->
+              <label for="select-option">Order status:</label>
+              <select v-model="selectedOption" id="select-option">
+              <option v-for="option in options" :key="option.value" :value="option.value">{{ option.label }}</option>
+              </select>
+              <button @click="updateOrder" :disabled="!selectedOption">Update</button>
+              <div v-if="selectedOrder.order.status == 'Filled'">
+                <button @click="printInvoice">Print Invoice</button>
+                <button @click="printLabel">Print Label</button>
+              </div>
             </div>
+          </div> <!-- Section for shipping label printed-->
+          <div v-if="printingLabel" class="col-4 border border-dark">
+            <img src="http://www.api2pdf.com/wp-content/uploads/2018/07/download-1.png" />
+            <!--<h4>Order Information</h4> -->
+            <p class="lead">Order Number: {{ selectedOrder.orderId}}</p>
+            <p>Purchased: {{ selectedOrder.order.date }}</p>
+            <p>Shipped: {{ shippingDate }}</p> <!-- Section for shipping label printed-->
+            <h4>Shipping To</h4>
+            <p>{{ selectedOrder.order.name }}</p>
+            <p>{{ selectedOrder.order.address }}</p>
           </div>
         </div>
     </div>
@@ -84,6 +97,8 @@
         selectedOption: null,
         selectedOrder: null,
         hideForPrint: false,
+        printingLabel: false,
+        shippingDate: '',
         message: ''
       };
     },
@@ -119,7 +134,7 @@
       // Force refresh page
       location.reload()
     },
-    printPage(){
+    printInvoice(){
       
       this.hideForPrint = true;
 
@@ -131,12 +146,34 @@
       // set hideForPrint back to false
       this.hideForPrint = false;
       }, 500);
+    },
+    printLabel(){
+      
+      this.printingLabel = true;
+
+      // wait for 500ms (half a second)
+      setTimeout(() => {
+      // print the page
+      window.print();
+
+      // set hideForPrint back to false
+      this.printingLabel = false;
+      }, 500);
     }
   },
     mounted() {
       const searchParams = new URLSearchParams(window.location.search);
       const orderId = searchParams.get('id');
       this.getOrderDetails(orderId)
+      const d = new Date();
+      const day = d.getDate();
+      const month = d.getMonth() + 1;
+      const year = d.getFullYear();
+      const hour = d.getHours();
+      const minutes = d.getMinutes();
+      const seconds = d.getSeconds();
+      this.shippingDate = `${year}-${month}-${day} ${hour}:${minutes}:${seconds}`
+
     }
   }).mount('#app');
 
