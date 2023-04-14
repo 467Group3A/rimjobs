@@ -41,7 +41,7 @@ $(document).ready(function () {
                                 <i class="fas fa-door-closed"></i> Employee Portal</a>
                         </li>
                     </ul>
-                    <a class="nav-link justify-content-end Stillwater fs-5 dropShadow" href="#">
+                    <a class="nav-link justify-content-end Stillwater fs-5 dropShadow" href="/cart">
                         <i class="fas fa-shopping-cart"></i> My Cart:
                         <span class="fw-2">({{ cartTotal }})</span> </a>
                 </div>
@@ -49,14 +49,14 @@ $(document).ready(function () {
         </nav>
         `}).mount('#navbar')
 
-        // fetch('/cartTotal')
-        // .then(response => response.json())
-        // .then(data => {
-        //     nav.cartTotal = data.cartTotal;
-        // })
-        // .catch(error => {
-        //     console.error(error);
-        // });
+        fetch('/cartTotal')
+        .then(response => response.json())
+        .then(data => {
+            nav.cartTotal = data.cartTotal;
+        })
+        .catch(error => {
+            console.error(error);
+        });
 });
 
 jQuery(document).ready(function ($) {
