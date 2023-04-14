@@ -137,7 +137,7 @@ app.get('/replenish', (req, res) => {
 })
 
 app.get('/cart', (req, res) => {
-  res.sendFile(__dirname + "/views/davidcart.html");
+  res.sendFile(__dirname + "/views/cart.html");
 })
 
 

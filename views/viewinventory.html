@@ -59,7 +59,7 @@
                     
                     <button v-if="!isInCart(row.number)" class="btn btn-light" style="white-space:nowrap;" type="Submit"
                       :disabled="inventory[row.number - 1].quantity === 0"
-                      @click="addToCart(row.pictureURL, row.number, row.description, row.weight, row.price, qty)">Add to
+                      @click="addToCart(row.pictureURL, row.number, row.description, row.weight, inventory[row.number - 1].quantity, row.price, qty)">Add to
                       Cart</button>
                       <button v-else class="btn btn-light" style="white-space:nowrap;"><a href="/cart">In Cart</a></button>
                   </div>

@@ -101,7 +101,7 @@ $(document).ready(function () {
                         console.log('Error:', error);
                     });
             },
-            addToCart(picture, item_id, item_name, weight, price, quantity) {
+            addToCart(picture, item_id, item_name, weight, price, max, quantity) {
                 // if quantity sent is higher than the quantity in stock, set quantity to the quantity in stock
                 if (quantity > this.inventory[item_id - 1].quantity || quantity == null || quantity == '' || quantity <= 0) {
                     // nothing
@@ -128,6 +128,7 @@ $(document).ready(function () {
                             item_name: item_name,
                             weight: weight,
                             price: price,
+                            max: this.inventory[item_id - 1].quantity,
                             quantity: quantity
                         };
                         cartItems.push(newItem);
