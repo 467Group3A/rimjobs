@@ -16,9 +16,12 @@ $(document).ready(function () {
         data() {
             return {
                 finalRows: [],
+                inventory: [],
+                newParts: [],
                 searchFor: '',
                 minPrice: null,
-                maxPrice: null
+                maxPrice: null,
+                qty: []
             };
         },
         computed: {
@@ -36,18 +39,30 @@ $(document).ready(function () {
                 }
 
                 return parts;
-            }
+            },
+            isInCart() {
+                return (itemNumber) => {
+                    // Check if the item is already in the cart
+                    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+                    return cartItems.some((item) => item.item_id === itemNumber);
+                };
+            },
         },
         mounted() {
-            fetch(endpoint + pageNumber + perQuery + perPage)
-                .then(response => response.json())
-                .then(data => {
-                    this.finalRows = data;
-                    console.log(this.finalRows[0])
-                    console.log('parts have been received!')
+            // The Spaghetti factory - 4/14/23
+            for (let i = 1; i < 31; i++) {
+                this.qty.push(1);
+            }
+            Promise.all([
+                fetch(endpoint + pageNumber + perQuery + perPage).then((res) => res.json()),
+                fetch('/inventory').then((res) => res.json()),
+            ])
+                .then(([legacyPartsResponse, inventoryResponse]) => {
+                    this.finalRows = legacyPartsResponse;
+                    this.inventory = inventoryResponse;
                 })
-                .catch(error => {
-                    console.log('Error:', error);
+                .catch((error) => {
+                    console.error(error);
                 });
         },
         methods: {
@@ -60,7 +75,7 @@ $(document).ready(function () {
             // Increments the page number and fetches the next page
             subPage() {
                 // If youre on the first page, theres nowhere else to go.
-                if (pageNumber != 1){
+                if (pageNumber != 1) {
                     pageNumber--;
                 }
                 fetch(endpoint + pageNumber + perQuery + perPage)
@@ -71,6 +86,10 @@ $(document).ready(function () {
                     .catch(error => {
                         console.log('Error:', error);
                     });
+                    this.qty = [];
+                    for (let i = 1; i < 31; i++) {
+                        this.qty.push(1);
+                    }
             },
             //
             // Increment the page number and fetches the next page
@@ -91,6 +110,52 @@ $(document).ready(function () {
                     .catch(error => {
                         console.log('Error:', error);
                     });
+                    // reset qty array
+                    this.qty = [];
+                    for (let i = 1; i < 31; i++) {
+                        this.qty.push(1);
+                    }
+            },
+            addToCart(picture, item_id, item_name, weight, price, max, quantity) {
+                // if quantity sent is higher than the quantity in stock, set quantity to the quantity in stock
+                if (quantity > this.inventory[item_id - 1].quantity || quantity == null || quantity == '' || quantity <= 0) {
+                    // nothing
+                } else {
+                    // Retrieve existing cart items from localStorage or create an empty array
+                    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+                    // Check if the selected item is already in the cart
+                    let itemIndex = cartItems.findIndex(item => item.item_id === item_id);
+                    if (itemIndex > -1) {
+                        // Update the quantity if the item is already in the cart
+                        // If the quantity is higher than the quantity in stock, set quantity to the quantity in stock
+                        if (cartItems[itemIndex].quantity + quantity > this.inventory[item_id - 1].quantity) {
+                            cartItems[itemIndex].quantity = this.inventory[item_id - 1].quantity;
+                        }
+                        else {
+                            cartItems[itemIndex].quantity += quantity;
+                        }
+                    } else {
+                        // Add the selected item to the cart
+                        let newItem = {
+                            pictureURL: picture,
+                            item_id: item_id,
+                            item_name: item_name,
+                            weight: weight,
+                            price: price,
+                            max: this.inventory[item_id - 1].quantity,
+                            quantity: quantity
+                        };
+                        cartItems.push(newItem);
+                    }
+
+                    // Store the updated cart items in localStorage
+                    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                    event.target.style.backgroundColor = "rgb(25, 135, 84)";
+                    event.target.style.borderColor = "rgb(25, 135, 84)";
+                    event.target.style.color = "white";
+                    event.target.innerHTML = "Added";
+                }
             }
         }
     }).mount('#inventory');

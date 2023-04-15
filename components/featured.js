@@ -22,6 +22,9 @@ $(document).ready(function () {
         });
       },
       methods: {
+        capitalize(str) {
+            return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+        },
         // Increments the page number and fetches the next page
         subPage() {
           pageNumber--;

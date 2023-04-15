@@ -7,7 +7,7 @@ var path = require('path');
 const router = express.Router();
 const promise = require('mysql2/promise');
 
-const port = 3600;
+const port = 5050;
 
 
 const { loadInventory } = require('./services/loadinventory')
@@ -156,6 +156,13 @@ app.get('/replenish', (req, res) => {
 // If url is /replenish, send the replenish.html file
 app.get('/shippingfees', (req, res) => {
   res.sendFile(__dirname + "/views/shippingfees.html");
+  
+app.get('/cart', (req, res) => {
+  res.sendFile(__dirname + "/views/cart.html");
+})
+
+app.get('/credits', (req, res) => {
+  res.sendFile(__dirname + "/views/credits.html");
 })
 
 app.get('/legacyparts', async (req, res) => {
@@ -170,6 +177,21 @@ app.get('/legacyparts', async (req, res) => {
     } else {
       console.log(`--- FETCH ${perPage} ITEMS: OFFSET ${offset} ---`);
       res.send(results);
+    }
+  });
+});
+
+app.get('/inventory', (req, res) => {
+
+  const db = newConnection()
+
+  db.all('SELECT * FROM inventory', (err, rows) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send('Error retrieving data from database');
+    } else {
+      console.log('--- FETCHED INVENTORY ---');
+      res.send(rows);
     }
   });
 });
