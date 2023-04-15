@@ -442,30 +442,63 @@ app.post('/api/del-shipping-fee', async (req, res) => {
 
 // Endpoint for sending post to 3rd party CC authorizor
 app.post('/api/creditcardauth', (req, res) => {
-  const formData = req.body
+  const recievedData = req.body
+  const formData = recievedData.formData
+  const customerData = recievedData.customer
+  const orderData = recievedData.orderInfo
   const url = "http://blitz.cs.niu.edu/CreditCard/"
 
+  let totalPrice = 0;
+  let totalWeight = 0;
+
+  console.log("--- FORM DATA ---")
+  console.log(formData)
+  console.log("--- ORDER DATA ---")
+  console.log(orderData)
+  console.log("--- CUSTOMER DATA ---")
+  console.log(customerData)
+  console.log("--- END ---")
+  //
+  // This is commented out for now while I work on the database end of things
+  //
   // Send post request to ege's cc auth
-  axios.post(url, formData, {
-    headers: {
-      'Content-type': 'application/json',
-      'Accept': 'application/json'
-    },
+  // axios.post(url, formData, {
+  //   headers: {
+  //     'Content-type': 'application/json',
+  //     'Accept': 'application/json'
+  //   },
+  // })
+  //   .then((response) => {
+  //     console.log(response.data)
+  //     // If there is an error from credit card auth, send to user.
+  //     if ('errors' in response.data) {
+  //       res.status(500).json(response.data)
+  //     }
+  //     else { // Otherwise send the whole json back as confirmation ( for now )
+  //       res.status(200).json(response.data)
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     console.log(error)
+  //     res.status(501).send("An error occured with third party credit card authorization!")
+  //   });
+
+  // INSERT INTO orders (name, email, amount, weight, shipping, address, status) VALUES ('John Doe', 'john@example.com', 50.0, 3.0, 5.0, '123 Main St, Anytown, USA', 'In Progress')
+  // INSERT INTO orderitems (orderid, partnumber, quantity) VALUES (1, 1, 2)
+  for (let i = 0; i < orderData.length; i++) {
+    const item = orderData[i]
+    totalPrice += item.price * item.quantity
+    totalWeight += item.weight * item.quantity
+  }
+
+
+  const db = newConnection()
+  db.run('INSERT INTO orders (id, name, email, amount, weight, shipping, address, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [formData.trans, customerData.name, customerData.email, totalPrice, totalWeight, 0, customerData.address, "In Progress"], (err) => {
+    if (err) {
+      console.log(err)
+      res.status(500).json({ message: "An error occured with the database." })
+    }
   })
-    .then((response) => {
-      console.log(response.data)
-      // If there is an error from credit card auth, send to user.
-      if ('errors' in response.data) {
-        res.status(500).json(response.data)
-      }
-      else { // Otherwise send the whole json back as confirmation ( for now )
-        res.status(200).json(response.data)
-      }
-    })
-    .catch((error) => {
-      console.log(error)
-      res.status(501).send("An error occured with third party credit card authorization!")
-    });
 });
 
 app.use((err, req, res, next) => {

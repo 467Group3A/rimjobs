@@ -20,7 +20,7 @@ CREATE TABLE inventory (
 
 cursor.execute("""
 CREATE TABLE orders (
-    id INTEGER PRIMARY KEY,
+    id TEXT PRIMARY KEY,
     name TEXT NOT NULL,
     email TEXT NOT NULL,
     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -33,7 +33,7 @@ CREATE TABLE orders (
 
 cursor.execute("""
 CREATE TABLE orderitems (
-    orderid INTEGER NOT NULL,
+    orderid TEXT NOT NULL,
     partnumber INTEGER NOT NULL,
     quantity INTEGER NOT NULL,
     PRIMARY KEY (orderid, partnumber),
@@ -57,13 +57,13 @@ cursor.execute("INSERT INTO orders (name, email, amount, weight, shipping, addre
 cursor.execute("INSERT INTO orders (name, email, amount, weight, shipping, address, status) VALUES ('Jane Smith', 'jane@example.com', 75.0, 6.0, 8.0, '456 Oak St, Anytown, USA', 'Filled');")
 
 
-cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES (1, 1, 2);")
-cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES (1, 2, 1);")
-cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES (2, 1, 4);")
-cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES (2, 3, 2);")
-cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES (3, 120, 1);")
-cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES (3, 45, 5);")
-cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES (3, 66, 3);")
+cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES ('1234', 1, 2);")
+cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES ('1234', 2, 1);")
+cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES ('2222', 1, 4);")
+cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES ('2222', 3, 2);")
+cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES ('3333', 120, 1);")
+cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES ('3333', 45, 5);")
+cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES ('3333', 66, 3);")
 
 con.commit()
 con.close()

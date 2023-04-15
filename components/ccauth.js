@@ -11,6 +11,15 @@ const app = Vue.createApp({
         exp: '',
         amount: ''
       },
+      customer: {
+        name: '',
+        email: '',
+        address: '',
+        city: '',
+        state: '',
+        zip: '',
+      },
+      orderInfo: '',
       month: 1,
       year: 2021,
       message: '',
@@ -29,12 +38,22 @@ const app = Vue.createApp({
       // get the expiration date
       this.formData.exp = this.month + '/' + this.year;
 
+      this.customer.name = this.formData.name;
+      
+      this.orderInfo = JSON.parse(localStorage.getItem('cartItems'));
+
+      let dataPacket = {
+        formData: this.formData,
+        customer: this.customer,
+        orderInfo: this.orderInfo
+      }
+
       fetch('/api/creditcardauth', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(this.formData)
+        body: JSON.stringify(dataPacket)
       })
         .then(response => {
           if (response.status === 500) {
@@ -58,7 +77,6 @@ const app = Vue.createApp({
       // pad with extra random digit
       now += now + Math.floor(Math.random() * 10)
       // format
-      console.log([now.slice(0, 4), now.slice(4, 10), now.slice(10, 14)].join('-'));
       return [now.slice(0, 4), now.slice(4, 10), now.slice(10, 14)].join('-');
     },
   }

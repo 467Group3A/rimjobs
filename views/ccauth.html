@@ -28,28 +28,34 @@
             <h3 style="margin-top: 20px;">Shipping Details</h3>
           </center>
           <div class="row gx-3">
-            <div class="col-12">
+            <div class="col-6">
               <div class="d-flex flex-column">
                 <p class="text mb-1">Full Name</p>
                 <input class="form-control mb-3" type="text" placeholder="John Doe" v-model="formData.name" required>
               </div>
             </div>
+            <div class="col-6">
+              <div class="d-flex flex-column">
+                <p class="text mb-1">Email Address</p>
+                <input class="form-control mb-3" type="text" placeholder="john@mail.com" v-model="customer.email" required>
+              </div>
+            </div>
             <div class="col-12">
               <div class="d-flex flex-column">
                 <p class="text mb-1">Address</p>
-                <input class="form-control mb-3" type="text" placeholder="123 Main Street" v-model="" required>
+                <input class="form-control mb-3" type="text" placeholder="123 Main Street" v-model="customer.address" required>
               </div>
             </div>
             <div class="col-4">
               <div class="d-flex flex-column">
                 <p class="text mb-1">City</p>
-                <input class="form-control mb-3" type="text" placeholder="New York" v-model="" required>
+                <input class="form-control mb-3" type="text" placeholder="New York" v-model="customer.city" required>
               </div>
             </div>
             <div class="col-4">
               <div class="d-flex flex-column">
                 <p class="text mb-1">State</p>
-                <select class="form-select" required>
+                <select class="form-select" v-model="customer.state" required>
                   <option value="AL">Alabama</option>
                   <option value="AK">Alaska</option>
                   <option value="AZ">Arizona</option>
@@ -107,7 +113,7 @@
             <div class="col-4">
               <div class="d-flex flex-column">
                 <p class="text mb-1">Zip Code</p>
-                <input class="form-control mb-3" type="text" placeholder="12345" v-model="" required>
+                <input class="form-control mb-3" type="text" placeholder="12345" v-model="customer.zip" required>
               </div>
             </div>
             <center>
