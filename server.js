@@ -450,6 +450,7 @@ app.post('/api/creditcardauth', (req, res) => {
 
   let totalPrice = 0;
   let totalWeight = 0;
+  let shippingCost = 0;
 
   console.log("--- FORM DATA ---")
   console.log(formData)
@@ -491,14 +492,25 @@ app.post('/api/creditcardauth', (req, res) => {
     totalWeight += item.weight * item.quantity
   }
 
+  // TODO: SHIPPING IS SET TO 0 FOR NOW, NEED TO CALCULATE SHIPPING BASED ON WEIGHT
 
-  const db = newConnection()
-  db.run('INSERT INTO orders (id, name, email, amount, weight, shipping, address, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [formData.trans, customerData.name, customerData.email, totalPrice, totalWeight, 0, customerData.address, "In Progress"], (err) => {
+  const db = newConnection()  
+  db.run('INSERT INTO orders (id, name, email, amount, weight, shipping, address, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [formData.trans, customerData.name, customerData.email, totalPrice, totalWeight, customerData.weightCost, customerData.address, "In Progress"], (err) => {
     if (err) {
       console.log(err)
-      res.status(500).json({ message: "An error occured with the database." })
     }
   })
+
+  for (let i = 0; i < orderData.length; i++) {
+    let item = orderData[i]
+    db.run('INSERT INTO orderitems (orderid, partnumber, quantity) VALUES (?, ?, ?)', [formData.trans, item.item_id, item.quantity], (err) => {
+      if (err) {
+        console.log(err)
+      }
+    })
+  }
+  db.close();
+
 });
 
 app.use((err, req, res, next) => {
