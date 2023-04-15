@@ -7,7 +7,8 @@ var path = require('path');
 const router = express.Router();
 const promise = require('mysql2/promise');
 
-const port = 3001;
+const port = 3600;
+
 
 const { loadInventory } = require('./services/loadinventory')
 const { legacyConnection, newConnection, initializeNewDB, cleanOrders, getOrderDetails } = require('./services/dbconfig') // Some of these functions will be removed
@@ -51,34 +52,35 @@ connection.connect((error) => {
   }
 });
 
-// Get all info from database
-function getAllParts() {
-  return new Promise((resolve, reject) => {
-    connection.query('SELECT * FROM parts', function (error, results, fields) {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(results);
-      }
-    });
-  });
-}
+// // Get all info from database
+// function getAllParts() {
+//   return new Promise((resolve, reject) => {
+//     connection.query('SELECT * FROM parts', function (error, results, fields) {
+//       if (error) {
+//         reject(error);
+//       } else {
+//         resolve(results);
+//       }
+//     });
+//   });
+// }
 
 //endpoint for parts page
-app.get('/parts', async (req, res) => {
-  try {
-    const results = await getAllParts();
-    const cartTotal = products.length;
-    res.render('parts', { parts: results, cartTotal, cartItems: products });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error retrieving parts');
-  }
-});
+// app.get('/parts', async (req, res) => {
+//   try {
+//     const results = await getAllParts();
+//     const cartTotal = products.length;
+//     res.render('parts', { parts: results, cartTotal, cartItems: products });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send('Error retrieving parts');
+//   }
+// });
 
-//parts endpoint
 const products = [];
-app.post('/parts', (req, res) => {
+//viewinventory post
+app.post('/viewinventory', (req, res) => {
+
   const number = req.body.number;
   const description = req.body.description;
   const price = req.body.price;
@@ -96,9 +98,24 @@ app.post('/parts', (req, res) => {
     quantity: quantity
   });
 
-  res.redirect('/parts');
+  res.redirect('/viewinventory');
 });
 
+//cart number total
+app.get('/cartTotal', (req, res) => {
+  const cartTotal = products.length;
+  res.json({ cartTotal });
+});
+
+//endpoint to send info of items in cart 
+app.get('/cartItems', (req, res) => {
+  res.send(JSON.stringify(products));
+});
+
+//if url is /cart, send to cart.html file
+app.get('/cart', (req, res) => {
+  res.sendFile(__dirname + "/views/cart.html");
+});
 
 // If url is /, send the index.html file
 app.get("/", (req, res) => {
