@@ -136,6 +136,11 @@ app.get('/replenish', (req, res) => {
   res.sendFile(__dirname + "/views/replenish.html");
 })
 
+// If url is /replenish, send the replenish.html file
+app.get('/shippingfees', (req, res) => {
+  res.sendFile(__dirname + "/views/shippingfees.html");
+})
+
 app.get('/legacyparts', async (req, res) => {
   const perPage = parseInt(req.query.per) || 10;
   let page = parseInt(req.query.page) || 1;
@@ -338,6 +343,60 @@ app.post('/api/replenish/removal', async (req, res) => {
     }
   );
 
+  db.close()
+});
+
+// Grab shipping brackets from local db
+app.get('/api/get-shipping-fees', async (req, res) => { 
+
+  const db = newConnection()
+  db.all('SELECT * FROM brackets ORDER BY weight ASC', (err, rows) => {
+    if(err) {
+      console.log(err)
+    }
+    else {
+      res.json(rows)
+    }
+    db.close()
+  })
+})
+
+// Update weight brackets
+app.post('/api/add-shipping-fee', async (req, res) => {
+  const weight = req.body.weight
+  const cost = req.body.cost
+
+  const db = newConnection()
+  db.run('INSERT INTO brackets (weight, cost) VALUES (?, ?)', weight, cost, (err) => {
+    if(err) {
+      console.log(err)
+      res.status(500).end() // if theres an error, it obviosuly will show when updating on front end but also could make popup
+    } // with that same reasoning there is no need for a else, the admin will see the update or error popup.
+    else {
+      console.log(`Added weight bracket ${weight}lbs costs $${cost}`)
+      res.status(200).end() // Send success status to front end
+    }
+  })
+
+  db.close()
+});
+
+// Remove weight bracket
+app.post('/api/del-shipping-fee', async (req, res) => {
+  const cost = req.body.cost
+  const weight = req.body.weight
+
+  const db = newConnection()
+  db.run(`DELETE FROM brackets WHERE cost = ? and weight = ?`, [cost, weight], (err) => {
+    if(err) {
+      console.log(err)
+      res.status(500).end() // again if its not removed it will auto update to user, but can add error
+    }  // checking w front end by sending 500
+    else {
+      console.log(`Removed weight bracket ${weight}lbs that costs $${cost}`)
+      res.status(200).end() // all good, send status back to front end
+    }
+  })
   db.close()
 });
 
