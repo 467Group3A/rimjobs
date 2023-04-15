@@ -7,7 +7,7 @@ var path = require('path');
 const router = express.Router();
 const promise = require('mysql2/promise');
 
-const port = 3600;
+const port = 5050;
 
 const { loadInventory } = require('./services/loadinventory')
 const { legacyConnection, newConnection, initializeNewDB, cleanOrders, getOrderDetails } = require('./services/dbconfig') // Some of these functions will be removed
@@ -152,6 +152,14 @@ app.get('/replenish', (req, res) => {
   res.sendFile(__dirname + "/views/replenish.html");
 })
 
+app.get('/cart', (req, res) => {
+  res.sendFile(__dirname + "/views/cart.html");
+})
+
+app.get('/credits', (req, res) => {
+  res.sendFile(__dirname + "/views/credits.html");
+})
+
 app.get('/legacyparts', async (req, res) => {
   const perPage = parseInt(req.query.per) || 10;
   let page = parseInt(req.query.page) || 1;
@@ -164,6 +172,21 @@ app.get('/legacyparts', async (req, res) => {
     } else {
       console.log(`--- FETCH ${perPage} ITEMS: OFFSET ${offset} ---`);
       res.send(results);
+    }
+  });
+});
+
+app.get('/inventory', (req, res) => {
+
+  const db = newConnection()
+
+  db.all('SELECT * FROM inventory', (err, rows) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send('Error retrieving data from database');
+    } else {
+      console.log('--- FETCHED INVENTORY ---');
+      res.send(rows);
     }
   });
 });

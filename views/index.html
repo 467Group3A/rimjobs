@@ -116,10 +116,10 @@
                   <div v-for="row in finalRows" class="col">
                     <div class="card text-center StillwaterBG">
                       <div class="card-header">
-                        <h4 class="card-title textCutoff Ultor fw-bold" v-bind:title=capitalize(row.description)>{{capitalize(row.description)}}</h4>
+                        <h4 class="card-title textCutoff Ultor fw-bold" v-bind:title="capitalize(row.description)">{{capitalize(row.description)}}</h4>
                       </div>
                       <div class="card-body StillwaterBG">
-                        <img v-bind:src="row.pictureURL" v-bind:title=capitalize(row.description) class="borderSilver dropShadow" style="margin-bottom:15px;">
+                        <img v-bind:src="row.pictureURL" v-bind:title="capitalize(row.description)" class="borderSilver dropShadow" style="margin-bottom:15px;">
                         <div class="d-flex justify-content-around">
                             <span class="badge rounded-pill UltorBG Stillwater lineHeight2 fs-6">${{row.price}}</span>
                             <a href="#" class="btn btn-rim">Add To Cart</a>
@@ -134,7 +134,7 @@
                   <div v-for="row in finalRows" class="col">
                     <div class="card text-center StillwaterBG">
                       <div class="card-header">
-                        <h4 class="card-title textCutoff Ultor fw-bold" v-bind:title=capitalize(row.description)>{{capitalize(row.description)}}</h4>
+                        <h4 class="card-title textCutoff Ultor fw-bold" v-bind:title="row.description">{{capitalize(row.description)}}</h4>
                       </div>
                       <div class="card-body StillwaterBG">
                         <img v-bind:src="row.pictureURL" v-bind:title=capitalize(row.description) class="borderSilver dropShadow" style="margin-bottom:15px;">
@@ -262,7 +262,6 @@
       <hr class="featurette-divider">
       <!-- /END THE FEATURETTES -->
     </div>
-
   </main>
   <footer>
     <!-- place footer here -->
