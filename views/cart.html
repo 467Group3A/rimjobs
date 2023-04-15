@@ -54,7 +54,7 @@
                     </table>
                     <p><strong>Total Weight:</strong> {{ getFixedNerd(totalWeight) }}</p>
                     <p><strong>Total:</strong> {{ getFixedNerd(total) }}</p>
-                    <button class="btn btn-light"><a href="/ccauth">Checkout</a></button>
+                    <button class="btn btn-light"><a @click="checkout" href="/ccauth">Checkout</a></button>
                 </div>
             </div>
         </div>
@@ -105,6 +105,12 @@
             }
         },
         methods: {
+            checkout() {
+                let total = this.cartItems.reduce((total, item) => {
+                    return total + (item.quantity * item.price);
+                }, 0);
+                localStorage.setItem('totalCost', JSON.stringify(total));
+            },
             removeFromCart(index) {
                 this.cartItems.splice(index, 1);
                 localStorage.setItem('cartItems', JSON.stringify(this.cartItems));

@@ -123,7 +123,7 @@
             <div class="col-3">
               <div class="d-flex flex-column">
                 <p class="text mb-1">Month</p>
-                <select class="form-select" required>
+                <select class="form-select" v-model="month" required>
                   <option value="01">January</option>
                   <option value="02">February </option>
                   <option value="03">March</option>
@@ -142,7 +142,7 @@
             <div class="col-3">
               <div class="d-flex flex-column">
                 <p class="text mb-1">Year</p>
-                <select class="form-select" required>
+                <select class="form-select" v-model="year" required>
                   <option value="2023"> 2023</option>
                   <option value="2024"> 2024</option>
                   <option value="2025"> 2025</option>
@@ -157,13 +157,12 @@
             <div class="col-6">
               <div class="d-flex flex-column">
                 <p class="text mb-1">CVV/CVC</p>
-                <input class="form-control mb-3 pt-2 " type="password" v-model="formData.cc" required placeholder="***">
+                <input class="form-control mb-3 pt-2 " type="password" required placeholder="***">
               </div>
             </div>
             <div class="d-grid gap-2">
-              <button type="submit" class="btn" style="background-color: #824538; color: white;">Pay <span class="fas fa-arrow-right"></span></button>
+              <button @click="submitForm" class="btn" style="background-color: #824538; color: white;">Pay <span class="fas fa-arrow-right"></span></button>
             </div>
-            <button @click="orderNumber">Random Order Number</button>
             <h3>{{ message }}</h3>
             <div v-if="errormessage">
               <ul>
