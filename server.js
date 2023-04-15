@@ -11,7 +11,7 @@ const LocalStorage = require('node-localstorage').LocalStorage;
 
 const localStorage = new LocalStorage('./localStorage');
 
-const port = 3600;
+const port = 3500;
 
 const { loadInventory } = require('./services/loadinventory')
 const { legacyConnection, newConnection, initializeNewDB, cleanOrders, getOrderDetails } = require('./services/dbconfig') // Some of these functions will be removed
@@ -68,15 +68,22 @@ app.post('/viewinventory', (req, res) => {
   const image = req.body.image;
   const quantity = req.body.quantity;
 
-  // add the product to the products array
-  products.push({
-    number: number,
-    description: description,
-    price: price,
-    weight: weight,
-    image: image,
-    quantity: quantity
-  });
+  //check to see if product is in cart already, if it is append quanti
+  const existingProductIndex = products.findIndex(product => product.number === number);
+  if (existingProductIndex !== -1) {
+    products[existingProductIndex].quantity = Number(products[existingProductIndex].quantity) + Number(quantity);
+  } else {
+
+    // add the product to the products array
+    products.push({
+      number: number,
+      description: description,
+      price: price,
+      weight: weight,
+      image: image,
+      quantity: Number(quantity)
+    });
+  }
 
   //localstorage var
   req.app.locals.products = products;
