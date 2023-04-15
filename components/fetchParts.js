@@ -30,6 +30,7 @@ $(document).ready(function () {
                     return part.description.toLowerCase().includes(this.searchFor.toLowerCase());
                 });
 
+                
                 if (this.minPrice !== null && this.maxPrice !== null && this.minPrice !== '' && this.maxPrice !== '') {
                     parts = parts.filter(part => {
                         return parseFloat(part.price) >= parseFloat(this.minPrice) &&
