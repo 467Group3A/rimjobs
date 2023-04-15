@@ -6,6 +6,10 @@ const bodyParser = require('body-parser');
 var path = require('path');
 const router = express.Router();
 const promise = require('mysql2/promise');
+const LocalStorage = require('node-localstorage').LocalStorage;
+
+
+const localStorage = new LocalStorage('./localStorage');
 
 const port = 3600;
 
@@ -51,32 +55,9 @@ connection.connect((error) => {
   }
 });
 
-// // Get all info from database
-// function getAllParts() {
-//   return new Promise((resolve, reject) => {
-//     connection.query('SELECT * FROM parts', function (error, results, fields) {
-//       if (error) {
-//         reject(error);
-//       } else {
-//         resolve(results);
-//       }
-//     });
-//   });
-// }
-
-//endpoint for parts page
-// app.get('/parts', async (req, res) => {
-//   try {
-//     const results = await getAllParts();
-//     const cartTotal = products.length;
-//     res.render('parts', { parts: results, cartTotal, cartItems: products });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send('Error retrieving parts');
-//   }
-// });
-
+//array to store products added to cart
 const products = [];
+
 //viewinventory post
 app.post('/viewinventory', (req, res) => {
 
@@ -97,18 +78,24 @@ app.post('/viewinventory', (req, res) => {
     quantity: quantity
   });
 
+  //localstorage var
+  req.app.locals.products = products;
+
   res.redirect('/viewinventory');
 });
 
+
 //cart number total
 app.get('/cartTotal', (req, res) => {
-  const cartTotal = products.length;
+  const cartTotal = products.length;//Gets total amount of products in cart
+  localStorage.setItem('cartTotal', cartTotal);//store cartTotal as localstorage var
   res.json({ cartTotal });
 });
 
 //endpoint to send info of items in cart 
 app.get('/cartItems', (req, res) => {
-  res.send(JSON.stringify(products));
+  // res.send(JSON.stringify(products));
+  res.send(JSON.stringify(req.app.locals.products));
 });
 
 //if url is /cart, send to cart.html file
