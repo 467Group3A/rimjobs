@@ -91,6 +91,18 @@ app.post('/viewinventory', (req, res) => {
   res.redirect('/viewinventory');
 });
 
+app.post('/cart', (req, res) => {
+  const number = req.body.number;
+  const quantity = req.body.quantity;
+
+  const existingProductIndex = products.findIndex(product => product.number === number);
+  if (existingProductIndex !== -1) {
+    // update the quantity of the existing product
+    products[existingProductIndex].quantity = Number(quantity);
+  }
+
+  res.redirect('/cart');
+});
 
 //cart number total
 app.get('/cartTotal', (req, res) => {
