@@ -157,7 +157,7 @@ app.get('/replenish', (req, res) => {
 app.get('/shippingfees', (req, res) => {
   res.sendFile(__dirname + "/views/shippingfees.html");
 })
-  
+
 app.get('/cart', (req, res) => {
   res.sendFile(__dirname + "/views/cart.html");
 })
@@ -387,11 +387,11 @@ app.post('/api/replenish/removal', async (req, res) => {
 });
 
 // Grab shipping brackets from local db
-app.get('/api/get-shipping-fees', async (req, res) => { 
+app.get('/api/get-shipping-fees', async (req, res) => {
 
   const db = newConnection()
   db.all('SELECT * FROM brackets ORDER BY weight ASC', (err, rows) => {
-    if(err) {
+    if (err) {
       console.log(err)
     }
     else {
@@ -408,7 +408,7 @@ app.post('/api/add-shipping-fee', async (req, res) => {
 
   const db = newConnection()
   db.run('INSERT INTO brackets (weight, cost) VALUES (?, ?)', weight, cost, (err) => {
-    if(err) {
+    if (err) {
       console.log(err)
       res.status(500).end() // if theres an error, it obviosuly will show when updating on front end but also could make popup
     } // with that same reasoning there is no need for a else, the admin will see the update or error popup.
@@ -428,7 +428,7 @@ app.post('/api/del-shipping-fee', async (req, res) => {
 
   const db = newConnection()
   db.run(`DELETE FROM brackets WHERE cost = ? and weight = ?`, [cost, weight], (err) => {
-    if(err) {
+    if (err) {
       console.log(err)
       res.status(500).end() // again if its not removed it will auto update to user, but can add error
     }  // checking w front end by sending 500
@@ -452,65 +452,49 @@ app.post('/api/creditcardauth', (req, res) => {
   let totalWeight = 0;
   let shippingCost = 0;
 
-  console.log("--- FORM DATA ---")
-  console.log(formData)
-  console.log("--- ORDER DATA ---")
-  console.log(orderData)
-  console.log("--- CUSTOMER DATA ---")
-  console.log(customerData)
-  console.log("--- END ---")
-  //
-  // This is commented out for now while I work on the database end of things
-  //
   // Send post request to ege's cc auth
-  // axios.post(url, formData, {
-  //   headers: {
-  //     'Content-type': 'application/json',
-  //     'Accept': 'application/json'
-  //   },
-  // })
-  //   .then((response) => {
-  //     console.log(response.data)
-  //     // If there is an error from credit card auth, send to user.
-  //     if ('errors' in response.data) {
-  //       res.status(500).json(response.data)
-  //     }
-  //     else { // Otherwise send the whole json back as confirmation ( for now )
-  //       res.status(200).json(response.data)
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     console.log(error)
-  //     res.status(501).send("An error occured with third party credit card authorization!")
-  //   });
-
-  // INSERT INTO orders (name, email, amount, weight, shipping, address, status) VALUES ('John Doe', 'john@example.com', 50.0, 3.0, 5.0, '123 Main St, Anytown, USA', 'In Progress')
-  // INSERT INTO orderitems (orderid, partnumber, quantity) VALUES (1, 1, 2)
-  for (let i = 0; i < orderData.length; i++) {
-    const item = orderData[i]
-    totalPrice += item.price * item.quantity
-    totalWeight += item.weight * item.quantity
-  }
-
-  // TODO: SHIPPING IS SET TO 0 FOR NOW, NEED TO CALCULATE SHIPPING BASED ON WEIGHT
-
-  const db = newConnection()  
-  db.run('INSERT INTO orders (id, name, email, amount, weight, shipping, address, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [formData.trans, customerData.name, customerData.email, totalPrice, totalWeight, customerData.weightCost, customerData.address, "In Progress"], (err) => {
-    if (err) {
-      console.log(err)
-    }
+  axios.post(url, formData, {
+    headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json'
+    },
   })
+    .then((response) => {
+      console.log(response.data)
+      // If there is an error from credit card auth, send to user.
+      if ('errors' in response.data) {
+        res.status(500).json(response.data)
+      }
+      else { // Otherwise send the whole json back as confirmation and update db
+        for (let i = 0; i < orderData.length; i++) {
+          const item = orderData[i]
+          totalPrice += item.price * item.quantity
+          totalWeight += item.weight * item.quantity
+        }
 
-  for (let i = 0; i < orderData.length; i++) {
-    let item = orderData[i]
-    db.run('INSERT INTO orderitems (orderid, partnumber, quantity) VALUES (?, ?, ?)', [formData.trans, item.item_id, item.quantity], (err) => {
-      if (err) {
-        console.log(err)
+        const db = newConnection()
+        db.run('INSERT INTO orders (id, name, email, amount, weight, shipping, address, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [formData.trans, customerData.name, customerData.email, totalPrice, totalWeight, customerData.weightCost, customerData.address, "In Progress"], (err) => {
+          if (err) {
+            console.log(err)
+          }
+        })
+
+        for (let i = 0; i < orderData.length; i++) {
+          let item = orderData[i]
+          db.run('INSERT INTO orderitems (orderid, partnumber, quantity) VALUES (?, ?, ?)', [formData.trans, item.item_id, item.quantity], (err) => {
+            if (err) {
+              console.log(err)
+            }
+          })
+        }
+        db.close();
+        res.status(200).json(response.data)
       }
     })
-  }
-  db.close();
-
+    .catch((error) => {
+      console.log(error)
+      res.status(501).send("An error occured with third party credit card authorization!")
+    });
 });
 
 app.use((err, req, res, next) => {

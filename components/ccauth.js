@@ -79,6 +79,7 @@ const app = Vue.createApp({
             return response.json().then(data => {
               this.message = `Payment successfully made. Here's your confirmation:`
               this.confirmation = data
+              localStorage.removeItem('cartItems');
             });
           }
         })
