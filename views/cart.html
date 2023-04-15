@@ -41,7 +41,7 @@
                                 <td><img v-bind:src="item.pictureURL" width="50" height="50"></td>
                                 <td>{{ item.item_name }}</td>
                                 <td>
-                                    <input type="number" min="1" :max="item.max" v-model="item.quantity" @change="updateQuantity(index, item.quantity)">
+                                    <input type="number" min="1" :max="item.max" v-model="item.quantity" @change="updateQuantity(index, item.quantity)" onkeydown="return false">
                                 </td>
                                 <td>${{ item.price }}</td>
                                 <td>{{ getFixedNerd(item.weight) }} lbs</td>
