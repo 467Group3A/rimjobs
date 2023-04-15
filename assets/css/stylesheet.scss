@@ -103,21 +103,41 @@ body {
     max-width: 250px;
 }
 
+.Shrikhand {
+    font-family: Shrikhand!important;
+}
+
 .btn-rim {
     font-size: large;
-    color: $Pierce;
+    color: $Pierce!important;
     background: linear-gradient(rgba(0,0,0,0), $Steelport 100%);
     &:hover {
-        color: $Stillwater;
-        background: linear-gradient($Steelport, $Ultor 100%);
+        color: $Ultor;
+        background: linear-gradient($Pierce, $Steelport 100%);
     }
     &:focus {
-        color: $Stillwater;
-        background: linear-gradient($Steelport, $Ultor 100%);
+        color: $Ultor;
+        background: linear-gradient($Pierce, $Steelport 100%);
     }
     &:active {
-        color: $Stillwater !important;
-        background: linear-gradient($Steelport, $Ultor 100%);
+        color: $Pierce;
+        background: linear-gradient($Pierce, $Steelport 100%);
+    }
+}
+
+.btn-cart {
+    font-size: large;
+    color: $Pierce!important;
+    background: linear-gradient(#198754, $Steelport 100%);
+    &:hover {
+        color: $Pierce;
+        background: linear-gradient(#21b26e, $Steelport 100%);
+    }
+    &:focus {
+        background: linear-gradient(#21b26e, $Steelport 100%);
+    }
+    &:active {
+        background: linear-gradient(#198754, $Steelport 100%);
     }
 }
 

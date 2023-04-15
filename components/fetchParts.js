@@ -151,9 +151,6 @@ $(document).ready(function () {
 
                     // Store the updated cart items in localStorage
                     localStorage.setItem('cartItems', JSON.stringify(cartItems));
-                    event.target.style.backgroundColor = "rgb(25, 135, 84)";
-                    event.target.style.borderColor = "rgb(25, 135, 84)";
-                    event.target.style.color = "white";
                     event.target.innerHTML = "Added";
                 }
             }
