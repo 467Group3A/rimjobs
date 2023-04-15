@@ -486,6 +486,11 @@ app.post('/api/creditcardauth', (req, res) => {
               console.log(err)
             }
           })
+          db.run('UPDATE inventory SET quantity = quantity - ? WHERE id = ?', [item.quantity, item.item_id], (err) => {
+            if (err) {
+              console.log(err)
+            }
+          })
         }
         db.close();
         res.status(200).json(response.data)
