@@ -156,6 +156,7 @@ app.get('/replenish', (req, res) => {
 // If url is /replenish, send the replenish.html file
 app.get('/shippingfees', (req, res) => {
   res.sendFile(__dirname + "/views/shippingfees.html");
+})
   
 app.get('/cart', (req, res) => {
   res.sendFile(__dirname + "/views/cart.html");
