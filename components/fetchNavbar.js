@@ -57,6 +57,7 @@ $(document).ready(function () {
     // .catch(error => {
     //     console.error(error);
     // });
+
 });
 
 jQuery(document).ready(function ($) {
