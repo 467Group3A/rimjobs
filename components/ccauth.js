@@ -43,6 +43,17 @@ const app = Vue.createApp({
           console.error(error)
         });
       },
+      orderNumber() {
+        let now = Date.now().toString()
+        // pad with extra random digit
+        now += now + Math.floor(Math.random() * 10)
+        // format
+        console.log([now.slice(0, 4), now.slice(4, 10), now.slice(10, 14)].join('-'));
+        return  [now.slice(0, 4), now.slice(4, 10), now.slice(10, 14)].join('-');
+      },
+      Authorize() {
+        this.trans = this.orderNumber();
+      }
     }
   });
   

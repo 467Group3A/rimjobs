@@ -20,7 +20,8 @@ $(document).ready(function () {
                 newParts: [],
                 searchFor: '',
                 minPrice: null,
-                maxPrice: null
+                maxPrice: null,
+                qty: []
             };
         },
         computed: {
@@ -47,6 +48,10 @@ $(document).ready(function () {
             },
         },
         mounted() {
+            // The Spaghetti factory - 4/14/23
+            for (let i = 1; i < 31; i++) {
+                this.qty.push(1);
+            }
             Promise.all([
                 fetch(endpoint + pageNumber + perQuery + perPage).then((res) => res.json()),
                 fetch('/inventory').then((res) => res.json()),
@@ -80,6 +85,10 @@ $(document).ready(function () {
                     .catch(error => {
                         console.log('Error:', error);
                     });
+                    this.qty = [];
+                    for (let i = 1; i < 31; i++) {
+                        this.qty.push(1);
+                    }
             },
             //
             // Increment the page number and fetches the next page
@@ -100,6 +109,11 @@ $(document).ready(function () {
                     .catch(error => {
                         console.log('Error:', error);
                     });
+                    // reset qty array
+                    this.qty = [];
+                    for (let i = 1; i < 31; i++) {
+                        this.qty.push(1);
+                    }
             },
             addToCart(picture, item_id, item_name, weight, price, max, quantity) {
                 // if quantity sent is higher than the quantity in stock, set quantity to the quantity in stock
