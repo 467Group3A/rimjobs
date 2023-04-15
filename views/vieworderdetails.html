@@ -96,10 +96,10 @@
         ],
         selectedOption: null,
         selectedOrder: null,
-        hideForPrint: false,
-        printingLabel: false,
+        hideForPrint: false, // used for printing invoice
+        printingLabel: false, // used for printing shipping label
         shippingDate: '',
-        message: ''
+        message: '' // Return of updateOrder
       };
     },
     methods: {
@@ -112,7 +112,7 @@
         console.log(error);
       }
     },
-    updateOrder() {
+    updateOrder() { // Updates the status of an order
       const body = {
         orderId: this.selectedOrder.orderId,
         orderStatus: this.selectedOption
@@ -124,8 +124,8 @@
         },
         body: JSON.stringify(body)
       })
-      .then(response => {
-        if(response.status == '200'){
+      .then(response => { // Dependant on server status response
+        if(response.status == '200'){ 
         this.message = "Updated order status successfully!"
         } else if (response.status == '500') {
           this.message = "Unable to update order status!"
@@ -163,16 +163,16 @@
   },
     mounted() {
       const searchParams = new URLSearchParams(window.location.search);
-      const orderId = searchParams.get('id');
-      this.getOrderDetails(orderId)
-      const d = new Date();
+      const orderId = searchParams.get('id'); // Grab ID from url
+      this.getOrderDetails(orderId) 
+      const d = new Date(); // Constructs the current time for printing a shipping label
       const day = d.getDate();
       const month = d.getMonth() + 1;
       const year = d.getFullYear();
       const hour = d.getHours();
       const minutes = d.getMinutes();
       const seconds = d.getSeconds();
-      this.shippingDate = `${year}-${month}-${day} ${hour}:${minutes}:${seconds}`
+      this.shippingDate = `${year}-${month}-${day} ${hour}:${minutes}:${seconds}` // Formatted like our new DBs timestamp
 
     }
   }).mount('#app');
