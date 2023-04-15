@@ -68,7 +68,7 @@ app.post('/viewinventory', (req, res) => {
   const image = req.body.image;
   const quantity = req.body.quantity;
 
-  //check to see if product is in cart already, if it is append quanti
+  //check to see if product is in cart already, if it is append quantity with added quantity and dont create new instance of product
   const existingProductIndex = products.findIndex(product => product.number === number);
   if (existingProductIndex !== -1) {
     products[existingProductIndex].quantity = Number(products[existingProductIndex].quantity) + Number(quantity);
