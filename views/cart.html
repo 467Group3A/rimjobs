@@ -20,7 +20,7 @@
     <main>
         <div id="cart">
             <div v-if="cartItems.length === 0">
-                <center><h3>Your cart is currently empty.</h3></center>
+                <h3 class="text-center">Your cart is currently empty.</h3>
             </div>
             <div v-else>
                 <div class="container">
@@ -72,6 +72,5 @@
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <!-- Components -->
 <script src="/fetchNavbar.js"></script>
-<script src="/fetchParts.js"></script>
 <script src="/cart.js"></script>
 </html>

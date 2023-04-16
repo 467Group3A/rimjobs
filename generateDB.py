@@ -1,6 +1,13 @@
 import sqlite3
 import random
-
+#
+#  CSCI 467 Group 3A
+#  Matt, David, Ryan, and Cesar
+#
+#  This python script generates a database for the rimjobs website.
+#
+#  To destroy the database, use destroyDB.py
+#
 con = sqlite3.connect("rimjobs.db")
 
 cursor = con.cursor()
