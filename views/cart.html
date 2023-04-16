@@ -39,7 +39,7 @@
                         <tbody>
                             <tr v-for="(item, index) in cartItems" :key="item.item_id">
                                 <td><img v-bind:src="item.pictureURL" width="50" height="50"></td>
-                                <td>{{ item.item_name }}</td>
+                                <td>{{ capitalize(item.item_name) }}</td>
                                 <td>
                                     <input type="number" min="1" :max="item.max" v-model="item.quantity" @change="updateQuantity(index, item.quantity)" onkeydown="return false">
                                 </td>
