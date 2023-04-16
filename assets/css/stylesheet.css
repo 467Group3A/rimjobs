@@ -6,6 +6,10 @@
   font-family: Shrikhand;
   src: url(../fonts/Shrikhand-Regular.ttf);
 }
+@font-face {
+  font-family: Seven Segment;
+  src: url(../fonts/Seven\ Segment.ttf);
+}
 .nav-link {
   font-family: Shrikhand;
 }
@@ -62,6 +66,10 @@ a:hover:before {
   width: 100%;
 }
 
+.table-striped {
+  --bs-table-striped-color: $Steelport ;
+}
+
 .carousel-indicators .active {
   color: #e6e5e7;
 }
@@ -93,6 +101,12 @@ body {
 
 .Shrikhand {
   font-family: Shrikhand !important;
+}
+
+.SevenSegment {
+  font-family: Seven Segment !important;
+  background-color: #3d3d3d;
+  color: crimson;
 }
 
 .btn-rim {
