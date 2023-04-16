@@ -4,16 +4,18 @@ $(document).ready(function () {
     const app = Vue.createApp({
         data() {
             return {
-                cartItems: JSON.parse(localStorage.getItem('cartItems')) || []
+                cartItems: JSON.parse(localStorage.getItem('cartItems')) || [],
+                shippingfees: [],
+                taxRate: 1.1,
             }
         },
         mounted() {
             Promise.all([
-                //fetch(endpoint + pageNumber + perQuery + perPage).then((res) => res.json()),
+                fetch('/api/get-shipping-fees').then((res) => res.json()),
                 fetch('/inventory').then((res) => res.json()),
             ])
-                .then(([inventoryResponse]) => {
-                    //this.finalRows = legacyPartsResponse;
+                .then(([shippingfeesResponse, inventoryResponse]) => {
+                    this.shippingfees = shippingfeesResponse;
                     this.inventory = inventoryResponse;
                 })
                 .catch((error) => {
@@ -30,6 +32,13 @@ $(document).ready(function () {
                 return this.cartItems.reduce((total, item) => {
                     return total + (item.quantity * item.weight);
                 }, 0);
+            },
+            shippingCost() {
+                for (let i = 0; i < this.shippingfees.length; i++) {
+                    if (this.totalWeight <= this.shippingfees[i].weight) {
+                        return parseInt(this.shippingfees[i].cost);
+                    }
+                }
             }
         },
         methods: {
