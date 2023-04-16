@@ -52,9 +52,11 @@
                             </tr>
                         </tbody>
                     </table>
+                    <p>Subtotal: ${{ fixed(total) }}</p>
+                    <p>Shipping: ${{ shippingCost }}</p>
+                    <p>Tax: 10%</p>
                     <p><strong>Total Weight:</strong> {{ fixed(totalWeight) }}</p>
                     <p><strong>Total:</strong> {{ fixed((total + shippingCost) * taxRate) }}</p>
-                    <p class="fs-6">Subtotal: ${{ fixed(total) }} - Shipping: ${{ shippingCost }} - Tax: 10%</p>
                     <button class="btn btn-light"><a @click="checkout" href="/ccauth">Checkout</a></button>
                 </div>
             </div>
