@@ -44,16 +44,16 @@
                                     <input type="number" min="1" :max="item.max" v-model="item.quantity" @change="updateQuantity(index, item.quantity)" onkeydown="return false">
                                 </td>
                                 <td>${{ item.price }}</td>
-                                <td>{{ getFixedNerd(item.weight) }} lbs</td>
-                                <td>{{ getFixedNerd(item.quantity * item.price) }}</td>
+                                <td>{{ fixed(item.weight) }} lbs</td>
+                                <td>{{ fixed(item.quantity * item.price) }}</td>
                                 <td>
                                     <button class="btn btn-light" @click="removeFromCart(index)">Remove</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <p><strong>Total Weight:</strong> {{ getFixedNerd(totalWeight) }}</p>
-                    <p><strong>Total:</strong> {{ getFixedNerd(total) }}</p>
+                    <p><strong>Total Weight:</strong> {{ fixed(totalWeight) }}</p>
+                    <p><strong>Total:</strong> {{ fixed(total) }}</p>
                     <button class="btn btn-light"><a @click="checkout" href="/ccauth">Checkout</a></button>
                 </div>
             </div>
@@ -72,62 +72,5 @@
 <!-- Components -->
 <script src="/fetchNavbar.js"></script>
 <script src="/fetchParts.js"></script>
-<script>
-    const app = Vue.createApp({
-        data() {
-            return {
-                cartItems: JSON.parse(localStorage.getItem('cartItems')) || []
-            }
-        },
-        mounted() {
-            Promise.all([
-                //fetch(endpoint + pageNumber + perQuery + perPage).then((res) => res.json()),
-                fetch('/inventory').then((res) => res.json()),
-            ])
-                .then(([inventoryResponse]) => {
-                    //this.finalRows = legacyPartsResponse;
-                    this.inventory = inventoryResponse;
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        },
-        computed: {
-            total() {
-                return this.cartItems.reduce((total, item) => {
-                    return total + (item.quantity * item.price);
-                }, 0);
-            },
-            totalWeight() {
-                return this.cartItems.reduce((total, item) => {
-                    return total + (item.quantity * item.weight);
-                }, 0);
-            }
-        },
-        methods: {
-            checkout() {
-                let total = this.cartItems.reduce((total, item) => {
-                    return total + (item.quantity * item.price);
-                }, 0);
-                localStorage.setItem('totalCost', JSON.stringify(total));
-            },
-            removeFromCart(index) {
-                this.cartItems.splice(index, 1);
-                localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
-            },
-            updateQuantity(index, quantity) {
-                if (quantity < 1) {
-                    quantity = 1;
-                } else if (quantity > this.inventory[index].quantity) {
-                    quantity = this.inventory[index].quantity;
-                }
-                this.cartItems[index].quantity = quantity;
-                localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
-            },
-            getFixedNerd(number){
-                return number.toFixed(2);
-            }
-        }
-    }).mount('#cart');
-</script>
+<script src="/cart.js"></script>
 </html>
