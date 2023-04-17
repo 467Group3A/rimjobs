@@ -11,7 +11,7 @@ const LocalStorage = require('node-localstorage').LocalStorage;
 
 const localStorage = new LocalStorage('./localStorage');
 
-const port = 3500;
+const port = 3700;
 
 const { loadInventory } = require('./services/loadinventory')
 const { legacyConnection, newConnection, initializeNewDB, cleanOrders, getOrderDetails } = require('./services/dbconfig') // Some of these functions will be removed
@@ -56,7 +56,10 @@ connection.connect((error) => {
 });
 
 //array to store products added to cart
-const products = [];
+// const products = [];
+
+
+let products = JSON.parse(localStorage.getItem('products')) || [];
 
 //viewinventory post
 app.post('/viewinventory', (req, res) => {
@@ -83,6 +86,8 @@ app.post('/viewinventory', (req, res) => {
       image: image,
       quantity: Number(quantity)
     });
+    localStorage.setItem('products', JSON.stringify(products));
+
   }
 
   //localstorage var
