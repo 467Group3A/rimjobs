@@ -147,6 +147,11 @@ $(document).ready(function () {
                             quantity: quantity
                         };
                         cartItems.push(newItem);
+                        window.dispatchEvent(new CustomEvent('ad', {
+                            detail: {
+                              count: 1
+                            }
+                        }));
                     }
 
                     // Store the updated cart items in localStorage

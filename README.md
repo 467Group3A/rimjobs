@@ -8,14 +8,14 @@ We promise you'll always leave satisfied.
 ##  Rimjobs functionality
 
 ### **Customer**
- - [ ] View all products
-- [ ] Shopping cart
-	- [ ] Add items to cart
-	- [ ] Remove items from cart
-	- [ ] Possible store cart in cookies (localstorage)
+
+- [X] View all products
+- [X] Shopping cart
+	- [X] Add items to cart
+	- [X] Remove items from cart
 - [ ] Checkout system
-	- [ ] Third party cc authorization linked
-	- [ ] Creates order in db
+	- [X] Third party cc authorization linked
+	- [X] Creates order in db
 	- [ ] Upon succesfull payment received by 3rd party, a confirmation is sent to the customers email
 	
 ### **Employee**

@@ -7,8 +7,9 @@ var path = require('path');
 const router = express.Router();
 const promise = require('mysql2/promise');
 
+// PRODUCTION PORT, REQUESTS ON PORT 80 ARE REDIRECTED TO THIS PORT
+// const port = 2048;
 const port = 5050;
-
 
 const { loadInventory } = require('./services/loadinventory')
 const { legacyConnection, newConnection, initializeNewDB, cleanOrders, getOrderDetails } = require('./services/dbconfig') // Some of these functions will be removed
@@ -156,7 +157,8 @@ app.get('/replenish', (req, res) => {
 // If url is /replenish, send the replenish.html file
 app.get('/shippingfees', (req, res) => {
   res.sendFile(__dirname + "/views/shippingfees.html");
-  
+})
+
 app.get('/cart', (req, res) => {
   res.sendFile(__dirname + "/views/cart.html");
 })
@@ -386,11 +388,11 @@ app.post('/api/replenish/removal', async (req, res) => {
 });
 
 // Grab shipping brackets from local db
-app.get('/api/get-shipping-fees', async (req, res) => { 
+app.get('/api/get-shipping-fees', async (req, res) => {
 
   const db = newConnection()
   db.all('SELECT * FROM brackets ORDER BY weight ASC', (err, rows) => {
-    if(err) {
+    if (err) {
       console.log(err)
     }
     else {
@@ -407,7 +409,7 @@ app.post('/api/add-shipping-fee', async (req, res) => {
 
   const db = newConnection()
   db.run('INSERT INTO brackets (weight, cost) VALUES (?, ?)', weight, cost, (err) => {
-    if(err) {
+    if (err) {
       console.log(err)
       res.status(500).end() // if theres an error, it obviosuly will show when updating on front end but also could make popup
     } // with that same reasoning there is no need for a else, the admin will see the update or error popup.
@@ -427,7 +429,7 @@ app.post('/api/del-shipping-fee', async (req, res) => {
 
   const db = newConnection()
   db.run(`DELETE FROM brackets WHERE cost = ? and weight = ?`, [cost, weight], (err) => {
-    if(err) {
+    if (err) {
       console.log(err)
       res.status(500).end() // again if its not removed it will auto update to user, but can add error
     }  // checking w front end by sending 500
@@ -441,8 +443,22 @@ app.post('/api/del-shipping-fee', async (req, res) => {
 
 // Endpoint for sending post to 3rd party CC authorizor
 app.post('/api/creditcardauth', (req, res) => {
-  const formData = req.body
+  // The entire JSON Object
+  const recievedData = req.body
+
+  // This is the form data that will be sent to ege's cc auth
+  const formData = recievedData.formData
+
+  // This is extra stuff for storing in db
+  const customerData = recievedData.customer
+
+  // This is the cart data including id price and qty
+  const orderData = recievedData.orderInfo
   const url = "http://blitz.cs.niu.edu/CreditCard/"
+
+  let totalPrice = 0;
+  let totalWeight = 0;
+  let shippingCost = 0;
 
   // Send post request to ege's cc auth
   axios.post(url, formData, {
@@ -457,7 +473,42 @@ app.post('/api/creditcardauth', (req, res) => {
       if ('errors' in response.data) {
         res.status(500).json(response.data)
       }
-      else { // Otherwise send the whole json back as confirmation ( for now )
+      // Otherwise send the whole json back as confirmation and update the proper databases
+      else {
+        // Calculate total price and weight
+        for (let i = 0; i < orderData.length; i++) {
+          const item = orderData[i]
+          totalPrice += item.price * item.quantity
+          totalWeight += item.weight * item.quantity
+        }
+
+        const db = newConnection()
+
+        // Insert the customer data and transaction number into the Orders table
+        db.run('INSERT INTO orders (id, name, email, amount, weight, shipping, address, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [formData.trans, customerData.name, customerData.email, totalPrice, totalWeight, customerData.weightCost, customerData.address, "In Progress"], (err) => {
+          if (err) {
+            console.log(err)
+          }
+        })
+
+        // Loop through the customers cart
+        for (let i = 0; i < orderData.length; i++) {
+          let item = orderData[i]
+          // Insert the order items into the orderitems table
+          db.run('INSERT INTO orderitems (orderid, partnumber, quantity) VALUES (?, ?, ?)', [formData.trans, item.item_id, item.quantity], (err) => {
+            if (err) {
+              console.log(err)
+            }
+          })
+          // Update the inventory table with the new quantity
+          db.run('UPDATE inventory SET quantity = quantity - ? WHERE id = ?', [item.quantity, item.item_id], (err) => {
+            if (err) {
+              console.log(err)
+            }
+          })
+        }
+        // Close the db connection and send success status to front end
+        db.close();
         res.status(200).json(response.data)
       }
     })
@@ -476,8 +527,10 @@ app.use((err, req, res, next) => {
 
 // Displays the port number the server is listening on
 app.listen(port, () => {
-  console.log(`Node Server listening at http://rimjobs.store:${port}`);
-  // Populate inventory in new db using legacy part ids
-  // Could do when server runs or manually/scheduled run it in future
-  //loadInventory()
+  if (port == 2048) {
+    console.log(`Node Server listening at http://rimjobs.store/`);
+  }
+  else {
+    console.log(`Node Server listening at http://rimjobs.store:${port}`);
+  }
 });
