@@ -1,6 +1,13 @@
 import sqlite3
 import random
-
+#
+#  CSCI 467 Group 3A
+#  Matt, David, Ryan, and Cesar
+#
+#  This python script generates a database for the rimjobs website.
+#
+#  To destroy the database, use destroyDB.py
+#
 con = sqlite3.connect("rimjobs.db")
 
 cursor = con.cursor()
@@ -20,7 +27,7 @@ CREATE TABLE inventory (
 
 cursor.execute("""
 CREATE TABLE orders (
-    id INTEGER PRIMARY KEY,
+    id TEXT PRIMARY KEY,
     name TEXT NOT NULL,
     email TEXT NOT NULL,
     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -33,7 +40,7 @@ CREATE TABLE orders (
 
 cursor.execute("""
 CREATE TABLE orderitems (
-    orderid INTEGER NOT NULL,
+    orderid TEXT NOT NULL,
     partnumber INTEGER NOT NULL,
     quantity INTEGER NOT NULL,
     PRIMARY KEY (orderid, partnumber),
@@ -52,18 +59,18 @@ for i in range(150):
     i = i + 1
     con.execute(f"INSERT INTO inventory (id, quantity) VALUES ({i}, {random.randint(0,75)});")
 
-cursor.execute("INSERT INTO orders (name, email, amount, weight, shipping, address, status) VALUES ('John Doe', 'john@example.com', 50.0, 3.0, 5.0, '123 Main St, Anytown, USA', 'In Progress');")
-cursor.execute("INSERT INTO orders (name, email, amount, weight, shipping, address, status) VALUES ('Yeehaw McCletus', 'notdavid@example.com', 75.0, 6.0, 8.0, '4500 East Berlin, Anytown, USA', 'In Progress');")
-cursor.execute("INSERT INTO orders (name, email, amount, weight, shipping, address, status) VALUES ('Jane Smith', 'jane@example.com', 75.0, 6.0, 8.0, '456 Oak St, Anytown, USA', 'Filled');")
+cursor.execute("INSERT INTO orders (id, name, email, amount, weight, shipping, address, status) VALUES ('1681-5893-9054', 'John Doe', 'john@example.com', 50.0, 3.0, 5.0, '123 Main St, Anytown, USA', 'In Progress');")
+cursor.execute("INSERT INTO orders (id, name, email, amount, weight, shipping, address, status) VALUES ('1681-5893-7261', 'Yeehaw McCletus', 'notdavid@example.com', 75.0, 6.0, 8.0, '4500 East Berlin, Anytown, USA', 'In Progress');")
+cursor.execute("INSERT INTO orders (id, name, email, amount, weight, shipping, address, status) VALUES ('1681-5893-6621', 'Jane Smith', 'jane@example.com', 75.0, 6.0, 8.0, '456 Oak St, Anytown, USA', 'Filled');")
 
 
-cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES (1, 1, 2);")
-cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES (1, 2, 1);")
-cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES (2, 1, 4);")
-cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES (2, 3, 2);")
-cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES (3, 120, 1);")
-cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES (3, 45, 5);")
-cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES (3, 66, 3);")
+cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES ('1681-5893-9054', 1, 2);")
+cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES ('1681-5893-9054', 2, 1);")
+cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES ('1681-5893-7261', 1, 4);")
+cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES ('1681-5893-7261', 3, 2);")
+cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES ('1681-5893-6621', 120, 1);")
+cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES ('1681-5893-6621', 45, 5);")
+cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES ('1681-5893-6621', 66, 3);")
 
 con.commit()
 con.close()
