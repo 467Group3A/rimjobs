@@ -42,6 +42,9 @@ $(document).ready(function () {
             }
         },
         methods: {
+            capitalize(str) {
+                return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+            },
             checkout() {
                 let total = this.cartItems.reduce((total, item) => {
                     return total + (item.quantity * item.price);
@@ -51,6 +54,11 @@ $(document).ready(function () {
             removeFromCart(index) {
                 this.cartItems.splice(index, 1);
                 localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+                window.dispatchEvent(new CustomEvent('sb', {
+                    detail: {
+                      count: 1
+                    }
+                }));
             },
             updateQuantity(index, quantity) {
                 if (quantity < 1) {
