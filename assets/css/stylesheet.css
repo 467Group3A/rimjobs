@@ -6,6 +6,10 @@
   font-family: Shrikhand;
   src: url(../fonts/Shrikhand-Regular.ttf);
 }
+@font-face {
+  font-family: Seven Segment;
+  src: url(../fonts/Seven\ Segment.ttf);
+}
 .nav-link {
   font-family: Shrikhand;
 }
@@ -62,6 +66,10 @@ a:hover:before {
   width: 100%;
 }
 
+.table-striped {
+  --bs-table-striped-color: $Steelport ;
+}
+
 .carousel-indicators .active {
   color: #e6e5e7;
 }
@@ -91,22 +99,48 @@ body {
   max-width: 250px;
 }
 
+.Shrikhand {
+  font-family: Shrikhand !important;
+}
+
+.SevenSegment {
+  font-family: Seven Segment !important;
+  background-color: #3d3d3d;
+  color: crimson;
+}
+
 .btn-rim {
   font-size: large;
-  color: #e6e5e7;
+  color: #e6e5e7 !important;
   background: linear-gradient(rgba(0, 0, 0, 0), #686868 100%);
 }
 .btn-rim:hover {
-  color: #DDD8CF;
-  background: linear-gradient(#686868, #824538 100%);
+  color: #824538;
+  background: linear-gradient(#e6e5e7, #686868 100%);
 }
 .btn-rim:focus {
-  color: #DDD8CF;
-  background: linear-gradient(#686868, #824538 100%);
+  color: #824538;
+  background: linear-gradient(#e6e5e7, #686868 100%);
 }
 .btn-rim:active {
-  color: #DDD8CF !important;
-  background: linear-gradient(#686868, #824538 100%);
+  color: #e6e5e7;
+  background: linear-gradient(#e6e5e7, #686868 100%);
+}
+
+.btn-cart {
+  font-size: large;
+  color: #e6e5e7 !important;
+  background: linear-gradient(#198754, #686868 100%);
+}
+.btn-cart:hover {
+  color: #e6e5e7;
+  background: linear-gradient(#21b26e, #686868 100%);
+}
+.btn-cart:focus {
+  background: linear-gradient(#21b26e, #686868 100%);
+}
+.btn-cart:active {
+  background: linear-gradient(#198754, #686868 100%);
 }
 
 .SilverBG {
