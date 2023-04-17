@@ -7,7 +7,7 @@ var path = require('path');
 const router = express.Router();
 const promise = require('mysql2/promise');
 
-const port = 5050;
+const port = 3001;
 
 
 const { loadInventory } = require('./services/loadinventory')
@@ -195,6 +195,60 @@ app.get('/inventory', (req, res) => {
       res.send(rows);
     }
   });
+});
+
+// Sends back json objects that combine legacy parts with a random inventory
+app.get('/api/combine-parts-quantity', async (req, res) => {
+  try {
+    // Connect to legacy database
+    const connect = await legacyConnection.getConnection();
+
+    // Query the parts from legacy
+    const [rows] = await connect.query('SELECT * FROM parts');
+
+    // Drop connection
+    connect.release();
+
+    const db = newConnection()
+
+    // Grab inventory from new db taking number and amount
+    const newRows = await new Promise((resolve, reject) => {
+      db.all('SELECT * FROM inventory', (err, rows) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(rows);
+      });
+    });
+
+    // Drop connection to new db.
+    db.close()
+
+    // Combine legacy and new db rows by part number
+    const combinedRows = rows.map((row) => {
+      const matchedRow = newRows.find((newRow) => newRow.id === row.number);
+      
+      // Add the .amount if the number(part_id) are the same
+      if (matchedRow) {
+        return {
+          ...row,
+          amount: matchedRow.quantity,
+        };
+      } else { // If part ID is not found amount is 0, idealy this wont occur sense loadInventory()
+        return {
+          ...row,
+          amount: 0,
+        };
+      }
+    });
+
+    // Send the final rows to Vue
+    res.json(combinedRows);
+    console.log('Retrieved information from legacy database correctly!');
+  } catch (err) {
+    console.log(err);
+    console.log('Problem connecting and querying from legacy database!');
+  }
 });
 
 // Sends back json objects that contain orders
