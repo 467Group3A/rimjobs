@@ -49,6 +49,8 @@ const app = Vue.createApp({
           this.customer.city.length < 1 || 
           this.customer.state.length < 1 || 
           this.customer.zip.length < 1) {
+            this.message = `Please Double Check all fields.`;
+            this.confirmation = null;
       } else {
           // generate a random order number
         this.formData.trans = this.orderNumber();
