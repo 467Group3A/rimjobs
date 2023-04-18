@@ -4,7 +4,7 @@ $(document).ready(function () {
     const nav = Vue.createApp({
         data() {
             return {
-                cartTotal: JSON.parse(localStorage.getItem('cartItems')).length || 0
+                cartTotal: 0
             }
         },
         template: `
@@ -49,6 +49,11 @@ $(document).ready(function () {
         </nav>
         `,
     mounted() {
+        try {
+            this.cartTotal = JSON.parse(localStorage.getItem('cartItems')).length
+         } catch (error) {
+            this.cartTotal = 0;
+         }
         window.addEventListener('ad', (event) => {
             this.cartTotal = this.cartTotal + event.detail.count;
         });
@@ -61,16 +66,6 @@ $(document).ready(function () {
         window.removeEventListener('sb');
     }
     }).mount('#navbar')
-
-    // fetch('/cartTotal')
-    // .then(response => response.json())
-    // .then(data => {
-    //     nav.cartTotal = data.cartTotal;
-    // })
-    // .catch(error => {
-    //     console.error(error);
-    // });
-
 });
 
 jQuery(document).ready(function ($) {

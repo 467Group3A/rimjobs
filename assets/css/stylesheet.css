@@ -70,6 +70,14 @@ a:hover:before {
   --bs-table-striped-color: $Steelport ;
 }
 
+.form-control {
+  background-color: #e6e5e7;
+}
+
+.form-select {
+  background-color: #e6e5e7;
+}
+
 .carousel-indicators .active {
   color: #e6e5e7;
 }
@@ -181,6 +189,10 @@ body {
 
 .borderSilver {
   border: 5px solid #686868;
+}
+
+.borderSteel {
+  border: 10px solid #686868;
 }
 
 .img-gradient-shadow {

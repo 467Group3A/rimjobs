@@ -31,61 +31,73 @@ const app = Vue.createApp({
   },
   methods: {
     submitForm() {
+      this.formData.exp = this.month + '/' + this.year;
+      this.customer.name = this.formData.name;
+      this.orderInfo = JSON.parse(localStorage.getItem('cartItems'));
+      this.formData.amount = localStorage.getItem('totalCost');
       let totalWeight = 0;
       // set the vendor to our name later
       this.formData.vendor = 'STOREFRONT';
-      // generate a random order number
-      this.formData.trans = this.orderNumber();
-      // get the total cost from the local storage
-      this.formData.amount = localStorage.getItem('totalCost');
-      // get the expiration date
-      this.formData.exp = this.month + '/' + this.year;
 
-      this.customer.name = this.formData.name;
-      
-      this.orderInfo = JSON.parse(localStorage.getItem('cartItems'));
-
-      for (let i = 0; i < this.orderInfo.length; i++) {
-        totalWeight += this.orderInfo[i].weight * this.orderInfo[i].quantity;
-      }
-
-      for (let i = 0; i < this.shippingFees.length; i++) {
-        if (totalWeight <= this.shippingFees[i].weight) {
-          this.customer.weightCost = this.shippingFees[i].cost;
-          break;
+      if (this.formData.cc.length < 16 || 
+          this.formData.name.length < 1 || 
+          this.formData.exp.length !== 7 || 
+          this.formData.amount.length < 1 || 
+          this.customer.name.length < 1 || 
+          this.customer.email.length < 1 || 
+          this.customer.address.length < 1 || 
+          this.customer.city.length < 1 || 
+          this.customer.state.length < 1 || 
+          this.customer.zip.length < 1) {
+            this.message = `Please Double Check all fields.`;
+            this.confirmation = null;
+      } else {
+          // generate a random order number
+        this.formData.trans = this.orderNumber();
+        for (let i = 0; i < this.orderInfo.length; i++) {
+          totalWeight += this.orderInfo[i].weight * this.orderInfo[i].quantity;
         }
-      }
 
-      let dataPacket = {
-        formData: this.formData,
-        customer: this.customer,
-        orderInfo: this.orderInfo
-      }
-
-      fetch('/api/creditcardauth', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dataPacket)
-      })
-        .then(response => {
-          if (response.status === 500) {
-            return response.json().then(data => {
-              this.message = `Unable to authorize payment with the following errors:`
-              this.errormessage = data.errors
-            })
-          } else if (response.status === 200) {
-            return response.json().then(data => {
-              this.message = `Payment successfully made. Here's your confirmation:`
-              this.confirmation = data
-              localStorage.removeItem('cartItems');
-            });
+        for (let i = 0; i < this.shippingFees.length; i++) {
+          if (totalWeight <= this.shippingFees[i].weight) {
+            this.customer.weightCost = this.shippingFees[i].cost;
+            break;
           }
+        }
+
+        let dataPacket = {
+          formData: this.formData,
+          customer: this.customer,
+          orderInfo: this.orderInfo
+        }
+
+        fetch('/api/creditcardauth', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(dataPacket)
         })
-        .catch(error => {
-          console.error(error)
-        });
+          .then(response => {
+            if (response.status === 500) {
+              return response.json().then(data => {
+                this.message = `Unable to authorize payment with the following errors:`
+                this.errormessage = data.errors
+              })
+            } else if (response.status === 200) {
+              return response.json().then(data => {
+                this.message = `Payment successfully made. Here's your confirmation:`
+                this.confirmation = data
+                localStorage.removeItem('cartItems');
+              });
+            }
+          })
+          .catch(error => {
+            console.error(error)
+          });
+
+          localStorage.removeItem('cartItems');
+        }
     },
     orderNumber() {
       let now = Date.now().toString()

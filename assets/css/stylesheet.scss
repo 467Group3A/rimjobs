@@ -82,6 +82,14 @@ a {
     --bs-table-striped-color: $Steelport
 }
 
+.form-control {
+    background-color: $Pierce;
+}
+
+.form-select {
+    background-color: $Pierce;
+}
+
 .carousel-indicators .active {
     color: $Pierce;
 }
@@ -196,6 +204,10 @@ body {
 
 .borderSilver {
     border: 5px solid $Steelport;
+}
+
+.borderSteel {
+    border: 10px solid $Steelport;
 }
 
 //Gradients
