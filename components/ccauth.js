@@ -35,11 +35,12 @@ const app = Vue.createApp({
       this.customer.name = this.formData.name;
       this.orderInfo = JSON.parse(localStorage.getItem('cartItems'));
       this.formData.amount = localStorage.getItem('totalCost');
+      this.customer.address = this.customer.address + ' ' + this.customer.city + ' ' + this.customer.state + ' ' + this.customer.zip;
       let totalWeight = 0;
       // set the vendor to our name later
       this.formData.vendor = 'STOREFRONT';
 
-      if (this.formData.cc.length <= 16 || 
+      if (this.formData.cc.length < 16 || 
           this.formData.name.length < 1 || 
           this.formData.exp.length !== 7 || 
           this.formData.amount.length < 1 || 
@@ -95,6 +96,8 @@ const app = Vue.createApp({
           .catch(error => {
             console.error(error)
           });
+
+          //localStorage.removeItem('cartItems');
         }
     },
     orderNumber() {

@@ -56,7 +56,7 @@
                     <p>Subtotal: ${{ fixed(total) }} Shipping: ${{ shippingCost }} Tax: 10%</p>
                     <p class="SevenSegment fw-bold fs-1 borderSilver px-2"><strong>Total Weight:</strong> {{ fixed(totalWeight) }} lbs</p>
                     <p class="SevenSegment fw-bold fs-1 borderSilver px-2"><strong>Total:</strong> ${{ fixed(total) }}</p>
-                    <button class="btn StillwaterBG btn-rim m-2"><a class="Pierce" href="/ccauth">Checkout</a></button>
+                    <button class="btn StillwaterBG btn-rim m-2" @click="checkout"><a class="Pierce" href="/ccauth">Checkout</a></button>
                 </div>
             </div>
         </div>

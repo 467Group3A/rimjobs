@@ -58,7 +58,7 @@
                       type="number" :disabled="inventory[row.number - 1].quantity === 0" placeholder="Quantity" v-model="qty[index]"
                       required="">
                     <button v-if="!isInCart(row.number) && !(inventory[row.number - 1].quantity === 0)" class="btn btn-rim btn-grn" onclick="greenlight(this)" type="Submit"
-                      @click="addToCart(row.pictureURL, row.number, row.description, row.weight, inventory[row.number - 1].quantity, row.price, qty[index])">Add to Cart</button>
+                      @click="addToCart(row.pictureURL, row.number, row.description, row.weight, row.price, inventory[row.number - 1].quantity, qty[index])">Add to Cart</button>
                     <button v-else-if="inventory[row.number - 1].quantity === 0" class="btn btn-rim" type="Submit" disabled> Out of Stock </button>
                     <a v-else class="in-cart btn btn-cart" href="/cart">In Cart <i class="fa-solid fa-check"></i></a>
                 </form>
