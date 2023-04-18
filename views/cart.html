@@ -51,6 +51,13 @@
               <input type="submit" value="Update Cart">
             </form>
           </td>
+          <td>
+            <form action="/cart" method="POST" style="display: flex; flex-direction: row;">
+              <input type="hidden" name="number" v-bind:value="row.number">
+              <input type="hidden" name="method" value="DELETE">
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>          
+          </td>
         </tr>
       </table>
     </ul>
@@ -70,7 +77,7 @@
         .then(response => response.json()) 
         .then(data => {
             console.log('Data:', data);
-            this.finalRows = data;
+            this.finalRows = data.filter(product => product.quantity > 0);
             console.log('Parts have been received!')
         })
         .catch(error => {

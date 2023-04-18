@@ -86,6 +86,7 @@ app.post('/viewinventory', (req, res) => {
       image: image,
       quantity: Number(quantity)
     });
+    
     localStorage.setItem('products', JSON.stringify(products));
 
   }
@@ -108,6 +109,29 @@ app.post('/cart', (req, res) => {
 
   res.redirect('/cart');
 });
+
+//button to delete products in cart
+app.delete('/cart', (req, res) => {
+  const number = req.body.number;
+  
+  // Find the index of the product to be updated in the products array
+  const productIndex = products.findIndex(product => product.number === number);
+  
+  if (productIndex !== -1) {
+    // Update the product object with the new quantity
+    products[productIndex].quantity = 0;
+    localStorage.setItem('products', JSON.stringify(products));
+  }
+  
+  // Update the localstorage variable
+  req.app.locals.products = products;
+
+  // Redirect back to the cart page
+  res.redirect('/cart');
+});
+
+
+
 
 //cart number total
 app.get('/cartTotal', (req, res) => {
