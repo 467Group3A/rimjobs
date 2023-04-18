@@ -21,10 +21,11 @@
         <div id="cart">
             <div v-if="cartItems.length === 0" class="container-lg UltorBG borderSilver">
                 <h1 class="Stillwater Shrikhand dropShadow text-center">Your cart is currently empty.</h1>
+                <a href="/viewinventory" class="btn btn-lg fw-bold StillwaterBG btn-rim mb-2">See our products.</a>
             </div>
             <div v-else>
                 <div class="container-lg UltorBG borderSilver">
-                    <h1 class="Stillwater Shrikhand dropShadow">Cart</h1>
+                    <h1 class="Stillwater Shrikhand dropShadow">Your Cart</h1>
                     <table class="table table-striped SteelportBG Pierce borderSilver fs-4">
                         <thead>
                             <tr>
@@ -53,10 +54,14 @@
                             </tr>
                         </tbody>
                     </table>
-                    <p>Subtotal: ${{ fixed(total) }} Shipping: ${{ shippingCost }} Tax: 10%</p>
-                    <p class="SevenSegment fw-bold fs-1 borderSilver px-2"><strong>Total Weight:</strong> {{ fixed(totalWeight) }} lbs</p>
-                    <p class="SevenSegment fw-bold fs-1 borderSilver px-2"><strong>Total:</strong> ${{ fixed(total) }}</p>
-                    <button class="btn StillwaterBG btn-rim m-2"><a class="Pierce" href="/ccauth">Checkout</a></button>
+                    <p class="SevenSegment fw-bold fs-1 borderSilver px-2 dropShadow">Total Weight: {{ fixed(totalWeight) }} lbs</p>
+                    <div class="row fw-bold fs-1 px-2 dropShadow">
+                        <p class="col-4 SevenSegment borderSilver">Subtotal: ${{ fixed(total) }}</p>
+                        <p class="col-4 SevenSegment borderSilver">Shipping: ${{ shippingCost }}</p>
+                        <p class="col-4 SevenSegment borderSilver">Tax: 10%</p>
+                    </div>
+                    <p class="SevenSegment fw-bold fs-1 borderSilver px-2 dropShadow">Total: ${{ fixed(total) }}</p>
+                    <button class="btn btn-lg StillwaterBG btn-rim m-2" @click="checkout"><a class="Pierce" href="/ccauth"><i class="fas fa-cash-register"></i> Checkout</a></button>
                 </div>
             </div>
         </div>

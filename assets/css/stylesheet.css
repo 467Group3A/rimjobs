@@ -116,6 +116,12 @@ body {
   background-color: #3d3d3d;
   color: crimson;
 }
+.SevenSegment:last-of-type {
+  color: #21b26e;
+}
+.SevenSegment.col-4 {
+  color: #f7ae00;
+}
 
 .btn-rim {
   font-size: large;

@@ -128,7 +128,12 @@ body {
     font-family: Seven Segment!important;
     background-color: #3d3d3d;
     color: crimson;
-
+    &:last-of-type {
+        color:#21b26e
+    }
+    &.col-4 {
+        color: #f7ae00
+    }
 }
 
 .btn-rim {
