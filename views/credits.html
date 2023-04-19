@@ -15,103 +15,64 @@
     <link rel="stylesheet" href="/css/stylesheet.css">
 </head>
 
-<style>
-    body {
-        overflow: hidden;
-    }
-    
-    .card-header {
-        font-size: 24px;
-        font-weight: bold;
-        background-color: #824538;
-        color: white;
-    }
-
-    .card-title {
-        font-size: 32px;
-    }
-
-    .container {
-        margin-top: 2%;
-    }
-
-    .cssanimation,
-    .cssanimation span {
-        animation-duration: 1s;
-        animation-fill-mode: both;
-    }
-
-    .cssanimation2,
-    .cssanimation2 span {
-        animation-duration: 1.2s;
-        animation-fill-mode: both;
-    }
-
-    .cssanimation span {
-        display: inline-block
-    }
-
-    .fadeInBottom {
-        animation-name: fadeInBottom
-    }
-
-    @keyframes fadeInBottom {
-        from {
-            opacity: 0;
-            transform: translateY(100%);
-            overflow: hidden;
-        }
-
-        to {
-            opacity: 1
-        }
-    }
-</style>
-
-<body>
+<body class="stripe">
     <header id="navbar"></header>
     <main>
-        <div class="container cssanimation sequence fadeInBottom">
-            <div class="card text-center">
-                <div class="card-header">
-                    CSCI 467 - 0001 Group 3A
+        <div class="container mt-4 UltorBG borderSilver">
+            <div class="row">
+                <div class="col-2 dropShadow">
+                    <img src="/img/FlashyRims.webp">
+                </div>
+                <div class="col-5 mt-4 dropShadow">
+                    <img src="/img/Logo.png">
+                </div>
+                <div class="col-5 mt-2 dropShadow">
+                    <img src="/img/ChromeRims.webp">
+                </div>
+            </div>
+        </div>
+
+        <div class="container mt-4 cssanimation sequence fadeInBottom">
+            <div class="card text-center SteelportBG">
+                <div class="card-header UltorBG Stillwater borderSteel">
+                    <p class="Shrikhand dropShadow fw-bold fs-4">CSCI 467 - 0001 Group 3A</p>
                 </div>
                 <div class="card-body">
                     <div class="card-group">
-                        <div class="card">
+                        <div class="card UltorBG Stillwater">
                             <div class="card-body">
-                                <h5 class="card-title">Ryan</h5>
-                                <ul class="list-group list-group-flush">
+                                <h5 class="card-title fs-5 Shrikhand dropShadow fs-4">Ryan</h5>
+                                <ul class="list-group list-group-flush borderSilver fs-5">
                                     <li class="list-group-item"><i class="fa-brands fa-node fa-2xl"></i> Express.js</li>
                                     <li class="list-group-item"><i class="fa-brands fa-vuejs fa-2xl"></i> Vue.js</li>
                                     <li class="list-group-item"><i class="fas fa-database fa-2xl"></i> SQLite3</li>
                                 </ul>
                             </div>
                         </div>
-                        <div class="card">
+                        <div class="card UltorBG Stillwater">
                             <div class="card-body">
-                                <h5 class="card-title">Matt</h5>
-                                <ul class="list-group list-group-flush">
+                                <h5 class="card-title fs-5 Shrikhand dropShadow fs-4">Matt</h5>
+                                <ul class="list-group list-group-flush borderSilver fs-5">
                                     <li class="list-group-item"><i class="fa-brands fa-sass fa-2xl"></i> SASS</li>
                                     <li class="list-group-item"><i class="fa-brands fa-vuejs fa-2xl"></i> Vue.js</li>
                                     <li class="list-group-item"><i class="fa-brands fa-bootstrap fa-2xl"> </i> Bootstrap 5</li>
                                 </ul>
                             </div>
                         </div>
-                        <div class="card">
+                        <div class="card UltorBG Stillwater">
                             <div class="card-body">
-                                <h5 class="card-title">Cesar</h5>
-                                <ul class="list-group list-group-flush">
+                                <h5 class="card-title fs-5 Shrikhand dropShadow fs-4">Cesar</h5>
+                                <ul class="list-group list-group-flush borderSilver fs-5">
                                     <li class="list-group-item"><i class="fa-brands fa-node fa-2xl"></i> Express.js</li>
                                     <li class="list-group-item"><i class="fa-brands fa-vuejs fa-2xl"></i> Vue.js</li>
                                     <li class="list-group-item"><i class="fas fa-database fa-2xl"></i> SQLite3</li>
                                 </ul>
                             </div>
                         </div>
-                        <div class="card">
+                        <div class="card UltorBG Stillwater">
                             <div class="card-body">
-                                <h5 class="card-title">David</h5>
-                                <ul class="list-group list-group-flush">
+                                <h5 class="card-title fs-5 Shrikhand dropShadow fs-4">David</h5>
+                                <ul class="list-group list-group-flush borderSilver fs-5">
                                     <li class="list-group-item"><i class="fa-brands fa-node fa-2xl"></i> Express.js</li>
                                     <li class="list-group-item"><i class="fa-brands fa-vuejs fa-2xl"></i> Vue.js</li>
                                     <li class="list-group-item"><i class="fa-brands fa-linode fa-2xl"></i> Linode Server</li>
@@ -122,17 +83,17 @@
                 </div>
             </div>
         </div>
-        <div class="container cssanimation2 sequence fadeInBottom">
-            <div class="card text-center">
-                <div class="card-header">
-                    Tech Stack
+        <div class="container mt-4 cssanimation2 sequence fadeInBottom">
+            <div class="card text-center SteelportBG">
+                <div class="card-header UltorBG Stillwater borderSteel">
+                    <p class="Shrikhand dropShadow fw-bold fs-4">Tech Stack</p>
                 </div>
                 <div class="card-body">
                     <div class="card-group">
-                        <div class="card">
+                        <div class="card UltorBG Stillwater">
                             <div class="card-body">
-                                <h5 class="card-title">Frontend</h5>
-                                <ul class="list-group list-group-flush">
+                                <h5 class="card-title Shrikhand dropShadow fs-4">Frontend</h5>
+                                <ul class="list-group list-group-flush borderSilver fs-5">
                                     <li class="list-group-item"><i class="fa-brands fa-vuejs fa-2xl"></i> Vue 3.2.47</li>
                                     <li class="list-group-item"><i class="fa-brands fa-bootstrap fa-2xl"></i> Bootstrap 5.3.0 Alpha</li>
                                     <li class="list-group-item"><i class="fa-brands fa-square-font-awesome fa-2xl"></i> FontAwesome 6.4.0</li>
@@ -142,28 +103,29 @@
                             </div>
                         </div>
                         <div class="col">
-                            <div class="card row">
+                            <div class="card row UltorBG Stillwater">
                                 <div class="card-body">
-                                    <h5 class="card-title">Backend</h5>
-                                    <ul class="list-group list-group-flush">
+                                    <h5 class="card-title Shrikhand dropShadow fs-4">Backend</h5>
+                                    <ul class="list-group list-group-flush borderSilver fs-5">
                                         <li class="list-group-item"><i class="fa-brands fa-node fa-2xl"></i> Express.js 4.18.2</li>
                                         <li class="list-group-item"><i class="fas fa-database fa-2xl"></i> SQLite3 5.1.6</li>
+                                        <li class="list-group-item"><i class="fa-brands fa-npm fa-2xl"></i> npm 7.5.2</li>
                                         <li class="list-group-item"><i class="fa-brands fa-linode fa-2xl"></i> Linode Cloud</li>
                                     </ul>
                                 </div>
                             </div>
-                            <div class="card row">
+                            <div class="card row UltorBG Stillwater">
                                 <div class="card-body">
-                                    <h5 class="card-title">Misc</h5>
-                                    <div class="row">
+                                    <h5 class="card-title Shrikhand dropShadow fs-4">Misc</h5>
+                                    <div class="row card-body StillwaterBG Steelport borderSilver fs-5">
                                         <div class="col-3">
-                                            <p><i class="fa-brands fa-github fa-2xl"></i> GitHub</p>
+                                            <p class=""><i class="fa-brands fa-github fa-2xl"></i> GitHub</p>
                                         </div>
                                         <div class="col-3">
-                                            <p><i class="fa-brands fa-discord fa-2xl"></i> Discord</p>
+                                            <p class=""><i class="fa-brands fa-discord fa-2xl"></i> Discord</p>
                                         </div>
                                         <div class="col-6">
-                                            <p><img src="/img/Northern_Illinois_Huskies_logo.png" height="32px" width="32px" > Northern Illinois University</p>
+                                            <p class=""><img src="/img/Northern_Illinois_Huskies_logo.png" height="32px" width="32px" > Northern Illinois University</p>
                                         </div>
                                     </div>
                                 </div>
