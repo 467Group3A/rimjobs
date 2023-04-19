@@ -244,14 +244,14 @@ body {
   background-color: #2a2929;
   background-image: repeating-linear-gradient(-25deg, transparent, transparent 1rem, #414141 1rem, #1b1a1a 2rem);
   background-size: 200% 200%;
-  animation: barberpole 150s linear infinite;
+  animation: barberpole 240s linear infinite;
 }
 
 .stripe-alt {
-  background-color: #DDD8CF;
-  background-image: repeating-linear-gradient(-25deg, transparent, transparent 1rem, #cac5bd 1rem, #DDD8CF 2rem);
+  background-color: #2a2929;
+  background-image: repeating-linear-gradient(-25deg, transparent, transparent 1rem, #414141 1rem, #1b1a1a 2rem);
   background-size: 200% 200%;
-  animation: barberpole 150s linear infinite;
+  animation: barberpole 60s linear infinite;
 }
 
 @keyframes barberpole {
