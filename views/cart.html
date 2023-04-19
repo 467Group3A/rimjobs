@@ -60,7 +60,7 @@
                         <p class="col-4 SevenSegment borderSilver">Shipping: ${{ shippingCost }}</p>
                         <p class="col-4 SevenSegment borderSilver">Tax: 10%</p>
                     </div>
-                    <p class="SevenSegment fw-bold fs-1 borderSilver px-2 dropShadow">Total: ${{ fixed(total) }}</p>
+                    <p class="SevenSegment fw-bold fs-1 borderSilver px-2 dropShadow">Total: ${{ fixed((total + shippingCost) * taxRate) }}</p>
                     <button class="btn btn-lg StillwaterBG btn-rim m-2" @click="checkout"><a class="Pierce" href="/ccauth"><i class="fas fa-cash-register"></i> Checkout</a></button>
                 </div>
             </div>
