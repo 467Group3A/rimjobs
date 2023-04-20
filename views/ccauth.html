@@ -39,7 +39,7 @@
                 <tr v-for="(item, index) in cartItems" :key="item.item_id" class="Ultor StillwaterBG silverBorder fs-5">
                     <td><img class="borderSilver" v-bind:src="item.pictureURL" width="50" height="50"></td>
                     <td>{{ capitalize(item.item_name) }}</td>
-                    <td>${{ item.price }}</td>
+                    <td>{{ item.quantity }}</td>
                     <td>{{ fixed(item.weight) }} lbs</td>
                     <td>{{ fixed(item.quantity * item.price) }}</td>
                 </tr>
@@ -228,7 +228,18 @@
               </ul>
             </div>
             <div v-if="confirmation">
-              <pre>{{ confirmation }}</pre>
+              <pre>
+                <p>{{ confirmation.vendor }}</p>
+                <p>{{ confirmation.cc }}</p>
+                <p>{{ confirmation.trans }}</p>
+                <p>{{ confirmation.name }}</p>
+                <p>{{ confirmation.exp }}</p>
+                <p>{{ confirmation.amount }}</p>
+                <p>{{ confirmation.brand }}</p>
+                <p>{{ confirmation.authorization }}</p>
+                <p>{{ confirmation.timeStamp }}</p>
+                <p>{{ confirmation._id }}</p>
+              </pre>
             </div>
           </form>
         </div>

@@ -70,6 +70,8 @@ const app = Vue.createApp({
           }
         }
 
+        this.formData.amount = (parseFloat(this.formData.amount) + parseFloat(this.customer.weightCost)) * 1.1;
+
         let dataPacket = {
           formData: this.formData,
           customer: this.customer,
