@@ -1,7 +1,9 @@
 //modules
 const express = require('express');
+const session = require('express-session');
 const axios = require("axios");
 const mysql = require('mysql2');
+const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 var path = require('path');
 const router = express.Router();
@@ -15,6 +17,14 @@ const { loadInventory } = require('./services/loadinventory')
 const { legacyConnection, newConnection, initializeNewDB, cleanOrders, getOrderDetails } = require('./services/dbconfig') // Some of these functions will be removed
 
 const app = express();
+
+// Allow for session storage
+app.use(session({
+  secret: 'rimjobsKey',
+  resave: true,
+  saveUninitialized: true,
+  cookie: { maxAge: 3600000 } // Will expire login after 1hr
+}));
 
 //Handle HTTP POST requests
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -129,33 +139,37 @@ app.get('/viewinventory', (req, res) => {
   res.sendFile(__dirname + "/views/viewinventory.html");
 })
 
-// If url is /template, send the template.html file
-app.get('/template', (req, res) => {
-  res.sendFile(__dirname + "/views/template.html");
-})
-
 // If url is /ccauth, send the ccauth.html file
 app.get('/ccauth', (req, res) => {
   res.sendFile(__dirname + "/views/ccauth.html");
 })
 
-// If url is /vieworders, send the vieworders.html file
-app.get('/vieworders', (req, res) => {
+app.get('/credits', (req, res) => {
+  res.sendFile(__dirname + "/views/credits.html");
+})
+
+// Used to access the following pages below
+app.get('/login', (req, res) => {
+  res.sendFile(__dirname + "/views/login.html");
+})
+
+app.get('/employee', isEmployee, (req, res) => {
+  res.sendFile(__dirname + "/views/employee.html");
+})
+
+app.get('/vieworders', isEmployee, (req, res) => {
   res.sendFile(__dirname + "/views/vieworders.html");
 })
 
-// If url is /vieworderdetails, send the vieworderdetails.html file
-app.get('/vieworderdetails', (req, res) => {
+app.get('/vieworderdetails', isEmployee, (req, res) => {
   res.sendFile(__dirname + "/views/vieworderdetails.html");
 })
 
-// If url is /replenish, send the replenish.html file
-app.get('/replenish', (req, res) => {
+app.get('/replenish', isEmployee, (req, res) => {
   res.sendFile(__dirname + "/views/replenish.html");
 })
 
-// If url is /replenish, send the replenish.html file
-app.get('/shippingfees', (req, res) => {
+app.get('/shippingfees', isAdmin, (req, res) => {
   res.sendFile(__dirname + "/views/shippingfees.html");
 })
 
@@ -163,10 +177,8 @@ app.get('/cart', (req, res) => {
   res.sendFile(__dirname + "/views/cart.html");
 })
 
-app.get('/credits', (req, res) => {
-  res.sendFile(__dirname + "/views/credits.html");
-})
 
+// Start of endpoints
 app.get('/legacyparts', async (req, res) => {
   const perPage = parseInt(req.query.per) || 10;
   let page = parseInt(req.query.page) || 1;
@@ -196,6 +208,60 @@ app.get('/inventory', (req, res) => {
       res.send(rows);
     }
   });
+});
+
+// Sends back json objects that combine legacy parts with a random inventory
+app.get('/api/combine-parts-quantity', async (req, res) => {
+  try {
+    // Connect to legacy database
+    const connect = await legacyConnection.getConnection();
+
+    // Query the parts from legacy
+    const [rows] = await connect.query('SELECT * FROM parts');
+
+    // Drop connection
+    connect.release();
+
+    const db = newConnection()
+
+    // Grab inventory from new db taking number and amount
+    const newRows = await new Promise((resolve, reject) => {
+      db.all('SELECT * FROM inventory', (err, rows) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(rows);
+      });
+    });
+
+    // Drop connection to new db.
+    db.close()
+
+    // Combine legacy and new db rows by part number
+    const combinedRows = rows.map((row) => {
+      const matchedRow = newRows.find((newRow) => newRow.id === row.number);
+      
+      // Add the .amount if the number(part_id) are the same
+      if (matchedRow) {
+        return {
+          ...row,
+          amount: matchedRow.quantity,
+        };
+      } else { // If part ID is not found amount is 0, idealy this wont occur sense loadInventory()
+        return {
+          ...row,
+          amount: 0,
+        };
+      }
+    });
+
+    // Send the final rows to Vue
+    res.json(combinedRows);
+    console.log('Retrieved information from legacy database correctly!');
+  } catch (err) {
+    console.log(err);
+    console.log('Problem connecting and querying from legacy database!');
+  }
 });
 
 // Sends back json objects that contain orders
@@ -517,6 +583,112 @@ app.post('/api/creditcardauth', (req, res) => {
       res.status(501).send("An error occured with third party credit card authorization!")
     });
 });
+
+// Used for employee/admin login verification
+app.post('/api/login', async (req, res) => {
+  const username = req.body.username
+  const password = req.body.password
+
+  const db = newConnection();
+
+  db.get('SELECT * FROM users WHERE username = ?', [username], async (err, row) => {
+    if(err){
+      console.log(err)
+    }
+    // Check if that username exists
+    if(!row) {
+      res.status(500).json({ message: 'Invalid username' })
+      console.log('invalid username')
+      // if invalid username dont continue
+      return
+    }
+    // Use bcrypt to check if password is the same
+    const checkPassword = await bcrypt.compare(password, row.password.toString())
+
+    //If its a match authenticate accordingly
+    if(checkPassword) {
+      res.status(200).json({ message: 'Correct login info!'} )
+      console.log('correct login')
+      // Set their session variable to admin/employee
+      if(row.role == 'admin') {
+        req.session.isAdmin = true;
+      } else {
+        req.session.isEmployee = true;
+      }
+      req.session.save()
+      //console.log(req.session) - Server side testing
+    } else { // Otherwise send back error
+      res.status(501).json({ message: 'Invalid password' }) 
+      console.log('invalid password')
+    }
+  })
+
+  db.close();
+});
+
+// Endpoint for employee portal
+app.get('/api/userRole', (req, res) => {
+  if (req.session.isAdmin) {
+    res.status(200).json({ isAdmin: true });
+    // No reason to return bad status if they're just an employee
+  }
+});
+
+// Logs an employee/admin out
+app.get('/api/logout', (req, res) => {
+  req.session.destroy();
+
+  // DOESNT WORK, NEED TO POSSIBLY CLEAR COOKIE ON CLIENT SIDE!!!!
+  // SEEMS TO WORK NOW?
+});
+
+// Middle ware to check session variable allows admins to enter a page
+async function isEmployee(req, res, next) {
+  if(req.session && req.session.isAdmin || req.session.isEmployee){
+    // if their session variable says they're admin let them in
+    next()
+  } else {
+    if (req.session) { // Check is session is valid
+      await req.session.reload(async function(err) { // refreshing was causing bugs earlier but works now
+        if (err) {
+          console.log(err)
+        }
+        if (req.session && req.session.isAdmin || req.session.isEmployee) {
+          // if their session variable says they're an employee/admin
+          next()
+        } else {
+          res.redirect('/login')
+        }
+      })
+    } else {
+      res.redirect('/login')
+    }
+  }
+}
+
+// Middle ware to check session variable allows admins to enter a page
+async function isAdmin(req, res, next) {
+  if(req.session && req.session.isAdmin){
+    // if their session variable says they're admin let them in
+    next()
+  } else {
+    if (req.session) { // check if session is valid
+      await req.session.reload(async function(err) { // refreshing was causing bugs earlier but works now
+        if (err) {
+          console.log(err)
+        }
+        if (req.session && req.session.isAdmin) {
+          // if their session variable says they're an admin
+          next()
+        } else {
+          res.redirect('/login')
+        }
+      })
+    } else {
+      res.redirect('/login')
+    }
+  }
+}
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

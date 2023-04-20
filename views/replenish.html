@@ -1,6 +1,43 @@
 <!doctype html>
 <html lang="en">
+<style>
 
+  #CS {
+    padding: 35px;
+    width: 75%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #flex {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 50px;
+    justify-content: center;
+  }
+  table {
+    margin: auto;
+  }
+  tr, th {
+    padding: 10px;
+  }
+  form {
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  label {
+    margin: 5px;
+  }
+  input {
+    padding: 5px;
+    margin: 5px;
+    width: 200px;
+  }
+</style>
 <head>
   <title>Replenish</title>
   <!-- Required meta tags -->
@@ -19,28 +56,35 @@
   <header id="navbar"></header>
   <main>
     <div id="app">
-      <h1>Replenish Inventory</h1>
-      <form @submit.prevent="submitReplenish">
+      <div id="CS">
+        <h1>Part being updated:</h1>
+        <table>
+          <thead>
+            <th>Part ID</th>
+            <th>Description</th>
+            <th>Preview</th>
+            <th>Quantity</th>
+          </thead>
+          <tbody> 
+            <tr v-for="part in findCurrentPart" :key="part.number">
+              <td>{{ part.number }}</td>
+              <td>{{ part.description }}</td>
+              <td><img :src="part.pictureURL" alt="prev" width="30" height="30"></td>
+              <td>{{ part.amount }}</td>
+            </tr>
+          </tbody>
+        </table>  
+      </div>
+      <form>
         <label for="partId">Part ID:</label>
-        <input type="number" id="partId" v-model="partId" required>
+        <input type="number" id="partId" v-model="partId" @input="updateCurrenPart" required min="0">
         <br>
         <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" v-model="quantity" required>
+        <input type="number" id="quantity" v-model="quantity" @input="updateCurrenPart" required min="0">
         <br>
-        <button type="submit">Submit</button>
+        <button type="button" @click="submitReplenish()">( + )</button>
+        <button type="button" @click="submitRemoval()">( - )</button>
       </form>
-      <p v-if="message">{{ message }}</p>
-      <h1>Remove Inventory</h1>
-      <form @submit.prevent="submitRemoval">
-        <label for="partIdR">Part ID:</label>
-        <input type="number" id="partId" v-model="partIdR" required>
-        <br>
-        <label for="quantityR">Quantity:</label>
-        <input type="number" id="quantityR" v-model="quantityR" required>
-        <br>
-        <button type="submit">Submit</button>
-      </form>
-      <p v-if="messageR">{{ messageR }}</p>
     </div>
   </main>
 </body>
@@ -52,78 +96,6 @@
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <!-- Components -->
   <script src="/fetchNavbar.js"></script>
-  <script>
-        const app = Vue.createApp({
-        data() {
-          return {
-            partId: null,
-            quantity: null,
-            partIdR: null,
-            quantityR: null,
-            message: '',
-            messageR: ''
-          };
-        },
-        methods: {
-          submitReplenish() {
-            fetch('/api/replenish', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                partId: this.partId,
-                quantity: this.quantity
-              })
-            })
-            .then(response => {
-              if (response.ok) {
-                return response.json();
-              } else {
-                throw new Error('Network response was not ok.');
-              }
-            })
-            .then(data => {
-              this.message = data.message;
-              this.partId = null;
-              this.quantity = null;
-            })
-            .catch(error => {
-              console.error('There was a problem with the fetch operation:', error);
-              this.message = 'There was an error submitting the form. Please try again.';
-            });
-          },
-          submitRemoval() {
-            fetch('/api/replenish/removal', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                partIdR: this.partIdR,
-                quantityR: this.quantityR
-              })
-            })
-            .then(response => {
-              if (response.ok) {
-                return response.json();
-              } else {
-                throw new Error('Network response was not ok.');
-              }
-            })
-            .then(data => {
-              this.messageR = data.message;
-              this.partId = null;
-              this.quantity = null;
-            })
-            .catch(error => {
-              console.error('There was a problem with the fetch operation:', error);
-              this.message = 'There was an error submitting the form. Please try again.';
-            });
-          }
-        }
-      })
-      app.mount('#app');
-  </script>
-
+  <script src="/replenish.js"></script>
+</body>
 </html>
