@@ -1,5 +1,6 @@
 import sqlite3
 import random
+import bcrypt
 
 con = sqlite3.connect("rimjobs.db")
 
@@ -40,6 +41,26 @@ CREATE TABLE orderitems (
     FOREIGN KEY (orderid) REFERENCES orders(id) ON DELETE CASCADE
 );""")
 
+cursor.execute("""
+CREATE TABLE users (
+    username VARCHAR(255) NOT NULL UNIQUE PRIMARY KEY, 
+    password CHAR(60) NOT NULL, 
+    role TEXT NOT NULL
+    );""")
+
+# bcrypt is used to hash passwords, express will be able checkpw from the table
+# This will simply create two accounts with hashed passwords
+# Account 1: employee1 etest employee permissions
+# Account 2: admin1    atest admin permissions
+employee_password_hash = bcrypt.hashpw(b"etest", bcrypt.gensalt())
+admin_password_hash = bcrypt.hashpw(b"atest", bcrypt.gensalt())
+
+sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)"
+employeeEntry = ("employee1", employee_password_hash, "employee")
+adminEntry = ("admin1", admin_password_hash, "admin")
+
+cursor.execute(sql, employeeEntry)
+cursor.execute(sql, adminEntry)
 
 cursor.execute("INSERT INTO brackets (weight, cost) VALUES (10.0, 10.0);")
 cursor.execute("INSERT INTO brackets (weight, cost) VALUES (25.0, 35.0);")
