@@ -47,17 +47,25 @@ $(document).ready(function () {
                 </div>
             </div>
         </nav>
-        `}).mount('#navbar')
-
-    // fetch('/cartTotal')
-    // .then(response => response.json())
-    // .then(data => {
-    //     nav.cartTotal = data.cartTotal;
-    // })
-    // .catch(error => {
-    //     console.error(error);
-    // });
-
+        `,
+    mounted() {
+        try {
+            this.cartTotal = JSON.parse(localStorage.getItem('cartItems')).length
+         } catch (error) {
+            this.cartTotal = 0;
+         }
+        window.addEventListener('ad', (event) => {
+            this.cartTotal = this.cartTotal + event.detail.count;
+        });
+        window.addEventListener('sb', (event) => {
+            this.cartTotal = this.cartTotal - event.detail.count;
+        });
+    },
+    beforeUnmount() {
+        window.removeEventListener('ad');
+        window.removeEventListener('sb');
+    }
+    }).mount('#navbar')
 });
 
 jQuery(document).ready(function ($) {

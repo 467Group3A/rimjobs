@@ -14,6 +14,11 @@ $Pierce: #e6e5e7;
     src: url(../fonts/Shrikhand-Regular.ttf);
 }
 
+@font-face {
+    font-family: Seven Segment;
+    src:url(../fonts/Seven\ Segment.ttf);
+}
+
 //Navbar
 .nav-link {
     font-family: Shrikhand;
@@ -73,6 +78,24 @@ a {
     } 
 }
 
+.table-striped {
+    --bs-table-striped-color: $Steelport
+}
+
+.list-group-item {
+    background-color: $Stillwater;
+    color: $Steelport;
+    border-color: $Steelport;
+}
+
+.form-control {
+    background-color: $Pierce;
+}
+
+.form-select {
+    background-color: $Pierce;
+}
+
 .carousel-indicators .active {
     color: $Pierce;
 }
@@ -103,21 +126,53 @@ body {
     max-width: 250px;
 }
 
+.Shrikhand {
+    font-family: Shrikhand!important;
+}
+
+.SevenSegment {
+    font-family: Seven Segment!important;
+    background-color: #3d3d3d;
+    color: crimson;
+    &:last-of-type {
+        color:#21b26e
+    }
+    &.col-4 {
+        color: #f7ae00
+    }
+}
+
 .btn-rim {
     font-size: large;
-    color: $Pierce;
+    color: $Pierce!important;
     background: linear-gradient(rgba(0,0,0,0), $Steelport 100%);
     &:hover {
-        color: $Stillwater;
-        background: linear-gradient($Steelport, $Ultor 100%);
+        color: $Ultor;
+        background: linear-gradient($Pierce, $Steelport 100%);
     }
     &:focus {
-        color: $Stillwater;
-        background: linear-gradient($Steelport, $Ultor 100%);
+        color: $Ultor;
+        background: linear-gradient($Pierce, $Steelport 100%);
     }
     &:active {
-        color: $Stillwater !important;
-        background: linear-gradient($Steelport, $Ultor 100%);
+        color: $Pierce;
+        background: linear-gradient($Pierce, $Steelport 100%);
+    }
+}
+
+.btn-cart {
+    font-size: large;
+    color: $Pierce!important;
+    background: linear-gradient(#198754, $Steelport 100%);
+    &:hover {
+        color: $Pierce;
+        background: linear-gradient(#21b26e, $Steelport 100%);
+    }
+    &:focus {
+        background: linear-gradient(#21b26e, $Steelport 100%);
+    }
+    &:active {
+        background: linear-gradient(#198754, $Steelport 100%);
     }
 }
 
@@ -162,57 +217,74 @@ body {
     border: 5px solid $Steelport;
 }
 
-//Gradients
-@mixin img-gradient($gradient) {
-    position: relative;
-    display: inline-block;
-    &:after {
-        content:'';
-        position:absolute;
-        left:0; top:0;
-        width:100%; height:100%;
-        display:inline-block;
-        background: linear-gradient(rgba(0,0,0,0), $gradient 100%);
-    }
-    img {
-        display:block;
-    }
+.borderSteel {
+    border: 10px solid $Steelport;
 }
-
-.img-gradient-shadow {
-    @include img-gradient($Steelport);
-}
-
-.img-gradient-red {
-    @include img-gradient(rgb(207, 42, 30));
-}
-
-.img-gradient-orng {
-    @include img-gradient(rgb(184, 57, 11));
-}
-
-.img-gradient-ylw {
-    @include img-gradient(rgb(255, 220, 46));
-}
-
-.img-gradient-grn {
-    @include img-gradient(rgb(51, 184, 11));
-}
-
-.img-gradient-blu {
-    @include img-gradient(rgb(11, 173, 184));
-}
-
-.img-gradient-idgo {
-    @include img-gradient(rgb(30, 48, 105));
-}
-
-.img-gradient-vlt {
-    @include img-gradient(rgb(100, 11, 184));
-}
-
+  
 @media print and (max-width: 600px) {
     #navbar {
         display: none !important;
     }
 }
+
+//Animations
+
+.cssanimation, .cssanimation span {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+.cssanimation2, .cssanimation2 span {
+    animation-duration: 1.2s;
+    animation-fill-mode: both;
+}
+
+.cssanimation span {
+    display: inline-block
+}
+
+.fadeInBottom {
+    animation-name: fadeInBottom
+}
+
+@keyframes fadeInBottom {
+    from {
+        opacity: 0;
+        transform: translateY(100%);
+        overflow: hidden;
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+.stripe {
+    background-color: #2a2929;
+    background-image: 
+      repeating-linear-gradient(
+        -25deg, 
+        transparent, 
+        transparent 1rem,
+        #414141 1rem,
+        #1b1a1a 2rem
+      );
+    background-size: 200% 200%;
+    animation: barberpole 240s linear infinite;
+}
+
+.stripe-alt {
+    background-color: #2a2929;
+    background-image: 
+      repeating-linear-gradient(
+        -25deg, 
+        transparent, 
+        transparent 1rem,
+        #414141 1rem,
+        #1b1a1a 2rem
+      );
+    background-size: 200% 200%;
+    animation: barberpole 60s linear infinite;
+}
+  
+@keyframes barberpole {100% {background-position: 100% 100%;}}

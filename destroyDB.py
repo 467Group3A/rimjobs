@@ -1,6 +1,13 @@
 import sqlite3
-import random
-
+#
+#  CSCI 467 Group 3A
+#  Matt, David, Ryan, and Cesar
+#
+#  This is a helper script to destroy the database.
+#  
+#  This is used in tandem with generateDB.py to 
+#  create the database and example data.
+#
 con = sqlite3.connect("rimjobs.db")
 
 cursor = con.cursor()

@@ -2,41 +2,42 @@
 <html lang="en">
 
 <head>
-  <title>Checkout</title>
+  <title>Rim Jobs</title>
+  <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-  <!-- Bootstrap CSS v5.3.0 Alpha -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css">
-  <!-- FontAwesome 6.4.0 CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <!-- FontAwesome 6.2.0 CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"/>
   <!-- Rim Jobs CSS -->
   <link rel="stylesheet" href="/css/stylesheet.css">
 </head>
 
-<body class="stripe-alt">
+<body>
   <header id="navbar"></header>
   <main>
     <div class="container UltorBG Stillwater borderSteel">
       <div class="py-2 text-center">
         <img class="d-block mx-auto mb-2 dropShadow" src="/img/Logo.png">
-        <h2><i class="fa-solid fa-cart-shopping"></i> Complete your order</h2>
+        <h2>Complete your order</h2>
         <p class="lead">Please fill out the following information to finalize your order.</p>
       </div>
 
       <div class="row g-4">
         <div class="col-md-6 col-lg-4 order-md-last borderSilver">
           <h4 class="d-flex justify-content-between align-items-center py-2">
-            <span class="">Your cart</span>
-            <span class=""> {{cartTotal}} items</span>
+            <span class="Delta">Your cart</span>
+            <span class="Flanergide"> items</span>
           </h4><hr>
         </div>
-        <div class="col-md-6 col-lg-8 Ultor StillwaterBG borderSilver">
-          <div class="m-2 UltorBG borderSilver">
-            <h4 class="p-2 mb-2 Shrikhand Stillwater dropShadow"><i class="fas fa-truck-fast"></i> Shipping Details</h4>
-          </div>
-          <form class="needs-validation" id="ccauth" action="" onsubmit="return false" novalidate>
+        <div class="col-md-6 col-lg-8 borderSilver" >
+          <h4 class="mb-3 py-2 Shrikhand dropShadow">Shipping Details</h4>
+          <form class="needs-validation" id="ccauth" action="" onsubmit="return false" validate>
             <div class="row g-3">
               <div class="col-12">
                 <label for="cusName" class="form-label"> <i class="fas fa-user-tie"></i> Full name</label>
@@ -55,21 +56,21 @@
               </div>
   
               <div class="col-12">
-                <label for="street" class="form-label"><i class="fas fa-road"></i> Address</label>
+                <label for="street" class="form-label"><i class="fas fa-address-card"></i> Address</label>
                 <input type="text" class="form-control" id="street" placeholder="311 Third Street" v-model="customer.address" required>
                 <div class="invalid-feedback">
                   Please enter your street address.
                 </div>
               </div>
               <div class="col-4">
-                <label for="city" class="form-label"><i class="fas fa-city"></i> City</label>
+                <label for="city" class="form-label"><i class="fas fa-address-card"></i> City</label>
                 <input type="text" class="form-control" id="city" placeholder="Steelport" v-model="customer.city" required>
                 <div class="invalid-feedback">
                   City is required
                 </div>
               </div>
               <div class="col-4">
-                <label for="state" class="form-label"><i class="fas fa-flag-usa"></i> State</label>
+                <label for="state" class="form-label"><i class="fas fa-address-card"></i> State</label>
                 <select class="form-select" id="state" v-model="customer.state" required>
                   <option value="AL">Alabama</option>
                   <option value="AK">Alaska</option>
@@ -128,8 +129,8 @@
                 </div>
               </div>
               <div class="col-4">
-                <label for="zip" class="form-label"><i class="fas fa-map-location-dot"></i> Zip Code</label>
-                <input type="text" class="form-control" id="zip" placeholder="12345" v-model="customer.zip" required>
+                <label for="zip" class="form-label"><i class="fas fa-address-card"></i> Zip Code</label>
+                <input type="text" class="form-control mb-3" id="zip" placeholder="12345" v-model="customer.zip" required>
                 <div class="invalid-feedback">
                   ZipCode is required
                 </div>
@@ -137,13 +138,14 @@
             </div>
 
             <hr class="my-4">
-            <div class="m-2 UltorBG borderSilver">
-              <h4 class="p-2 mb-2 Shrikhand Stillwater dropShadow"><i class="fas fa-cash-register"></i> Payment Details</h4>
-            </div>
+  
+            <h4 class="mb-3 Shrikhand dropShadow">Payment Details</h4>
+  
             <div class="row gy-3">
               <div class="col-md-6">
-                <label for="cc-name" class="form-label"><i class="fas fa-id-badge"></i> Name on card</label>
+                <label for="cc-name" class="form-label"><i class="fas fa-user-tie"></i> Name on card</label>
                 <input type="text" class="form-control" id="cc-name" placeholder="Joshua Birk" required>
+                <small class="Stillwater">Full name as displayed on card</small>
                 <div class="invalid-feedback">
                   Name on card is required
                 </div>
@@ -151,14 +153,14 @@
   
               <div class="col-md-6">
                 <label for="cc-number" class="form-label"><i class="fas fa-credit-card"></i> Credit card number</label>
-                <input type="text" class="form-control" id="cc-number" placeholder="6011 1234 4321 1234" v-model="formData.cc" required>
+                <input type="text" class="form-control" id="cc-number" placeholder="1234123412341234" v-model="formData.cc" required>
                 <div class="invalid-feedback">
                   Credit card number is required
                 </div>
               </div>
 
               <div class="col-md-3">
-                <label for="cc-month" class="form-label"><i class="fas fa-calendar-days"></i> Expiration Month</label>
+                <label for="cc-month" class="form-label"> Expiration Month</label>
                 <select class="form-select" id="cc-month" v-model="month" required>
                   <option value="01">January</option>
                   <option value="02">February </option>
@@ -178,7 +180,7 @@
                 </div>
               </div>
               <div class="col-md-3">
-                <label for="cc-year" class="form-label"><i class="fa-solid fa-calendar-days"></i> Expiration Year</label>
+                <label for="cc-year" class="form-label"> Expiration Year</label>
                 <select class="form-select" id="cc-year" v-model="year" required>
                   <option value="2023"> 2023</option>
                   <option value="2024"> 2024</option>
@@ -195,7 +197,7 @@
               </div>
               <div class="col-md-3">
                 <label for="cc-cvv" class="form-label"><i class="fas fa-shield"></i> CVV</label>
-                <input type="text" class="form-control" id="cc-cvv" placeholder="000" required>
+                <input type="password" class="form-control" id="cc-cvv" placeholder="***" required>
                 <div class="invalid-feedback">
                   Security code required
                 </div>
@@ -220,7 +222,9 @@
 	  </div>
 
   </main>
-</body>
+  <footer>
+    <!-- place footer here -->
+  </footer>
   <!-- Bootstrap JavaScript Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
   <!-- JQuery -->
@@ -231,27 +235,30 @@
   <script src="/fetchNavbar.js"></script>
   <!-- Credit card authorization -->
   <script src="/ccauth.js"></script>
-  
-  <script> //Workaround for bootstrap validation to function
-    (function () {
-      'use strict'
 
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      var forms = document.querySelectorAll('.needs-validation')
+  <script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function () {
+    'use strict'
 
-      // Loop over them and prevent submission
-      Array.prototype.slice.call(forms)
-        .forEach(function (form) {
-          form.addEventListener('submit', function (event) {
-            if (!form.checkValidity()) {
-              event.preventDefault()
-              event.stopPropagation()
-            }
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
 
-            form.classList.add('was-validated')
-          }, false)
-        })
-    })()
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()
   </script>
+
+</body>
 
 </html>
