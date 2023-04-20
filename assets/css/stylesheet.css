@@ -70,6 +70,20 @@ a:hover:before {
   --bs-table-striped-color: $Steelport ;
 }
 
+.list-group-item {
+  background-color: #DDD8CF;
+  color: #686868;
+  border-color: #686868;
+}
+
+.form-control {
+  background-color: #e6e5e7;
+}
+
+.form-select {
+  background-color: #e6e5e7;
+}
+
 .carousel-indicators .active {
   color: #e6e5e7;
 }
@@ -107,6 +121,12 @@ body {
   font-family: Seven Segment !important;
   background-color: #3d3d3d;
   color: crimson;
+}
+.SevenSegment:last-of-type {
+  color: #21b26e;
+}
+.SevenSegment.col-4 {
+  color: #f7ae00;
 }
 
 .btn-rim {
@@ -183,153 +203,60 @@ body {
   border: 5px solid #686868;
 }
 
-.img-gradient-shadow {
-  position: relative;
-  display: inline-block;
-}
-.img-gradient-shadow:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: inline-block;
-  background: linear-gradient(rgba(0, 0, 0, 0), #686868 100%);
-}
-.img-gradient-shadow img {
-  display: block;
-}
-
-.img-gradient-red {
-  position: relative;
-  display: inline-block;
-}
-.img-gradient-red:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: inline-block;
-  background: linear-gradient(rgba(0, 0, 0, 0), rgb(207, 42, 30) 100%);
-}
-.img-gradient-red img {
-  display: block;
-}
-
-.img-gradient-orng {
-  position: relative;
-  display: inline-block;
-}
-.img-gradient-orng:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: inline-block;
-  background: linear-gradient(rgba(0, 0, 0, 0), rgb(184, 57, 11) 100%);
-}
-.img-gradient-orng img {
-  display: block;
-}
-
-.img-gradient-ylw {
-  position: relative;
-  display: inline-block;
-}
-.img-gradient-ylw:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: inline-block;
-  background: linear-gradient(rgba(0, 0, 0, 0), rgb(255, 220, 46) 100%);
-}
-.img-gradient-ylw img {
-  display: block;
-}
-
-.img-gradient-grn {
-  position: relative;
-  display: inline-block;
-}
-.img-gradient-grn:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: inline-block;
-  background: linear-gradient(rgba(0, 0, 0, 0), rgb(51, 184, 11) 100%);
-}
-.img-gradient-grn img {
-  display: block;
-}
-
-.img-gradient-blu {
-  position: relative;
-  display: inline-block;
-}
-.img-gradient-blu:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: inline-block;
-  background: linear-gradient(rgba(0, 0, 0, 0), rgb(11, 173, 184) 100%);
-}
-.img-gradient-blu img {
-  display: block;
-}
-
-.img-gradient-idgo {
-  position: relative;
-  display: inline-block;
-}
-.img-gradient-idgo:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: inline-block;
-  background: linear-gradient(rgba(0, 0, 0, 0), rgb(30, 48, 105) 100%);
-}
-.img-gradient-idgo img {
-  display: block;
-}
-
-.img-gradient-vlt {
-  position: relative;
-  display: inline-block;
-}
-.img-gradient-vlt:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: inline-block;
-  background: linear-gradient(rgba(0, 0, 0, 0), rgb(100, 11, 184) 100%);
-}
-.img-gradient-vlt img {
-  display: block;
+.borderSteel {
+  border: 10px solid #686868;
 }
 
 @media print and (max-width: 600px) {
   #navbar {
     display: none !important;
+  }
+}
+.cssanimation, .cssanimation span {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.cssanimation2, .cssanimation2 span {
+  animation-duration: 1.2s;
+  animation-fill-mode: both;
+}
+
+.cssanimation span {
+  display: inline-block;
+}
+
+.fadeInBottom {
+  animation-name: fadeInBottom;
+}
+
+@keyframes fadeInBottom {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+    overflow: hidden;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.stripe {
+  background-color: #2a2929;
+  background-image: repeating-linear-gradient(-25deg, transparent, transparent 1rem, #414141 1rem, #1b1a1a 2rem);
+  background-size: 200% 200%;
+  animation: barberpole 240s linear infinite;
+}
+
+.stripe-alt {
+  background-color: #2a2929;
+  background-image: repeating-linear-gradient(-25deg, transparent, transparent 1rem, #414141 1rem, #1b1a1a 2rem);
+  background-size: 200% 200%;
+  animation: barberpole 60s linear infinite;
+}
+
+@keyframes barberpole {
+  100% {
+    background-position: 100% 100%;
   }
 }
 

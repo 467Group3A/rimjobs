@@ -51,9 +51,9 @@ $(document).ready(function () {
     mounted() {
         try {
             this.cartTotal = JSON.parse(localStorage.getItem('cartItems')).length
-        } catch (error) {
+         } catch (error) {
             this.cartTotal = 0;
-        }
+         }
         window.addEventListener('ad', (event) => {
             this.cartTotal = this.cartTotal + event.detail.count;
         });

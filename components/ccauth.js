@@ -96,8 +96,7 @@ const app = Vue.createApp({
           .catch(error => {
             console.error(error)
           });
-
-          //localStorage.removeItem('cartItems');
+          localStorage.removeItem('cartItems');
         }
     },
     orderNumber() {
