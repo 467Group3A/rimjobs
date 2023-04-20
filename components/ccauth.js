@@ -27,6 +27,10 @@ const app = Vue.createApp({
       message: '',
       errormessage: null,
       confirmation: null,
+      cartItems: [],
+      cartTotal: 0,
+      subtotal: 0,
+      shipping: 0,
     }
   },
   methods: {
@@ -106,8 +110,21 @@ const app = Vue.createApp({
       // format
       return [now.slice(0, 4), now.slice(4, 10), now.slice(10, 14)].join('-');
     },
+    fixed(number){
+      return number.toFixed(2);
+    },
+    capitalize(str) {
+      return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+    }
   },
   mounted() {
+    this.cartItems = JSON.parse(localStorage.getItem('cartItems'));
+    this.subtotal = localStorage.getItem('totalCost');
+    this.shipping = localStorage.getItem('shippingCost');
+    // count all item_id's in cartItems
+    for (let i = 0; i < this.cartItems.length; i++) {
+      this.cartTotal += 1;
+    }
     fetch('/api/get-shipping-fees')
       .then(response => response.json())
       .then(data => {

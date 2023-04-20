@@ -1,15 +1,17 @@
 // This is a work in progress
 // This does not show up on the page yet
 $(document).ready(function () {
-    const app = Vue.createApp({
+    const cart = Vue.createApp({
         data() {
             return {
-                cartItems: JSON.parse(localStorage.getItem('cartItems')) || [],
+                cartItems: [],
                 shippingfees: [],
                 taxRate: 1.1,
             }
         },
         mounted() {
+            console.log('cart mounted')
+            this.cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
             Promise.all([
                 fetch('/api/get-shipping-fees').then((res) => res.json()),
                 fetch('/inventory').then((res) => res.json()),
@@ -50,6 +52,7 @@ $(document).ready(function () {
                     return total + (item.quantity * item.price);
                 }, 0);
                 localStorage.setItem('totalCost', JSON.stringify(total));
+                localStorage.setItem('shippingCost', JSON.stringify(this.shippingCost));
             },
             removeFromCart(index) {
                 this.cartItems.splice(index, 1);
