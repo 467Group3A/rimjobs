@@ -106,7 +106,7 @@ const app = Vue.createApp({
           .catch(error => {
             console.error(error)
           });
-          localStorage.removeItem('cartItems');
+          //localStorage.removeItem('cartItems');
         }
     },
     orderNumber() {
@@ -121,6 +121,20 @@ const app = Vue.createApp({
     },
     capitalize(str) {
       return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+    },
+    normalDate(date){
+      var newDate = new Date(date);
+      var humanDate = newDate.toLocaleDateString("en-US", {
+        weekday: "long", 
+        month: "long", 
+        day: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric", 
+        timeZoneName: "short"
+      })
+      return humanDate
     }
   },
   mounted() {

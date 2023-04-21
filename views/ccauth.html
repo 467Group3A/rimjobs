@@ -28,20 +28,52 @@
         <a href="/viewinventory" class="w-50 btn btn-lg fw-bold StillwaterBG btn-rim mb-2">See our products.</a>
       </div>
       <div class="row g-4" v-else-if="confirmation">
-        <div v-if="confirmation">
-          <pre>
-            <!-- All of these are what you get back from the confirmation -->
-            <p>{{ confirmation.vendor }}</p>
-            <!-- <p>{{ confirmation.cc }}</p> -->
-            <p>{{ confirmation.trans }}</p>
-            <p>{{ confirmation.name }}</p>
-            <!-- <p>{{ confirmation.exp }}</p> -->
-            <p>{{ confirmation.amount }}</p>
-            <!-- <p>{{ confirmation.brand }}</p> -->
-            <p>{{ confirmation.authorization }}</p>
-            <!-- <p>{{ confirmation.timeStamp }}</p> -->
-            <p>{{ confirmation._id }}</p>
-          </pre>
+        <div class="center">
+          <table class="table text-white w-50 mx-auto">
+            <tr>
+              <td class="text-end">Vendor:</td>
+              <td>{{ confirmation.vendor }}</td>
+            </tr>
+            <tr>
+              <td class="text-end">Card #</td>
+              <td>{{ confirmation.cc }}</td>
+            </tr>
+            <tr>
+              <td class="text-end">Transaction No.</td>
+              <td>{{ confirmation.trans }}</td>
+            </tr>
+            <tr>
+              <td class="text-end">Name: </td>
+              <td>{{ confirmation.name }}</td>
+            </tr>
+            <tr>
+              <td class="text-end">Expiration: </td>
+              <td>{{ confirmation.exp }}</td>
+            </tr>
+            <tr>
+              <td class="text-end">Amount: </td>
+              <td>${{ confirmation.amount }}</td>
+            </tr>
+            <tr>
+              <td class="text-end">Brand</td>
+              <td>{{ capitalize(confirmation.brand) }}</td>
+            </tr>
+            <tr>
+              <td class="text-end">Timestamp</td>
+              <td>{{ normalDate(confirmation.timeStamp) }}</td>
+            </tr>
+            <tr>
+              <td class="text-end">Auth: </td>
+              <td>{{ confirmation.authorization }}</td>
+            </tr>
+            <tr>
+              <td class="text-end">ID: </td>
+              <td>{{ confirmation._id }}</td>
+            </tr>
+            <tr>
+              <td colspan="2"><a onClick="window.print()" class="w-100 btn btn-lg fw-bold StillwaterBG btn-rim mb-2">Print for your records.</a></td>
+            </tr>
+        </table>
         </div>
       </div>
       <div class="row g-4" v-else>
