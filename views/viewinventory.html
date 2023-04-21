@@ -31,7 +31,7 @@
         <div class="container mt-3 mb-3">
           <div class="row">
             <div class="col">
-              <button class="btn btn-rim StillwaterBG w-100" :disabled="firstPage" @click="subPage">Previous
+              <button class="btn btn-rim StillwaterBG w-100" @click="subPage">Previous
                 Page</button>
             </div>
             <div class="col">
@@ -51,7 +51,7 @@
               <div class="d-flex flex-column">
                 <h4 class="m-2 text-center">${{ row.price }}</h4>
                 <form class="row" validate="" onsubmit="return false">
-                    <input value="1" class="form-control" min="1" :max="inventory[row.number - 1].quantity"
+                    <input class="form-control" min="1" :max="inventory[row.number - 1].quantity"
                       type="number" :disabled="inventory[row.number - 1].quantity === 0" placeholder="Quantity" v-model="qty[index]"
                       required="">
                     <button v-if="!isInCart(row.number) && !(inventory[row.number - 1].quantity === 0)" class="btn btn-rim btn-grn" onclick="greenlight(this)" type="Submit"
