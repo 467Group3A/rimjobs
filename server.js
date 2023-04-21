@@ -212,6 +212,10 @@ app.get('/cart', (req, res) => {
   res.sendFile(__dirname + "/views/cart.html");
 })
 
+app.get('/findmyorder', (req, res) => {
+  res.sendFile(__dirname + "/views/findmyorder.html");
+})
+
 
 // Start of endpoints
 app.get('/legacyparts', async (req, res) => {

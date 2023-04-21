@@ -33,7 +33,7 @@ $(document).ready(function () {
                                 <i class="fas fa-dharmachakra"></i> View All Products</a>
                         </li>
                         <li class="nav-item">
-                            <a id="bouncify2" class="nav-link Stillwater fs-5 dropShadow" href="#">
+                            <a id="bouncify2" class="nav-link Stillwater fs-5 dropShadow" href="/findmyorder">
                                 <i class="fas fa-truck-plane"></i> Find My Order</a>
                         </li>
                         <li class="nav-item">
