@@ -8,10 +8,14 @@ const bodyParser = require('body-parser');
 var path = require('path');
 const router = express.Router();
 const promise = require('mysql2/promise');
+const LocalStorage = require('node-localstorage').LocalStorage;
 
 // PRODUCTION PORT, REQUESTS ON PORT 80 ARE REDIRECTED TO THIS PORT
 // const port = 2048;
 const port = 3500;
+
+
+const localStorage = new LocalStorage('./localStorage');
 
 const { loadInventory } = require('./services/loadinventory')
 const { legacyConnection, newConnection, initializeNewDB, cleanOrders, getOrderDetails } = require('./services/dbconfig') // Some of these functions will be removed
@@ -63,32 +67,12 @@ connection.connect((error) => {
   }
 });
 
-// // Get all info from database
-// function getAllParts() {
-//   return new Promise((resolve, reject) => {
-//     connection.query('SELECT * FROM parts', function (error, results, fields) {
-//       if (error) {
-//         reject(error);
-//       } else {
-//         resolve(results);
-//       }
-//     });
-//   });
-// }
+//array to store products added to cart
+// const products = [];
 
-//endpoint for parts page
-// app.get('/parts', async (req, res) => {
-//   try {
-//     const results = await getAllParts();
-//     const cartTotal = products.length;
-//     res.render('parts', { parts: results, cartTotal, cartItems: products });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send('Error retrieving parts');
-//   }
-// });
 
-const products = [];
+let products = JSON.parse(localStorage.getItem('products')) || [];
+
 //viewinventory post
 app.post('/viewinventory', (req, res) => {
 
@@ -99,28 +83,79 @@ app.post('/viewinventory', (req, res) => {
   const image = req.body.image;
   const quantity = req.body.quantity;
 
-  // add the product to the products array
-  products.push({
-    number: number,
-    description: description,
-    price: price,
-    weight: weight,
-    image: image,
-    quantity: quantity
-  });
+  //check to see if product is in cart already, if it is append quantity with added quantity and dont create new instance of product
+  const existingProductIndex = products.findIndex(product => product.number === number);
+  if (existingProductIndex !== -1) {
+    products[existingProductIndex].quantity = Number(products[existingProductIndex].quantity) + Number(quantity);
+  } else {
+
+    // add the product to the products array
+    products.push({
+      number: number,
+      description: description,
+      price: price,
+      weight: weight,
+      image: image,
+      quantity: Number(quantity)
+    });
+    
+    localStorage.setItem('products', JSON.stringify(products));
+
+  }
+
+  //localstorage var
+  req.app.locals.products = products;
 
   res.redirect('/viewinventory');
 });
 
+app.post('/cart', (req, res) => {
+  const number = req.body.number;
+  const quantity = req.body.quantity;
+
+  const existingProductIndex = products.findIndex(product => product.number === number);
+  if (existingProductIndex !== -1) {
+    // update the quantity of the existing product
+    products[existingProductIndex].quantity = Number(quantity);
+  }
+
+  res.redirect('/cart');
+});
+
+//button to delete products in cart
+app.delete('/cart', (req, res) => {
+  const number = req.body.number;
+  
+  // Find the index of the product to be updated in the products array
+  const productIndex = products.findIndex(product => product.number === number);
+  
+  if (productIndex !== -1) {
+    // Update the product object with the new quantity
+    products[productIndex].quantity = 0;
+    localStorage.setItem('products', JSON.stringify(products));
+  }
+  
+  // Update the localstorage variable
+  req.app.locals.products = products;
+
+  // Redirect back to the cart page
+  res.redirect('/cart');
+});
+
+
+
+
 //cart number total
 app.get('/cartTotal', (req, res) => {
-  const cartTotal = products.length;
+  const cartTotal = products.length;//Gets total amount of products in cart
+  localStorage.setItem('cartTotal', cartTotal);//store cartTotal as localstorage var
   res.json({ cartTotal });
 });
 
 //endpoint to send info of items in cart 
 app.get('/cartItems', (req, res) => {
-  res.send(JSON.stringify(products));
+  // res.send(JSON.stringify(products));
+  res.send(JSON.stringify(req.app.locals.products));
 });
 
 //if url is /cart, send to cart.html file
