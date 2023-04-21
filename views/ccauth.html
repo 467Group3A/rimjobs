@@ -21,12 +21,28 @@
     <div class="container UltorBG Stillwater borderSteel">
       <div class="py-2 text-center">
         <img class="d-block mx-auto mb-2 dropShadow" src="/img/Logo.png">
-        <h2><i class="fa-solid fa-cart-shopping"></i> Complete your order</h2>
-        <p class="lead">Please fill out the following information to finalize your order.</p>
+        <h2><i class="fa-solid fa-cart-shopping"></i> {{title}}</h2>
+        <p class="lead">{{subtitle}}</p>
       </div>
-      <div v-if="cartItems.length === 0" class="container-lg UltorBG borderSilver">
-        <h1 class="Stillwater Shrikhand dropShadow text-center">Your cart is currently empty.</h1>
-        <a href="/viewinventory" class="btn btn-lg fw-bold StillwaterBG btn-rim mb-2">See our products.</a>
+      <div class="text-center" v-if="cartItems === 0">
+        <a href="/viewinventory" class="w-50 btn btn-lg fw-bold StillwaterBG btn-rim mb-2">See our products.</a>
+      </div>
+      <div class="row g-4" v-else-if="confirmation">
+        <div v-if="confirmation">
+          <pre>
+            <!-- All of these are what you get back from the confirmation -->
+            <p>{{ confirmation.vendor }}</p>
+            <!-- <p>{{ confirmation.cc }}</p> -->
+            <p>{{ confirmation.trans }}</p>
+            <p>{{ confirmation.name }}</p>
+            <!-- <p>{{ confirmation.exp }}</p> -->
+            <p>{{ confirmation.amount }}</p>
+            <!-- <p>{{ confirmation.brand }}</p> -->
+            <p>{{ confirmation.authorization }}</p>
+            <!-- <p>{{ confirmation.timeStamp }}</p> -->
+            <p>{{ confirmation._id }}</p>
+          </pre>
+        </div>
       </div>
       <div class="row g-4" v-else>
         <div id="cart" class="col-md-6 col-lg-4 order-md-last borderSilver">
@@ -226,20 +242,6 @@
               <ul>
                 <li v-for="error in errormessage"> {{ error }}</li>
               </ul>
-            </div>
-            <div v-if="confirmation">
-              <pre>
-                <p>{{ confirmation.vendor }}</p>
-                <p>{{ confirmation.cc }}</p>
-                <p>{{ confirmation.trans }}</p>
-                <p>{{ confirmation.name }}</p>
-                <p>{{ confirmation.exp }}</p>
-                <p>{{ confirmation.amount }}</p>
-                <p>{{ confirmation.brand }}</p>
-                <p>{{ confirmation.authorization }}</p>
-                <p>{{ confirmation.timeStamp }}</p>
-                <p>{{ confirmation._id }}</p>
-              </pre>
             </div>
           </form>
         </div>

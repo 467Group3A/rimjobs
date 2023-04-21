@@ -56,7 +56,11 @@ $(document).ready(function () {
             },
             removeFromCart(index) {
                 this.cartItems.splice(index, 1);
-                localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+                if (this.cartItems.length === 0) {
+                    localStorage.removeItem('cartItems');
+                } else {
+                    localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+                }
                 window.dispatchEvent(new CustomEvent('sb', {
                     detail: {
                       count: 1

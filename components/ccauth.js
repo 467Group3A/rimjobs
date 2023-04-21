@@ -31,6 +31,8 @@ const app = Vue.createApp({
       cartTotal: 0,
       subtotal: 0,
       shipping: 0,
+      title: " Complete your order",
+      subtitle: "Please fill out the following information to finalize your order."
     }
   },
   methods: {
@@ -94,6 +96,8 @@ const app = Vue.createApp({
             } else if (response.status === 200) {
               return response.json().then(data => {
                 this.message = `Payment successfully made. Here's your confirmation:`
+                this.title = " Order has been submitted!";
+                this.subtitle = "Thank you for your shopping with us.";
                 this.confirmation = data
                 localStorage.removeItem('cartItems');
               });
@@ -120,13 +124,18 @@ const app = Vue.createApp({
     }
   },
   mounted() {
-    this.cartItems = JSON.parse(localStorage.getItem('cartItems'));
+    try {
+      this.cartItems = JSON.parse(localStorage.getItem('cartItems'));
+      for (let i = 0; i < this.cartItems.length; i++) {
+        this.cartTotal += 1;
+      }
+    } catch (error) {
+      this.cartItems = 0;
+      this.title = " Your cart is empty!";
+      this.subtitle = "Please add items to your cart before checking out.";
+    }
     this.subtotal = localStorage.getItem('totalCost');
     this.shipping = localStorage.getItem('shippingCost');
-    // count all item_id's in cartItems
-    for (let i = 0; i < this.cartItems.length; i++) {
-      this.cartTotal += 1;
-    }
     fetch('/api/get-shipping-fees')
       .then(response => response.json())
       .then(data => {
