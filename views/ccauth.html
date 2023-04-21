@@ -24,7 +24,7 @@
         <h2><i class="fa-solid fa-cart-shopping"></i> {{title}}</h2>
         <p class="lead">{{subtitle}}</p>
       </div>
-      <div class="text-center" v-if="cartItems === 0">
+      <div class="mx-auto text-center" v-if="cartItems === 0">
         <a href="/viewinventory" class="w-50 btn btn-lg fw-bold StillwaterBG btn-rim mb-2">See our products.</a>
       </div>
       <div class="row g-4" v-else-if="confirmation">
