@@ -2,79 +2,79 @@
 <html lang="en">
 
 <head>
-    <title>Cart</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <!-- Bootstrap CSS v5.3.0 Alpha -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css">
-    <!-- FontAwesome 6.4.0 CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Rim Jobs CSS -->
-    <link rel="stylesheet" href="/css/stylesheet.css">
+  <title>Cart</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+  <!-- Bootstrap CSS v5.3.0 Alpha -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css">
+  <!-- FontAwesome 6.4.0 CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Rim Jobs CSS -->
+  <link rel="stylesheet" href="/css/stylesheet.css">
 </head>
 
 <body class="stripe-alt">
-    <header id="navbar"></header>
-    <main>
-        <div id="cart">
-            <div v-if="cartItems.length === 0" class="container-lg UltorBG borderSilver">
-                <h1 class="Stillwater Shrikhand dropShadow text-center">Your cart is currently empty.</h1>
-                <a href="/viewinventory" class="btn btn-lg fw-bold StillwaterBG btn-rim mb-2">See our products.</a>
-            </div>
-            <div v-else>
-                <div class="container-lg UltorBG borderSilver">
-                    <h1 class="Stillwater Shrikhand dropShadow">Your Cart</h1>
-                    <table class="table table-striped SteelportBG Pierce borderSilver fs-4">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Product Name</th>
-                                <th>Quantity</th>
-                                <th>Price Each</th>
-                                <th>Weight</th>
-                                <th>Total</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(item, index) in cartItems" :key="item.item_id" class="Ultor StillwaterBG silverBorder fs-5">
-                                <td><img class="borderSilver" v-bind:src="item.pictureURL" width="50" height="50"></td>
-                                <td>{{ capitalize(item.item_name) }}</td>
-                                <td>
-                                    <input type="number" min="1" :max="item.max" v-model="item.quantity" @change="updateQuantity(index, item.quantity)" onkeydown="return false">
-                                </td>
-                                <td>${{ item.price }}</td>
-                                <td>{{ fixed(item.weight) }} lbs</td>
-                                <td>{{ fixed(item.quantity * item.price) }}</td>
-                                <td>
-                                    <button class="btn btn-rim" @click="removeFromCart(index)">Remove</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p class="SevenSegment fw-bold fs-1 borderSilver px-2 dropShadow">Total Weight: {{ fixed(totalWeight) }} lbs</p>
-                    <div class="row fw-bold fs-1 px-2 dropShadow">
-                        <p class="col-4 SevenSegment borderSilver">Subtotal: ${{ fixed(total) }}</p>
-                        <p class="col-4 SevenSegment borderSilver">Shipping: ${{ shippingCost }}</p>
-                        <p class="col-4 SevenSegment borderSilver">Tax: 10%</p>
-                    </div>
-                    <p class="SevenSegment fw-bold fs-1 borderSilver px-2 dropShadow">Total: ${{ fixed((total + shippingCost) * taxRate) }}</p>
-                    <button class="btn btn-lg StillwaterBG btn-rim m-2" @click="checkout"><a class="Pierce" href="/ccauth"><i class="fas fa-cash-register"></i> Checkout</a></button>
-                </div>
-            </div>
+  <header id="navbar"></header>
+  <main>
+    <div id="cart">
+      <div v-if="cartItems.length === 0" class="container-lg UltorBG borderSilver">
+        <h1 class="Stillwater Shrikhand dropShadow text-center">Your cart is currently empty.</h1>
+        <a href="/viewinventory" class="btn btn-lg fw-bold StillwaterBG btn-rim mb-2">See our products.</a>
+      </div>
+      <div v-else>
+        <div class="container-lg UltorBG borderSilver">
+          <h1 class="Stillwater Shrikhand dropShadow">Your Cart</h1>
+          <table class="table table-striped SteelportBG Pierce borderSilver fs-4">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price Each</th>
+                <th>Weight</th>
+                <th>Total</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in cartItems" :key="item.item_id" class="Ultor StillwaterBG silverBorder fs-5">
+                <td><img class="borderSilver" v-bind:src="item.pictureURL" width="50" height="50"></td>
+                <td>{{ capitalize(item.item_name) }}</td>
+                <td>
+                  <input type="number" min="1" :max="item.max" v-model="item.quantity" @change="updateQuantity(index, item.quantity)" onkeydown="return false">
+                </td>
+                <td>${{ item.price }}</td>
+                <td>{{ fixed(item.weight) }} lbs</td>
+                <td>{{ fixed(item.quantity * item.price) }}</td>
+                <td>
+                  <button class="btn btn-rim" @click="removeFromCart(index)">Remove</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="SevenSegment fw-bold fs-1 borderSilver px-2 dropShadow">Total Weight: {{ fixed(totalWeight) }} lbs</p>
+          <div class="row fw-bold fs-1 px-2 dropShadow">
+            <p class="col-4 SevenSegment borderSilver">Subtotal: ${{ fixed(total) }}</p>
+            <p class="col-4 SevenSegment borderSilver">Shipping: ${{ shippingCost }}</p>
+            <p class="col-4 SevenSegment borderSilver">Tax: 10%</p>
+          </div>
+          <p class="SevenSegment fw-bold fs-1 borderSilver px-2 dropShadow">Total: ${{ fixed((total + shippingCost) * taxRate) }}</p>
+          <button class="btn btn-lg StillwaterBG btn-rim m-2" @click="checkout"><a class="Pierce" href="/ccauth"><i class="fas fa-cash-register"></i> Checkout</a></button>
         </div>
-    </main>
+      </div>
+    </div>
+  </main>
 </body>
-    <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-    <!-- Vue.js -->
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <!-- Components -->
-    <script src="/fetchNavbar.js"></script>
-    <script src="/cart.js"></script>
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+  <!-- Vue.js -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <!-- Components -->
+  <script src="/fetchNavbar.js"></script>
+  <script src="/cart.js"></script>
 
 </html>
