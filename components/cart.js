@@ -61,6 +61,7 @@ $(document).ready(function () {
                 } else {
                     localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
                 }
+                // Workaround to get the navbar cart number to update
                 window.dispatchEvent(new CustomEvent('sb', {
                     detail: {
                       count: 1

@@ -147,6 +147,7 @@ $(document).ready(function () {
                             quantity: quantity
                         };
                         cartItems.push(newItem);
+                        // Navbar listens for event and adds the number to its "Cart (X)" number
                         window.dispatchEvent(new CustomEvent('ad', {
                             detail: {
                               count: 1
