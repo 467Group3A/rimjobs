@@ -88,14 +88,6 @@ a {
     border-color: $Steelport;
 }
 
-.form-control {
-    background-color: $Pierce;
-}
-
-.form-select {
-    background-color: $Pierce;
-}
-
 .carousel-indicators .active {
     color: $Pierce;
 }
@@ -277,14 +269,14 @@ body {
     background-color: #2a2929;
     background-image: 
       repeating-linear-gradient(
-        -25deg, 
+        -45deg, 
         transparent, 
         transparent 1rem,
         #414141 1rem,
         #1b1a1a 2rem
       );
     background-size: 200% 200%;
-    animation: barberpole 60s linear infinite;
+    animation: barberpole 70s linear infinite;
 }
   
 @keyframes barberpole {100% {background-position: 100% 100%;}}

@@ -76,14 +76,15 @@ a:hover:before {
   border-color: #686868;
 }
 
+/*
 .form-control {
-  background-color: #e6e5e7;
+    background-color: $Pierce;
 }
 
 .form-select {
-  background-color: #e6e5e7;
+    background-color: $Pierce;
 }
-
+*/
 .carousel-indicators .active {
   color: #e6e5e7;
 }
@@ -249,9 +250,9 @@ body {
 
 .stripe-alt {
   background-color: #2a2929;
-  background-image: repeating-linear-gradient(-25deg, transparent, transparent 1rem, #414141 1rem, #1b1a1a 2rem);
+  background-image: repeating-linear-gradient(-45deg, transparent, transparent 1rem, #414141 1rem, #1b1a1a 2rem);
   background-size: 200% 200%;
-  animation: barberpole 60s linear infinite;
+  animation: barberpole 70s linear infinite;
 }
 
 @keyframes barberpole {
