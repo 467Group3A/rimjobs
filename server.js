@@ -5,7 +5,7 @@ const axios = require("axios");
 const mysql = require('mysql2');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
-var path = require('path');
+const path = require('path');
 const router = express.Router();
 const promise = require('mysql2/promise');
 
@@ -31,30 +31,28 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.json());
 
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
-
 app.use(
   express.urlencoded({
     extended: true,
   })
 );
 
-// CSS and image files
-app.use(express.static(path.join(__dirname, 'assets')));
+// Engine
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
-// Vue Component files
+// Static Folders (CSS + Vue Components)
+app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.static(path.join(__dirname, 'components')));
 
-// legacy database info
+// Legacy Database Connection Info
 const connection = mysql.createConnection({
   host: 'blitz.cs.niu.edu',
   user: 'student',
   password: 'student',
   database: 'csci467',
 });
-
-// Connect to legacy database 
+ 
 connection.connect((error) => {
   if (error) {
     console.error('Error connecting to database:', error);
@@ -63,72 +61,10 @@ connection.connect((error) => {
   }
 });
 
-// // Get all info from database
-// function getAllParts() {
-//   return new Promise((resolve, reject) => {
-//     connection.query('SELECT * FROM parts', function (error, results, fields) {
-//       if (error) {
-//         reject(error);
-//       } else {
-//         resolve(results);
-//       }
-//     });
-//   });
-// }
-
-//endpoint for parts page
-// app.get('/parts', async (req, res) => {
-//   try {
-//     const results = await getAllParts();
-//     const cartTotal = products.length;
-//     res.render('parts', { parts: results, cartTotal, cartItems: products });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send('Error retrieving parts');
-//   }
-// });
-
-const products = [];
-//viewinventory post
-app.post('/viewinventory', (req, res) => {
-
-  const number = req.body.number;
-  const description = req.body.description;
-  const price = req.body.price;
-  const weight = req.body.weight;
-  const image = req.body.image;
-  const quantity = req.body.quantity;
-
-  // add the product to the products array
-  products.push({
-    number: number,
-    description: description,
-    price: price,
-    weight: weight,
-    image: image,
-    quantity: quantity
-  });
-
-  res.redirect('/viewinventory');
-});
-
-//cart number total
-app.get('/cartTotal', (req, res) => {
-  const cartTotal = products.length;
-  res.json({ cartTotal });
-});
-
-//endpoint to send info of items in cart 
-app.get('/cartItems', (req, res) => {
-  res.send(JSON.stringify(products));
-});
-
-//if url is /cart, send to cart.html file
-app.get('/cart', (req, res) => {
-  res.sendFile(__dirname + "/views/cart.html");
-});
-
-// If url is /, send the index.html file
+/* -------------------------------------------------------- 
+                   CUSTOMER FACING VIEWS
+   -------------------------------------------------------- */
+// Root, send index
 app.get("/", (req, res) => {
   //send the index.html file for all requests
   res.sendFile(__dirname + "/views/index.html");
@@ -139,14 +75,24 @@ app.get('/viewinventory', (req, res) => {
   res.sendFile(__dirname + "/views/viewinventory.html");
 })
 
-// If url is /ccauth, send the ccauth.html file
+// Cart Page
+app.get('/cart', (req, res) => {
+  res.sendFile(__dirname + "/views/cart.html");
+})
+
+// Checkout page
 app.get('/ccauth', (req, res) => {
   res.sendFile(__dirname + "/views/ccauth.html");
 })
 
+// Credits Page
 app.get('/credits', (req, res) => {
   res.sendFile(__dirname + "/views/credits.html");
 })
+
+/* -------------------------------------------------------- 
+                   EMPLOYEE FACING VIEWS
+   -------------------------------------------------------- */
 
 // Used to access the following pages below
 app.get('/login', (req, res) => {
@@ -173,10 +119,9 @@ app.get('/shippingfees', isAdmin, (req, res) => {
   res.sendFile(__dirname + "/views/shippingfees.html");
 })
 
-app.get('/cart', (req, res) => {
-  res.sendFile(__dirname + "/views/cart.html");
-})
-
+/* -------------------------------------------------------- 
+                   API ENDPOINTS
+   -------------------------------------------------------- */
 
 // Start of endpoints
 app.get('/legacyparts', async (req, res) => {
