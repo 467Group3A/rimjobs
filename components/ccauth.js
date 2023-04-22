@@ -44,7 +44,7 @@ const app = Vue.createApp({
       this.customer.address = this.customer.address + ' ' + this.customer.city + ' ' + this.customer.state + ' ' + this.customer.zip;
       let totalWeight = 0;
       // set the vendor to our name later
-      this.formData.vendor = 'STOREFRONT';
+      this.formData.vendor = 'RIMJOBS MULTIMODAL';
 
       if (this.formData.cc.length < 16 || 
           this.formData.name.length < 1 || 
