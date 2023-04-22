@@ -99,7 +99,7 @@
     </div>
 
     <div class="container-fluid UltorBG borderSilver">
-      <h1 class="Stillwater Shrikhand dropShadow">Featured Deals</h1>
+      <h1 class="Stillwater Shrikhand dropShadow m-2"><i class="fas fa-boxes-stacked"></i> Featured Deals</h1>
     </div>
     <div id="featured" class="container-fluid py-2 SteelportBG">
       <div class="row align-items-center">
@@ -111,11 +111,11 @@
                   <div v-for="row in finalRows" class="col">
                     <div class="card text-center StillwaterBG">
                       <div class="card-header">
-                        <h4 class="card-title textCutoff Ultor fw-bold" v-bind:title="capitalize(row.description)">{{capitalize(row.description)}}</h4>
+                        <h4 class="card-title textCutoff Ultor fw-bold text-capitalize" v-bind:title="capitalize(row.description)">{{row.description}}</h4>
                       </div>
                       <div class="card-body StillwaterBG">
-                        <img v-bind:src="row.pictureURL" v-bind:title="capitalize(row.description)" class="borderSilver dropShadow" style="margin-bottom:15px;">
-                        <div class="d-flex justify-content-around">
+                        <img v-bind:src="row.pictureURL" v-bind:title="capitalize(row.description)" class="borderSilver dropShadow">
+                        <div class="d-flex justify-content-around mt-3">
                             <span class="badge rounded-pill UltorBG Stillwater lineHeight2 fs-6">${{row.price}}</span>
                             <a href="#" class="btn btn-rim">Add To Cart</a>
                         </div>
@@ -129,11 +129,11 @@
                   <div v-for="row in finalRows" class="col">
                     <div class="card text-center StillwaterBG">
                       <div class="card-header">
-                        <h4 class="card-title textCutoff Ultor fw-bold" v-bind:title="capitalize(row.description)">{{capitalize(row.description)}}</h4>
+                        <h4 class="card-title textCutoff Ultor fw-bold text-capitalize" v-bind:title="capitalize(row.description)">{{row.description}}</h4>
                       </div>
                       <div class="card-body StillwaterBG">
-                        <img v-bind:src="row.pictureURL" v-bind:title="capitalize(row.description)" class="borderSilver dropShadow" style="margin-bottom:15px;">
-                        <div class="d-flex justify-content-around ">
+                        <img v-bind:src="row.pictureURL" v-bind:title="capitalize(row.description)" class="borderSilver dropShadow">
+                        <div class="d-flex justify-content-around mt-3">
                             <span class="badge rounded-pill UltorBG Stillwater lineHeight2 fs-6">${{row.price}}</span>
                             <a href="#" class="btn btn-rim">Add To Cart</a>
                         </div>
@@ -162,102 +162,100 @@
       <hr class="featurette-divider">
       <div class="row featurette UltorBG Stillwater borderSilver py-2">
         <div class="col-md-7">
-          <h2 class="featurette-heading fw-bold">Welcome to Rim Jobs!</h2>
+          <h2 class="featurette-heading fw-bold">Welcome to Rim Jobs!</h2><hr>
           <p class="lead fs-4">We are a team of experienced and certified mechanics dedicated to providing the highest quality services for your vehicle. With years of experience in the industry, we have developed a reputation for our expertise, professionalism, and exceptional customer service.</p>
           <p class="fs-5">Have the suits stopped reading yet? Good, now let's get real. We're not your typical stuffy auto repair shop. We're a team of vehicle enthusiasts who just happen to be really good at fixing things. No bureaucracy, no upsells, no bullsh*t. We're not afraid to get our hands dirty and we're always up for a good challenge. Just try us, we've seen it all.</p>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="/img/Rim_jobs_garagedoorred.webp" preserveAspectRatio="xMidYMid slice" focusable="false">
+          <img class="featurette-image img-fluid mx-auto borderSilver dropShadow" width="500" height="500" src="/img/Rim_jobs_garagedoorred.webp" preserveAspectRatio="xMidYMid slice" focusable="false">
         </div>
       </div>
   
       <hr class="featurette-divider">
       <div class="row featurette UltorBG Stillwater borderSilver py-2">
         <div class="col-md-7 order-md-2">
-          <h2 class="featurette-heading fw-bold">Excellent service, for land, sea and sky.</h2>
+          <h2 class="featurette-heading fw-bold"><i class="fas fa-toolbox"></i> Excellent service, for land, sea and sky.</h2><hr>
           <p class="lead fs-4">At our dealership, we pride ourselves on our ability to handle any type of vehicle that comes our way. We are a team of skilled mechanics who have years of experience repairing and maintaining all kinds of cars, bikes, boats, and even aircraft. From luxury sports cars to commercial oceanliners, we've seen it all and we know how to fix it - or modify it!</p>
           <p class="fs-5">The suits would rather we not advertise this so much, but we're dead serious. If you managed to dredge up the goddamn Titanic and haul it up to the drydock, we'd have her repaired and damn near iceberg-proof before your insurance agent wakes up from their coma. But it'd be beautiful.</p>
         </div>
         <div class="col-md-5 order-md-1">
-          <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="https://i.redd.it/ods92vdvnjn51.jpg" preserveAspectRatio="xMidYMid slice" focusable="false">
+          <img class="featurette-image img-fluid mx-auto borderSilver dropShadow" width="500" height="500" src="https://i.redd.it/ods92vdvnjn51.jpg" preserveAspectRatio="xMidYMid slice" focusable="false">
         </div>
       </div>
   
       <hr class="featurette-divider">
       <div class="row featurette UltorBG Stillwater borderSilver py-2">
         <div class="col-md-7">
-          <h2 class="featurette-heading fw-bold">Parts? We got them. No exceptions.</span></h2>
+          <h2 class="featurette-heading fw-bold"><i class="fa-solid fa-car-battery"></i> Parts? We got them. No exceptions.</span></h2><hr>
           <p class="lead fs-4">As an established multimodal mechanic and dealer, we take pride in offering our customers an extensive selection of parts for a wide range of vehicles. Our comprehensive inventory includes everything from routine maintenance items to hard-to-find components for classic and exotic vehicles. You need it, we'll procure it.</p>
           <P class="fs-5">We mean it - no exceptions. If the part was real and some form of schematic drafted, we'll source the part. For the exotic or ancient, we have enough connections for custom manufactoring if necessary. We're all gearheads here, and we're as invested in restoring your vehicle as you are. In fact, we're more invested. Sourcing quality parts is a treasure hunt for us, knockoffs and shoddy counterfeits be damned.</P>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="https://i.redd.it/4ukqp6l187z01.jpg" preserveAspectRatio="xMidYMid slice" focusable="false">
+          <img class="featurette-image img-fluid mx-auto borderSilver dropShadow" width="500" height="500" src="https://i.redd.it/4ukqp6l187z01.jpg" preserveAspectRatio="xMidYMid slice" focusable="false">
         </div>
       </div>
 
       <hr class="featurette-divider">
       <div class="row featurette UltorBG Stillwater borderSilver py-2">
         <div class="col-md-7 order-md-1">
-          <h2 class="featurette-heading fw-bold">Cars - The new, the old, and the exotic.</h2>
+          <h2 class="featurette-heading fw-bold"><i class="fas fa-truck-monster"></i> Cars - The new, the old, and the exotic.</h2><hr>
           <p class="lead fs-4">At our auto dealership department, we're passionate about helping you find the perfect car to suit your needs and style. Our inventory includes an extensive range of new, antique, and exotic cars, and our knowledgeable sales team is here to guide you through the selection process and we'll work tirelessly to ensure that you drive away in the car of your dreams. Whether you're in the market for a sleek sports car or a classic vintage ride, we've got you covered.</p>
           <p class="fs-5">We're not your sleazy car dealer, we don't sell junk and have no incentives to sell you any particular car over another. Even in sales, we know cars, and we love cars. Every car that rolls off our lot, new or used is a quality vehicle we stand by. Used cars receive a full refurbishment service before we put them up for sale and we'd wager you won't be able to tell the difference before seeing paperwork.</div>
         <div class="col-md-5">
-          <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="https://i.redd.it/13snkva761z51.jpg" preserveAspectRatio="xMidYMid slice" focusable="false">
+          <img class="featurette-image img-fluid mx-auto borderSilver dropShadow" width="500" height="500" src="https://i.redd.it/13snkva761z51.jpg" preserveAspectRatio="xMidYMid slice" focusable="false">
         </div>
       </div>
 
       <hr class="featurette-divider">
       <div class="row featurette UltorBG Stillwater borderSilver py-2">
         <div class="col-md-7">
-          <h2 class="featurette-heading fw-bold">Get a new choppa!</h2>
+          <h2 class="featurette-heading fw-bold"><i class="fas fa-motorcycle"></i> Get a new choppa!</h2><hr>
           <p class="lead fs-4">Half the wheels, with just the same passion, our cycle department isn't an afterthought. We offer an extensive range of bikes and motorcycles to suit every style and budget, from sleek and modern machines to classic and vintage models. We also offer a range of accessories and parts to customize and maintain your bike or motorcycle. Whether you're a seasoned rider or just starting out, we've got everything you need to hit the road in style.</p>
           <p class="fs-5">We'd like to think motorcycles are the most pure expression of roading ingenuity. They're not as popular as their quad-rimmed counterparts but no less powerful and exhilarating in the leathery grip of an experienced rider. We might look at you a little oddly if you're interested in a moped, but we respect cycles and are pros at taming their primal souls. Perform a flawless Akira slide and your repair is free.</p>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="https://i.redd.it/7zdczjfr0phz.jpg" preserveAspectRatio="xMidYMid slice" focusable="false">
+          <img class="featurette-image img-fluid mx-auto borderSilver dropShadow" width="500" height="500" src="https://i.redd.it/7zdczjfr0phz.jpg" preserveAspectRatio="xMidYMid slice" focusable="false">
         </div>
       </div>
 
       <hr class="featurette-divider">
       <div class="row featurette UltorBG Stillwater borderSilver py-2">
         <div class="col-md-7 order-md-1">
-          <h2 class="featurette-heading fw-bold">Boat water, there's oar!</h2>
+          <h2 class="featurette-heading fw-bold"><i class="fas fa-anchor"></i> Boat water, there's oar!</h2><hr>
           <p class="lead fs-4">Unexpectedly, we also service and deal watercraft! We offer an extensive range of boats to suit every type of boater, from sleek and modern speedboats to classic and timeless sailboats. For smaller vehicles, we can handle you through the regular entrance, but for larger craft that cannot be transported roadwise, visit our seaside drydock for service.</p>
           <p class="fs-5">Ahoy! While we of course will service your jetski or weekend fishing boat, nothing gets us more excited then the proper flagships. It's not every day you get an opportunity to work on those colossal ocean beauties. We're not too shabby with carpentry either, so galleon to submarine, we're on it Captain! We don't ask questions about cannons or treasure-filled cargo holds, but would like to remind patrons that our techs do in fact accept tips!</p>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="/img/drydock.png" preserveAspectRatio="xMidYMid slice" focusable="false">
+          <img class="featurette-image img-fluid mx-auto borderSilver dropShadow" width="500" height="500" src="/img/drydock.png" preserveAspectRatio="xMidYMid slice" focusable="false">
         </div>
       </div>
 
       <hr class="featurette-divider">
       <div class="row featurette UltorBG Stillwater borderSilver py-2">
         <div class="col-md-7">
-          <h2 class="featurette-heading fw-bold">PULL UP, PULL UP, PULL UP to our hanger!</h2>
+          <h2 class="featurette-heading fw-bold"><i class="fas fa-plane"></i> PULL UP, PULL UP, PULL UP to our hanger!</h2><hr>
           <p class="lead fs-4">At the peak of our product stack, we finally reach the peak of our altitude with our aircraft department. Bridging off of the Wesley Cutter International Airport, our hanger is expansive enough to handle any aircraft including helicopters and craft with VTOL. From recreational to supercargo, our available selection of for-sale aircraft is sure to impress and exceed expectations.</p>
           <p class="fs-5">The bulk of our aircraft servicing is minor repairs and routine maintenence for some grimly obvious reasons, but don't think we can't handle the bigger fixes too (provided you can make it to the hangar). SAFELY. Our aircraft division is our newest venture and we're always excited to further our skills. The techs can't wait until the department is big enough to get its own name. We're thinking "The Landing Strip"</p>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="https://i.redd.it/5a0zc26srtn61.jpg" preserveAspectRatio="xMidYMid slice" focusable="false">
+          <img class="featurette-image img-fluid mx-auto borderSilver dropShadow" width="500" height="500" src="https://i.redd.it/5a0zc26srtn61.jpg" preserveAspectRatio="xMidYMid slice" focusable="false">
         </div>
       </div>
 
       <hr class="featurette-divider">
       <div class="row featurette UltorBG Stillwater borderSilver py-2">
         <div class="col-md-7 order-md-1">
-          <h2 class="featurette-heading fw-bold">Our expert staff.</span></h2>
+          <h2 class="featurette-heading fw-bold"><i class="fas fa-screwdriver-wrench"></i> Our expert staff.</span></h2><hr>
           <p class="lead fs-4">Our team of mechanics and service technicians is the backbone of our business and we couldn't be prouder of them. They're highly skilled and dedicated professionals who take pride in their work and are committed to providing the highest level of service to our customers. They're experts in their field and are truly passionate in what they do, even off the clock. We're lucky to have such a talented and dedicated team, and we know that our customers are in good hands. Greasy Hands.</p>
           <p class="fs-5">The suits are pretty alright too. They might not fully understand vehicles the way us techs do, but they care about them just the same. If they didn't have a genuine passion for our business, they could get hired at any other shop with comission-based sales and make a killing. They're skilled, but they're more than just suits. They're our suits, and they somehow keep the lights on at this chaotic place. Do you have any idea how much a drydock costs to maintain?</p>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-fluid mx-auto borderSilver" width="500" height="500" src="https://i.redd.it/hbnrxqdsigi51.jpg" preserveAspectRatio="xMidYMid slice" focusable="false">
+          <img class="featurette-image img-fluid mx-auto borderSilver dropShadow" width="500" height="500" src="https://i.redd.it/hbnrxqdsigi51.jpg" preserveAspectRatio="xMidYMid slice" focusable="false">
         </div>
       </div>
       <hr class="featurette-divider">
     </div>
   </main>
-  <footer>
-  </footer>
 </body>
   <!-- Bootstrap JavaScript Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

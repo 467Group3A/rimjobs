@@ -23,8 +23,8 @@
         <div>
           <img class="dropShadow" src="/img/ChromeRims.webp">
         </div>
-        <form class="p-4 needs-validation" @keyup.enter="tryLogin">
-          <h1 class="m-2 Stillwater Shrikhand dropShadow">Please Sign In</h1>
+        <form class="p-4" @keyup.enter="tryLogin">
+          <h1 class="mb-3 Stillwater Shrikhand dropShadow"><i class="fas fa-user-lock"></i> Please Sign In</h1>
           <div class="form-floating">
             <input type="text" class="form-control dropShadow" id="username" v-model="username" placeholder="username" required>
             <label for="username">Username</label>
@@ -34,7 +34,7 @@
             <label for="password">Password</label>
           </div>
           <div class="row mt-4">
-            <button type="button" class="col btn btn-lg btn-rim StillwaterBG fw-bold fs-3" @click="tryLogin()">Login</button>
+            <button type="button" class="col btn btn-lg btn-rim StillwaterBG fw-bold fs-3 dropShadow" @click="tryLogin()">Login <i class="fas fa-arrow-right-to-bracket"></i></button>
             <h4 class="col Pierce fs-5">{{ message }}</h4>
           </div>
         </form>
