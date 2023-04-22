@@ -16,48 +16,53 @@
 </head>
 
 <body class="stripe-alt">
-    <header id="navbar"></header>
-    <main class="container UltorBG Stillwater borderSilver">
-    <div id="app">
-      <div class="row m-2">
-        <h1 class="Shrikhand dropShadow m-2"><i class="fas fa-dolly"></i> Shipping Costs</h1>
-        <div class="StillwaterBG borderSilver dropShadow col-7">
-          <table class="table table-striped table-hover fw-bold fs-4">
-            <thead class="SteelportBG borderStill Pierce">
-              <tr class="dropShadow">
-                <th><i class="fas fa-weight-hanging"></i> Weight</th>
-                <th><i class="fas fa-file-invoice-dollar"></i> Cost</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody class="table-group-divider">
-              <tr class="Ultor fw-bold fs-5" v-for="shippingBracket in shippingBrackets" :key="shippingBracket.weight">
-                <td>{{ shippingBracket.weight }} lbs</td>
-                <td>{{ shippingBracket.cost === 'free' || shippingBracket.cost === 'Free' ? shippingBracket.cost : '$' + shippingBracket.cost}}</td>
-                <td class="w-25" v-if="!(shippingBracket.cost === 'free' || shippingBracket.cost === 'Free')"><button class="StillwaterBG btn btn-rim" @click="removeBracket(shippingBracket.rawWeight,shippingBracket.cost)"><i class="fas fa-delete-left"></i> Remove</button></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="col-5">
-          <img class="borderSilver dropShadow" width="500" height="500" src="/img/Rim_jobs_garagedoorred.webp">
-        </div>
-      </div>
-      <div class="Steelport m-3">
-        <form @submit.prevent="addBracket" class="row">
-          <div class="form-floating p-0 m-2 dropShadow col-3">
-            <input type="number" id="addWeight" class="form-control" v-model="addWeight" placeholder="Weight" min="0" required>
-            <label for="addWeight">Weight:</label>
+  <header id="navbar"></header>
+  <main class="drawer">
+    <div class="container UltorBG Stillwater borderSilver">
+      <div id="app">
+        <div class="row m-2">
+          <h1 class="Shrikhand dropShadow"><i class="fas fa-dolly"></i> Shipping Costs</h1>
+          <div class="StillwaterBG borderSilver dropShadow col-7">
+            <table class="table table-striped table-hover fw-bold fs-4">
+              <thead class="SteelportBG borderStill Pierce">
+                <tr class="dropShadow">
+                  <th><i class="fas fa-weight-hanging"></i> Weight</th>
+                  <th><i class="fas fa-file-invoice-dollar"></i> Cost</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                <tr class="Ultor fw-bold fs-5" v-for="shippingBracket in shippingBrackets" :key="shippingBracket.weight">
+                  <td>{{ shippingBracket.weight }} lbs</td>
+                  <td>{{ shippingBracket.cost === 'free' || shippingBracket.cost === 'Free' ? shippingBracket.cost : '$' + shippingBracket.cost}}</td>
+                  <td class="w-25" v-if="!(shippingBracket.cost === 'free' || shippingBracket.cost === 'Free')"><button class="StillwaterBG btn btn-rim" @click="removeBracket(shippingBracket.rawWeight,shippingBracket.cost)"><i class="fas fa-delete-left"></i> Remove</button></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div class="form-floating p-0 m-2 dropShadow col-3">
-            <input type="number" id="addCost" class="form-control" v-model="addCost" placeholder="Cost" min="0" required>
-            <label for="addCost">Cost:</label>
+          <div class="col-5">
+            <img class="borderSilver dropShadow" width="500" height="500" src="/img/Rim_jobs_garagedoorred.webp">
           </div>
-          <button class="StillwaterBG btn btn-lg btn-rim fw-bold fs-4 w-25 m-2 dropShadow col-3" type="submit"><i class="fas fa-arrow-up-from-bracket"></i> Add weight bracket</button>
-        </form>
-        <h4 class="Pierce">{{ errMsg }}</h4>
+        </div>
+        <div class="Steelport m-3">
+          <form @submit.prevent="addBracket" class="row">
+            <div class="form-floating p-0 m-2 dropShadow col-3">
+              <input type="number" id="addWeight" class="form-control" v-model="addWeight" placeholder="Weight" min="0" required>
+              <label for="addWeight">Weight:</label>
+            </div>
+            <div class="form-floating p-0 m-2 dropShadow col-3">
+              <input type="number" id="addCost" class="form-control" v-model="addCost" placeholder="Cost" min="0" required>
+              <label for="addCost">Cost:</label>
+            </div>
+            <button class="StillwaterBG btn btn-lg btn-rim fw-bold fs-4 w-25 m-2 dropShadow col-3" type="submit"><i class="fas fa-arrow-up-from-bracket"></i> Add weight bracket</button>
+          </form>
+          <h4 class="Pierce">{{ errMsg }}</h4>
+        </div>
       </div>
     </div>
+    <footer class="d-flex justify-content-center">
+      <img class="mx-auto w-25" src="/img/handle.png">
+    </footer>
   </main>
 </body>
   <!-- Bootstrap JavaScript Libraries -->

@@ -17,7 +17,7 @@
 
 <body>
   <header id="navbar"></header>
-  <main>
+  <main class="drawer">
     <div id="app">
       <div v-if="selectedOrder">
         <div v-if="!printingLabel">
@@ -69,6 +69,9 @@
           </div>
         </div>
     </div>
+    <footer class="d-flex justify-content-center">
+      <img class="mx-auto w-25" src="/img/handle.png">
+    </footer>
   </main>
 </body>
   <!-- Bootstrap JavaScript Libraries -->

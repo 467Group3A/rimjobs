@@ -98,11 +98,6 @@ body {
   background-color: #DDD8CF;
 }
 
-.blurit {
-  filter: blur(4px);
-  -webkit-filter: blur(4px);
-}
-
 .dropShadow {
   filter: drop-shadow(10px 10px 8px #3d3d3d);
 }
@@ -262,6 +257,24 @@ body {
 @keyframes barberpole {
   100% {
     background-position: 100% 100%;
+  }
+}
+header {
+  z-index: 1;
+  position: sticky;
+}
+
+.drawer {
+  z-index: -1;
+  animation: slide-down 2s;
+}
+
+@keyframes slide-down {
+  0% {
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
   }
 }
 
