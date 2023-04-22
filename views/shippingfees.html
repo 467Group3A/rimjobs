@@ -44,7 +44,7 @@
         </div>
       </div>
       <div class="Steelport m-3">
-        <form @submit.prevent="addBracket" class="row" >
+        <form @submit.prevent="addBracket" class="row">
           <div class="form-floating p-0 m-2 dropShadow col-3">
             <input type="number" id="addWeight" class="form-control" v-model="addWeight" placeholder="Weight" min="0" required>
             <label for="addWeight">Weight:</label>
@@ -53,7 +53,7 @@
             <input type="number" id="addCost" class="form-control" v-model="addCost" placeholder="Cost" min="0" required>
             <label for="addCost">Cost:</label>
           </div>
-          <button class="StillwaterBG btn btn-lg btn-rim fw-bold fs-4 w-25 m-2 dropShadow col-3" type="submit">Add weight bracket</button>
+          <button class="StillwaterBG btn btn-lg btn-rim fw-bold fs-4 w-25 m-2 dropShadow col-3" type="submit"><i class="fas fa-arrow-up-from-bracket"></i> Add weight bracket</button>
         </form>
         <h4 class="Pierce">{{ errMsg }}</h4>
       </div>
