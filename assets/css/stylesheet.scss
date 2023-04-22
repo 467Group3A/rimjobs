@@ -78,8 +78,17 @@ a {
     } 
 }
 
+.table {
+    --bs-table-hover-color: $Ultor
+}
+
 .table-striped {
     --bs-table-striped-color: $Steelport
+}
+
+.form-floating:not(.form-control:disabled)::before {
+    position: unset;
+    background-color: transparent;
 }
 
 .list-group-item {
@@ -211,6 +220,10 @@ body {
 
 .borderSteel {
     border: 10px solid $Steelport;
+}
+
+.borderStill {
+    border: 5px solid $Stillwater;
 }
   
 @media print and (max-width: 600px) {

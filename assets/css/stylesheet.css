@@ -66,8 +66,17 @@ a:hover:before {
   width: 100%;
 }
 
+.table {
+  --bs-table-hover-color: $Ultor ;
+}
+
 .table-striped {
   --bs-table-striped-color: $Steelport ;
+}
+
+.form-floating:not(.form-control:disabled)::before {
+  position: unset;
+  background-color: transparent;
 }
 
 .list-group-item {
@@ -76,15 +85,6 @@ a:hover:before {
   border-color: #686868;
 }
 
-/*
-.form-control {
-    background-color: $Pierce;
-}
-
-.form-select {
-    background-color: $Pierce;
-}
-*/
 .carousel-indicators .active {
   color: #e6e5e7;
 }
@@ -206,6 +206,10 @@ body {
 
 .borderSteel {
   border: 10px solid #686868;
+}
+
+.borderStill {
+  border: 5px solid #DDD8CF;
 }
 
 @media print and (max-width: 600px) {
