@@ -27,9 +27,12 @@
     <div id="inventory" v-cloak>
       <div class="container-lg UltorBG borderSilver">
         <h1 class="Stillwater Shrikhand dropShadow">Product Catalog</h1>
-        <input class="form-control" type="text" id="search" v-model="searchFor" placeholder="Search For Part: ">
+        <form @submit.prevent="searchPart">
+          <input type="text" v-model="searchTerm" placeholder="Search...">
+          <button type="submit">Search</button>
+        </form>
         <div class="container mt-3 mb-3">
-          <div class="row">
+          <div class="row" v-if="visible === true">
             <div class="col">
               <button class="btn btn-rim StillwaterBG w-100" @click="subPage">Previous
                 Page</button>
@@ -39,6 +42,7 @@
             </div>
           </div>
         </div>
+        <div v-if="nothingFound === true"><h3 class="Stillwater Shrikhand dropShadow">Nothing was returned from the search.</h3></div>
         <div v-for="(row, index) in filteredParts" :key="row.id" class="mt-3">
           <div class="row p-2 StillwaterBG Ultor rounded borderSilver w-100 mx-auto d-flex justify-content-around">
             <div class="col-md-2"><img class="img-fluid img-responsive rounded borderSilver m-2 dropShadow" v-bind:title="capitalize(row.description)" v-bind:src="row.pictureURL"></div>
@@ -64,7 +68,7 @@
           </div>
         </div>
         <div class="container mt-3 mb-3">
-          <div class="row">
+          <div class="row" v-if="visible === true">
             <div class="col">
               <button class="btn btn-rim StillwaterBG w-100" @click="subPage">Previous
                 Page</button>

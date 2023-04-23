@@ -123,6 +123,11 @@ app.get('/shippingfees', isAdmin, (req, res) => {
                    API ENDPOINTS
    -------------------------------------------------------- */
 
+// This function is to clean SQL queries (mainly for the search)
+function cleanText(text) {
+  return connection.escape(text);
+}
+
 // Start of endpoints
 app.get('/legacyparts', async (req, res) => {
   const perPage = parseInt(req.query.per) || 10;
@@ -151,6 +156,19 @@ app.get('/inventory', (req, res) => {
     } else {
       console.log('--- FETCHED INVENTORY ---');
       res.send(rows);
+    }
+  });
+});
+
+app.get('/api/search', async (req, res) => {
+  const item = req.query.searchTerm
+
+  console.log(`SELECT * FROM parts WHERE description LIKE "%${item}%"`);
+  connection.query(`SELECT * FROM parts WHERE Description LIKE "%${item}%"`, (error, results) => {
+    if (error) {
+      console.error(error);
+    } else {
+      res.json(results);
     }
   });
 });
