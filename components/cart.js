@@ -51,6 +51,8 @@ $(document).ready(function () {
                 let total = this.cartItems.reduce((total, item) => {
                     return total + (item.quantity * item.price);
                 }, 0);
+
+                total = (parseFloat(total) + parseInt(this.shippingCost)) * 1.1;
                 localStorage.setItem('totalCost', JSON.stringify(total));
                 localStorage.setItem('shippingCost', JSON.stringify(this.shippingCost));
             },
