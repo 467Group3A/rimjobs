@@ -2,49 +2,68 @@
 <html lang="en">
 
 <head>
-    <title>Rim Jobs</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <!-- Bootstrap CSS v5.2.1 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- FontAwesome 6.2.0 CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Rim Jobs CSS -->
-    <link rel="stylesheet" href="/css/stylesheet.css">
+  <title>Shipping Fees</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+  <!-- Bootstrap CSS v5.3.0 Alpha -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css">
+  <!-- FontAwesome 6.4.0 CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Rim Jobs CSS -->
+  <link rel="stylesheet" href="/css/stylesheet.css">
 </head>
-<body>
-    <header id="navbar"></header>
-    <main>
-        <div id="items"></div>
-    </main>
-    <div id="app">
-        <h2>Shipping Costs</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Weight</th>
-              <th>Cost</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="shippingBracket in shippingBrackets" :key="shippingBracket.weight">
-              <td>{{ shippingBracket.weight }}</td>
-              <td>{{ shippingBracket.cost === 'free' || shippingBracket.cost === 'Free' ? shippingBracket.cost : '$' + shippingBracket.cost}}</td>
-              <td v-if="!(shippingBracket.cost === 'free' || shippingBracket.cost === 'Free')"><button @click="removeBracket(shippingBracket.rawWeight,shippingBracket.cost)">Remove</button></td>
-            </tr>
-          </tbody>
-        </table>
-        <form @submit.prevent="addBracket">
-          <label for="addWeight">Weight:</label>
-          <input type="number" id="addWeight" v-model="addWeight" required>
-          <label for="addCost">Cost:</label>
-          <input type="number" id="addCost" v-model="addCost" required>
-          <button type="submit">Add weight bracket</button>
-        </form>
-        <p>{{ errMsg }}</p>
+
+<body class="stripe-alt">
+  <header id="navbar"></header>
+  <main class="drawer">
+    <div class="container UltorBG Stillwater borderSilver">
+      <div id="app">
+        <div class="row m-2">
+          <h1 class="Shrikhand dropShadow"><i class="fas fa-dolly"></i> Shipping Costs</h1>
+          <div class="StillwaterBG borderSilver dropShadow col-7">
+            <table class="table table-striped table-hover fw-bold fs-4">
+              <thead class="SteelportBG borderStill Pierce">
+                <tr class="dropShadow">
+                  <th><i class="fas fa-weight-hanging"></i> Weight</th>
+                  <th><i class="fas fa-file-invoice-dollar"></i> Cost</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                <tr class="Ultor fw-bold fs-5" v-for="shippingBracket in shippingBrackets" :key="shippingBracket.weight">
+                  <td>{{ shippingBracket.weight }} lbs</td>
+                  <td>{{ shippingBracket.cost === 'free' || shippingBracket.cost === 'Free' ? shippingBracket.cost : '$' + shippingBracket.cost}}</td>
+                  <td class="w-25" v-if="!(shippingBracket.cost === 'free' || shippingBracket.cost === 'Free')"><button class="StillwaterBG btn btn-rim" @click="removeBracket(shippingBracket.rawWeight,shippingBracket.cost)"><i class="fas fa-delete-left"></i> Remove</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-5">
+            <img class="borderSilver dropShadow" width="500" height="500" src="/img/Rim_jobs_garagedoorred.webp">
+          </div>
+        </div>
+        <div class="Steelport m-3">
+          <form @submit.prevent="addBracket" class="row">
+            <div class="form-floating p-0 m-2 dropShadow col-3">
+              <input type="number" id="addWeight" class="form-control" v-model="addWeight" placeholder="Weight" min="0" required>
+              <label for="addWeight">Weight:</label>
+            </div>
+            <div class="form-floating p-0 m-2 dropShadow col-3">
+              <input type="number" id="addCost" class="form-control" v-model="addCost" placeholder="Cost" min="0" required>
+              <label for="addCost">Cost:</label>
+            </div>
+            <button class="StillwaterBG btn btn-lg btn-rim fw-bold fs-4 w-25 m-2 dropShadow col-3" type="submit"><i class="fas fa-arrow-up-from-bracket"></i> Add weight bracket</button>
+          </form>
+          <h4 class="Pierce">{{ errMsg }}</h4>
+        </div>
       </div>
+    </div>
+    <footer class="d-flex justify-content-center">
+      <img class="mx-auto w-25" src="/img/handle.png">
+    </footer>
+  </main>
 </body>
   <!-- Bootstrap JavaScript Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

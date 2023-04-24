@@ -15,45 +15,73 @@
   <link rel="stylesheet" href="/css/stylesheet.css">
 </head>
 
-<body>
+<body class="stripe">
   <header id="navbar"></header>
-  <main>
-    <div id="app">
-      <div v-if="selectedOrder">
-        <div v-if="!printingLabel">
-          <h1>Order Details</h1>
-          <p>Order ID: {{ selectedOrder.orderId }}</p>
-          <div v-if="!hideForPrint">
-            <p>Order Status: {{ selectedOrder.order.status }}</p>
-          </div>
-          <p>Order Date: {{ selectedOrder.order.date }}</p>
-          <p>Weight: {{ selectedOrder.order.weight }}lbs</p>
-          <p>Part cost: ${{ selectedOrder.order.amount }}</p>
-          <p>Shipping cost: ${{ selectedOrder.order.shipping }}</p>
-          <p>Total cost: ${{selectedOrder.order.amount + selectedOrder.order.shipping}}</p>
-          <h2>Customer Information:</h2>
-          <p>Name: {{ selectedOrder.order.name}}</p>
-          <p>Email: {{ selectedOrder.order.email}}</p>
-          <p>Address: {{ selectedOrder.order.address }}</p>
-          <h2>Items in the order</h2>
-          <thead>
-            <th>Part Number -</th>
-            <th># of part -</th>
-          </thead>
-          <ul>
-            <li v-for="orderItem in selectedOrder.orderItems" :key="orderItem.id">
-              {{ orderItem.partnumber}} / {{ orderItem.quantity }}
-            </li>
-            </ul>
-            <div v-if="!hideForPrint"> <!-- Shows drop down for updating status if its not printing page-->
-              <label for="select-option">Order status:</label>
-              <select v-model="selectedOption" id="select-option">
-              <option v-for="option in options" :key="option.value" :value="option.value">{{ option.label }}</option>
-              </select>
-              <button @click="updateOrder" :disabled="!selectedOption">Update</button>
-              <div v-if="selectedOrder.order.status == 'Filled'">
-                <button @click="printInvoice">Print Invoice</button>
-                <button @click="printLabel">Print Label</button>
+  <main class="drawer">
+    <div class="container UltorBG Stillwater borderSilver">
+      <div id="app">
+        <div v-if="selectedOrder">
+          <div v-if="!printingLabel">
+            <h1 class="Shrikhand dropShadow m-2"><i class="fas fa-file-invoice"></i> Order Details</h1>
+            <div class="row">
+              <div class="col">
+                <h2 class="UltorBG borderSilver dropShadow p-2 Stillwater"><span class="dropShadow"><i class="fas fa-hashtag"></i> Order ID: {{ selectedOrder.orderId }}</span></h2>
+                <h2 class="borderStill SteelportBG dropShadow p-2 Pierce"><span class="dropShadow"><i class="fas fa-calendar-check"></i> Order Date: {{ selectedOrder.order.date }}</span></h2>
+                <div v-if="!hideForPrint">
+                  <h2 class="borderStill SteelportBG dropShadow p-2 Pierce"><span class="dropShadow"><i class="fas fa-circle-dot"></i> Order Status: {{ selectedOrder.order.status }}</span></h2>
+                </div>
+              </div>
+              <div class="col">
+                <h2 class="UltorBG borderSilver dropShadow p-2 Stillwater"><span class="dropShadow"><i class="fas fa-id-card"></i> Customer Information:</span></h2>
+                <h4 class="borderStill SteelportBG dropShadow p-2 Pierce"><span class="dropShadow"><i class="fas fa-id-badge"></i> Name: {{ selectedOrder.order.name}}</span></h4>
+                <h4 class="borderStill SteelportBG dropShadow p-2 Pierce"><span class="dropShadow"><i class="fas fa-envelope"></i> Email: {{ selectedOrder.order.email}}</span></h4>
+                <h4 class="borderStill SteelportBG dropShadow p-2 Pierce"><span class="dropShadow"><i class="fas fa-map-location-dot"></i> Address: {{ selectedOrder.order.address }}</span></h4>
+              </div>
+            </div>
+            <div class="mt-1">
+              <p class="SevenSegment fw-bold fs-4 borderSilver px-2 dropShadow">Total Weight: {{ selectedOrder.order.weight }} lbs</p>
+              <div class="row fw-bold fs-4 px-2 dropShadow">
+                <p class="col-4 SevenSegment borderSilver">Part cost: ${{ selectedOrder.order.amount }}</p>
+                <p class="col-4 SevenSegment borderSilver">Shipping cost: ${{ selectedOrder.order.shipping }}</p>
+                <p class="col-4 SevenSegment borderSilver">Tax: 10%</p>
+              </div>
+              <p class="SevenSegment fw-bold fs-4 borderSilver px-2 dropShadow">Total: ${{ selectedOrder.order.amount + selectedOrder.order.shipping * 1.1}}</p>
+            </div>
+            <div class="row mt-2">
+              <div class="col">
+                <h2 class="UltorBG borderSilver dropShadow p-2 Stillwater"><span class="dropShadow"><i class="fas fa-boxes-stacked"></i> Order Contents:</span></h2>
+                <div class="StillwaterBG borderSilver dropShadow mb-3">
+                  <table class="table table-striped table-hover table-sm fw-bold fs-3">
+                    <thead class="SteelportBG borderStill Pierce">
+                      <tr class="dropShadow">
+                        <th><i class="fas fa-hashtag"></i> Part Number</th>
+                        <th><i class="fas fa-x"></i> Part Quantity</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                      <tr class="Ultor fw-bold fs-4" v-for="orderItem in selectedOrder.orderItems" :key="orderItem.id">
+                        <td>{{ orderItem.partnumber }}</td>
+                        <td>{{ orderItem.quantity }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col" v-if="!hideForPrint"> <!-- Shows drop down for updating status if its not printing page-->
+                <h2 class="UltorBG borderSilver dropShadow p-2 Stillwater"><span class="dropShadow"><i class="fas fa-truck-ramp-box"></i> Order Management:</span></h2>
+                <div class="row">
+                  <div class="col">
+                    <label for="select-option">Order status:</label>
+                    <select class="form-select" v-model="selectedOption" id="select-option">
+                      <option v-for="option in options" :key="option.value" :value="option.value">{{ option.label }}</option>
+                    </select>
+                  </div>
+                  <button class="btn btn-lg btn-rim StillwaterBG dropShadow col m-2" @click="updateOrder" :disabled="!selectedOption"><i class="fas fa-pen-to-square"></i> Update</button>
+                </div>
+                <div class="d-flex justify-content-start" v-if="selectedOrder.order.status == 'Filled'">
+                  <button class="btn btn-lg btn-rim StillwaterBG dropShadow m-2" @click="printInvoice"><i class="fas fa-file-invoice"></i> Print Invoice</button>
+                  <button class="btn btn-lg btn-rim StillwaterBG dropShadow m-2" @click="printLabel"><i class="fas fa-tag"></i> Print Label</button>
+                </div>
               </div>
             </div>
           </div> <!-- Section for shipping label printed-->
@@ -68,7 +96,11 @@
             <p>{{ selectedOrder.order.address }}</p>
           </div>
         </div>
+      </div>
     </div>
+    <footer class="d-flex justify-content-center">
+      <img class="mx-auto w-25" src="/img/handle.png">
+    </footer>
   </main>
 </body>
   <!-- Bootstrap JavaScript Libraries -->

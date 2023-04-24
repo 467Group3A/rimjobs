@@ -4,7 +4,8 @@
   "description": "CSCI 467 Group Project",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js"
+    "dev": "node server.js 5050",
+    "prod": "node server.js 2048"
   },
   "author": "Cesar Ryan Matt David",
   "license": "ISC",

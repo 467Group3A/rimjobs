@@ -27,6 +27,12 @@ const app = Vue.createApp({
       message: '',
       errormessage: null,
       confirmation: null,
+      cartItems: [],
+      cartTotal: 0,
+      subtotal: 0,
+      shipping: 0,
+      title: " Complete your order",
+      subtitle: "Please fill out the following information to finalize your order."
     }
   },
   methods: {
@@ -38,7 +44,7 @@ const app = Vue.createApp({
       this.customer.address = this.customer.address + ' ' + this.customer.city + ' ' + this.customer.state + ' ' + this.customer.zip;
       let totalWeight = 0;
       // set the vendor to our name later
-      this.formData.vendor = 'STOREFRONT';
+      this.formData.vendor = 'RIMJOBS MULTIMODAL';
 
       if (this.formData.cc.length < 16 || 
           this.formData.name.length < 1 || 
@@ -88,6 +94,8 @@ const app = Vue.createApp({
             } else if (response.status === 200) {
               return response.json().then(data => {
                 this.message = `Payment successfully made. Here's your confirmation:`
+                this.title = " Order has been submitted!";
+                this.subtitle = "Thank you for your shopping with us.";
                 this.confirmation = data
                 localStorage.removeItem('cartItems');
               });
@@ -96,7 +104,7 @@ const app = Vue.createApp({
           .catch(error => {
             console.error(error)
           });
-          localStorage.removeItem('cartItems');
+          //localStorage.removeItem('cartItems');
         }
     },
     orderNumber() {
@@ -106,8 +114,40 @@ const app = Vue.createApp({
       // format
       return [now.slice(0, 4), now.slice(4, 10), now.slice(10, 14)].join('-');
     },
+    fixed(number){
+      return number.toFixed(2);
+    },
+    capitalize(str) {
+      return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+    },
+    normalDate(date){
+      var newDate = new Date(date);
+      var humanDate = newDate.toLocaleDateString("en-US", {
+        weekday: "long", 
+        month: "long", 
+        day: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric", 
+        timeZoneName: "short"
+      })
+      return humanDate
+    }
   },
   mounted() {
+    try {
+      this.cartItems = JSON.parse(localStorage.getItem('cartItems'));
+      for (let i = 0; i < this.cartItems.length; i++) {
+        this.cartTotal += 1;
+      }
+    } catch (error) {
+      this.cartItems = 0;
+      this.title = " Your cart is empty!";
+      this.subtitle = "Please add items to your cart before checking out.";
+    }
+    this.subtotal = localStorage.getItem('totalCost');
+    this.shipping = localStorage.getItem('shippingCost');
     fetch('/api/get-shipping-fees')
       .then(response => response.json())
       .then(data => {

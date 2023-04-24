@@ -5,17 +5,16 @@ const axios = require("axios");
 const mysql = require('mysql2');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
-var path = require('path');
+const path = require('path');
 const router = express.Router();
 const promise = require('mysql2/promise');
 const LocalStorage = require('node-localstorage').LocalStorage;
 
 // PRODUCTION PORT, REQUESTS ON PORT 80 ARE REDIRECTED TO THIS PORT
 // const port = 2048;
-const port = 3500;
-
 
 const localStorage = new LocalStorage('./localStorage');
+const port = process.argv[2] || 3500;
 
 const { loadInventory } = require('./services/loadinventory')
 const { legacyConnection, newConnection, initializeNewDB, cleanOrders, getOrderDetails } = require('./services/dbconfig') // Some of these functions will be removed
@@ -35,30 +34,28 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.json());
 
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
-
 app.use(
   express.urlencoded({
     extended: true,
   })
 );
 
-// CSS and image files
-app.use(express.static(path.join(__dirname, 'assets')));
+// Engine
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
-// Vue Component files
+// Static Folders (CSS + Vue Components)
+app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.static(path.join(__dirname, 'components')));
 
-// legacy database info
+// Legacy Database Connection Info
 const connection = mysql.createConnection({
   host: 'blitz.cs.niu.edu',
   user: 'student',
   password: 'student',
   database: 'csci467',
 });
-
-// Connect to legacy database 
+ 
 connection.connect((error) => {
   if (error) {
     console.error('Error connecting to database:', error);
@@ -164,6 +161,10 @@ app.get('/cart', (req, res) => {
 });
 
 // If url is /, send the index.html file
+/* -------------------------------------------------------- 
+                   CUSTOMER FACING VIEWS
+   -------------------------------------------------------- */
+// Root, send index
 app.get("/", (req, res) => {
   //send the index.html file for all requests
   res.sendFile(__dirname + "/views/index.html");
@@ -174,14 +175,24 @@ app.get('/viewinventory', (req, res) => {
   res.sendFile(__dirname + "/views/viewinventory.html");
 })
 
-// If url is /ccauth, send the ccauth.html file
+// Cart Page
+app.get('/cart', (req, res) => {
+  res.sendFile(__dirname + "/views/cart.html");
+})
+
+// Checkout page
 app.get('/ccauth', (req, res) => {
   res.sendFile(__dirname + "/views/ccauth.html");
 })
 
+// Credits Page
 app.get('/credits', (req, res) => {
   res.sendFile(__dirname + "/views/credits.html");
 })
+
+/* -------------------------------------------------------- 
+                   EMPLOYEE FACING VIEWS
+   -------------------------------------------------------- */
 
 // Used to access the following pages below
 app.get('/login', (req, res) => {
@@ -208,14 +219,18 @@ app.get('/shippingfees', isAdmin, (req, res) => {
   res.sendFile(__dirname + "/views/shippingfees.html");
 })
 
-app.get('/cart', (req, res) => {
-  res.sendFile(__dirname + "/views/cart.html");
-})
+/* -------------------------------------------------------- 
+                   API ENDPOINTS
+   -------------------------------------------------------- */
 
 app.get('/findmyorder', (req, res) => {
   res.sendFile(__dirname + "/views/findmyorder.html");
 })
 
+// This function is to clean SQL queries (mainly for the search)
+function cleanText(text) {
+  return connection.escape(text);
+}
 
 // Start of endpoints
 app.get('/legacyparts', async (req, res) => {
@@ -245,6 +260,19 @@ app.get('/inventory', (req, res) => {
     } else {
       console.log('--- FETCHED INVENTORY ---');
       res.send(rows);
+    }
+  });
+});
+
+app.get('/api/search', async (req, res) => {
+  const item = req.query.searchTerm
+
+  console.log(`SELECT * FROM parts WHERE description LIKE "%${item}%"`);
+  connection.query(`SELECT * FROM parts WHERE Description LIKE "%${item}%"`, (error, results) => {
+    if (error) {
+      console.error(error);
+    } else {
+      res.json(results);
     }
   });
 });

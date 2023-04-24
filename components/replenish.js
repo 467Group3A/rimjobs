@@ -21,7 +21,7 @@ $(document).ready(function () {
 
             // If theres not 1 or more matching part with partID, set placeholder
             if(matchingParts.length == 0) {
-              matchingParts.push({number: "X", description: "No matching part found", pictureURL: "http://blitz.cs.niu.edu/pics/niu.jpg", amount: 0});
+              matchingParts.push({number: "X", description: "No matching part found", pictureURL: "/img/FlashyRims.webp", amount: 0});
             }
 
             return matchingParts;

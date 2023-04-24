@@ -2,26 +2,27 @@
 <html lang="en">
 
 <head>
-    <title>Cart</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <!-- Bootstrap CSS v5.3.0 Alpha -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css">
-    <!-- FontAwesome 6.4.0 CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Rim Jobs CSS -->
-    <link rel="stylesheet" href="/css/stylesheet.css">
+  <title>Cart</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+  <!-- Bootstrap CSS v5.3.0 Alpha -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css">
+  <!-- FontAwesome 6.4.0 CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Rim Jobs CSS -->
+  <link rel="stylesheet" href="/css/stylesheet.css">
 </head>
-
 <body class="stripe-alt">
     <header id="navbar"></header>
     <main>
-        <div id="cart">
+        <div id="cart" v-cloak>
             <div v-if="cartItems.length === 0" class="container-lg UltorBG borderSilver">
                 <h1 class="Stillwater Shrikhand dropShadow text-center">Your cart is currently empty.</h1>
-                <a href="/viewinventory" class="btn btn-lg fw-bold StillwaterBG btn-rim mb-2">See our products.</a>
+                <div class="mx-auto text-center">
+                    <a href="/viewinventory" class="w-50 btn btn-lg fw-bold StillwaterBG btn-rim mb-2">See our products.</a>
+                </div>
             </div>
             <div v-else>
                 <div class="container-lg UltorBG borderSilver">
@@ -65,16 +66,21 @@
                 </div>
             </div>
         </div>
-    </main>
+      </div>
+    </div>
+    <footer class="d-flex justify-content-center">
+      <img class="mx-auto w-25" src="/img/handle.png">
+    </footer>
+  </main>
 </body>
-    <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-    <!-- Vue.js -->
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <!-- Components -->
-    <script src="/fetchNavbar.js"></script>
-    <script src="/cart.js"></script>
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+  <!-- Vue.js -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <!-- Components -->
+  <script src="/fetchNavbar.js"></script>
+  <script src="/cart.js"></script>
 
 </html>

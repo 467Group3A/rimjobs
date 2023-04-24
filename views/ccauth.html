@@ -17,27 +17,91 @@
 
 <body class="stripe-alt">
   <header id="navbar"></header>
-  <main>
+  <main id="ccauth" v-cloak>
     <div class="container UltorBG Stillwater borderSteel">
       <div class="py-2 text-center">
         <img class="d-block mx-auto mb-2 dropShadow" src="/img/Logo.png">
-        <h2><i class="fa-solid fa-cart-shopping"></i> Complete your order</h2>
-        <p class="lead">Please fill out the following information to finalize your order.</p>
+        <h2><i class="fa-solid fa-cart-shopping"></i> {{title}}</h2>
+        <p class="lead">{{subtitle}}</p>
       </div>
-
-      <div class="row g-4">
-        <div class="col-md-6 col-lg-4 order-md-last borderSilver">
+      <div class="mx-auto text-center" v-if="cartItems === 0">
+        <a href="/viewinventory" class="w-50 btn btn-lg fw-bold StillwaterBG btn-rim mb-2">See our products.</a>
+      </div>
+      <div class="row g-4" v-else-if="confirmation">
+        <div class="center">
+          <table class="table text-white w-50 mx-auto">
+            <tr>
+              <td class="text-end">Vendor:</td>
+              <td>{{ confirmation.vendor }}</td>
+            </tr>
+            <!-- <tr>
+              <td class="text-end">Card #</td>
+              <td>{{ confirmation.cc }}</td>
+            </tr> -->
+            <tr>
+              <td class="text-end">Transaction No.</td>
+              <td>{{ confirmation.trans }}</td>
+            </tr>
+            <tr>
+              <td class="text-end">Name: </td>
+              <td>{{ confirmation.name }}</td>
+            </tr>
+            <!-- <tr>
+              <td class="text-end">Expiration: </td>
+              <td>{{ confirmation.exp }}</td>
+            </tr> -->
+            <tr>
+              <td class="text-end">Amount: </td>
+              <td>${{ confirmation.amount }}</td>
+            </tr>
+            <!-- <tr>
+              <td class="text-end">Brand</td>
+              <td>{{ capitalize(confirmation.brand) }}</td>
+            </tr> -->
+            <tr>
+              <td class="text-end">Timestamp</td>
+              <td>{{ normalDate(confirmation.timeStamp) }}</td>
+            </tr>
+            <!-- <tr>
+              <td class="text-end">Auth: </td>
+              <td>{{ confirmation.authorization }}</td>
+            </tr> -->
+            <tr>
+              <td class="text-end">ID: </td>
+              <td>{{ confirmation._id }}</td>
+            </tr>
+            <tr>
+              <td colspan="2"><a onClick="window.print()" class="w-100 btn btn-lg fw-bold StillwaterBG btn-rim mb-2">Print for your records.</a></td>
+            </tr>
+        </table>
+        </div>
+      </div>
+      <div class="row g-4" v-else>
+        <div id="cart" class="col-md-6 col-lg-4 order-md-last borderSilver">
           <h4 class="d-flex justify-content-between align-items-center py-2">
             <span class="">Your cart</span>
             <span class=""> {{cartTotal}} items</span>
-          </h4><hr>
+          </h4><hr />
+          <table class="table table-striped SteelportBG Pierce borderSilver fs-4">
+            <tbody>
+                <tr v-for="(item, index) in cartItems" :key="item.item_id" class="Ultor StillwaterBG silverBorder fs-5">
+                    <td><img class="borderSilver" v-bind:src="item.pictureURL" width="50" height="50"></td>
+                    <td>{{ capitalize(item.item_name) }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ fixed(item.weight) }} lbs</td>
+                    <td>{{ fixed(item.quantity * item.price) }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <p> Subtotal: ${{ subtotal }}</p>
+        <p> Shipping: ${{ shipping }}</p>
         </div>
         <div class="col-md-6 col-lg-8 Ultor StillwaterBG borderSilver">
-          <div class="m-2 UltorBG borderSilver">
+          <div class="m-2 UltorBG borderSilver dropShadow">
             <h4 class="p-2 mb-2 Shrikhand Stillwater dropShadow"><i class="fas fa-truck-fast"></i> Shipping Details</h4>
           </div>
-          <form class="needs-validation" id="ccauth" action="" onsubmit="return false" novalidate>
-            <div class="row g-3">
+          <form class="needs-validation" action="" onsubmit="return false" novalidate>
+            <div class="row mt-2 g-3">
               <div class="col-12">
                 <label for="cusName" class="form-label"> <i class="fas fa-user-tie"></i> Full name</label>
                 <input type="text" class="form-control" id="cusName" placeholder="Joshua Birk" v-model="formData.name" required>
@@ -137,10 +201,10 @@
             </div>
 
             <hr class="my-4">
-            <div class="m-2 UltorBG borderSilver">
+            <div class="m-2 UltorBG borderSilver dropShadow">
               <h4 class="p-2 mb-2 Shrikhand Stillwater dropShadow"><i class="fas fa-cash-register"></i> Payment Details</h4>
             </div>
-            <div class="row gy-3">
+            <div class="row mt-2 gy-3">
               <div class="col-md-6">
                 <label for="cc-name" class="form-label"><i class="fas fa-id-badge"></i> Name on card</label>
                 <input type="text" class="form-control" id="cc-name" placeholder="Joshua Birk" required>
@@ -203,7 +267,7 @@
             </div>
             <hr class="my-2">
             <div class="p-2">
-              <button class="btn btn-rim btn-lg StillwaterBG fw-bold w-25" type="submit" @click="submitForm">Submit Order</button>
+              <button class="btn btn-rim btn-lg StillwaterBG fw-bold w-25 dropShadow" type="submit" @click="submitForm">Submit Order</button>
             </div>
             <h3>{{ message }}</h3>
             <div v-if="errormessage">
@@ -211,14 +275,13 @@
                 <li v-for="error in errormessage"> {{ error }}</li>
               </ul>
             </div>
-            <div v-if="confirmation">
-              <pre>{{ confirmation }}</pre>
-            </div>
           </form>
         </div>
       </div>
 	  </div>
-
+    <footer class="d-flex justify-content-center">
+      <img class="mx-auto w-25" src="/img/handle.png">
+    </footer>
   </main>
 </body>
   <!-- Bootstrap JavaScript Libraries -->
@@ -231,7 +294,8 @@
   <script src="/fetchNavbar.js"></script>
   <!-- Credit card authorization -->
   <script src="/ccauth.js"></script>
-  
+  <!-- Cart Hooks -->
+  <script src="/cart.js"></script>
   <script> //Workaround for bootstrap validation to function
     (function () {
       'use strict'
