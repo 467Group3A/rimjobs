@@ -20,6 +20,10 @@
   --bs-nav-link-hover-color: #e6e5e7;
 }
 
+[v-cloak] {
+  display: none;
+}
+
 .dropdown-toggle::after {
   display: none;
 }

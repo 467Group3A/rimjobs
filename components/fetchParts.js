@@ -21,7 +21,10 @@ $(document).ready(function () {
                 searchFor: '',
                 minPrice: null,
                 maxPrice: null,
-                qty: []
+                qty: [],
+                searchTerm: '',
+                visible: true,
+                nothingFound: false
             };
         },
         computed: {
@@ -70,6 +73,18 @@ $(document).ready(function () {
             // Capitalizes the first letter of each word
             capitalize(str) {
                 return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+            },
+            async searchPart() {
+                this.visible = false;
+                const response = await fetch(`api/search?searchTerm=${encodeURIComponent(this.searchTerm)}`);
+                const part = await response.json();
+                if (part.length == 0) {
+                    this.nothingFound = true;
+                    this.finalRows = [];
+                } else {
+                    this.nothingFound = false;
+                    this.finalRows = part;
+                }
             },
             //
             // Increments the page number and fetches the next page
@@ -147,6 +162,7 @@ $(document).ready(function () {
                             quantity: quantity
                         };
                         cartItems.push(newItem);
+                        // Navbar listens for event and adds the number to its "Cart (X)" number
                         window.dispatchEvent(new CustomEvent('ad', {
                             detail: {
                               count: 1

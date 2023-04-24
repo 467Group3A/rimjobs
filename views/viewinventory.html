@@ -26,12 +26,15 @@
   <main class="drawer">
     <div id="inventory" v-cloak>
       <div class="container-lg UltorBG borderSilver">
-        <h1 class="Stillwater Shrikhand dropShadow m-2"><i class="far fa-rectangle-list"></i> Product Catalog</h1>
-        <input class="form-control dropShadow" type="text" id="search" v-model="searchFor" placeholder="Search For Part: ">
+        <h1 class="Stillwater Shrikhand dropShadow">Product Catalog</h1>
+        <form @submit.prevent="searchPart">
+          <input type="text" v-model="searchTerm" placeholder="Search...">
+          <button type="submit">Search</button>
+        </form>
         <div class="container mt-3 mb-3">
-          <div class="row">
+          <div class="row" v-if="visible === true">
             <div class="col">
-              <button class="btn btn-rim StillwaterBG w-100 dropShadow" :disabled="firstPage" @click="subPage">Previous
+              <button class="btn btn-rim StillwaterBG w-100" @click="subPage">Previous
                 Page</button>
             </div>
             <div class="col">
@@ -39,6 +42,7 @@
             </div>
           </div>
         </div>
+        <div v-if="nothingFound === true"><h3 class="Stillwater Shrikhand dropShadow">Nothing was returned from the search.</h3></div>
         <div v-for="(row, index) in filteredParts" :key="row.id" class="mt-3">
           <div class="row p-2 StillwaterBG Ultor rounded borderSilver w-100 mx-auto d-flex justify-content-around dropShadow">
             <div class="col-md-2"><img class="img-fluid img-responsive rounded borderSilver m-2 dropShadow" v-bind:title="capitalize(row.description)" v-bind:src="row.pictureURL"></div>
@@ -51,7 +55,7 @@
               <div class="d-flex flex-column">
                 <h4 class="m-2 text-center">${{ row.price }}</h4>
                 <form class="row" validate="" onsubmit="return false">
-                    <input value="1" class="form-control" min="1" :max="inventory[row.number - 1].quantity"
+                    <input class="form-control" min="1" :max="inventory[row.number - 1].quantity"
                       type="number" :disabled="inventory[row.number - 1].quantity === 0" placeholder="Quantity" v-model="qty[index]"
                       required="">
                     <button v-if="!isInCart(row.number) && !(inventory[row.number - 1].quantity === 0)" class="btn btn-rim btn-grn" onclick="greenlight(this)" type="Submit"
@@ -64,7 +68,7 @@
           </div>
         </div>
         <div class="container mt-3 mb-3">
-          <div class="row">
+          <div class="row" v-if="visible === true">
             <div class="col">
               <button class="btn btn-rim StillwaterBG w-100 dropShadow" @click="subPage">Previous
                 Page</button>

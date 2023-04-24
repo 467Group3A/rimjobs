@@ -1,15 +1,17 @@
 // This is a work in progress
 // This does not show up on the page yet
 $(document).ready(function () {
-    const app = Vue.createApp({
+    const cart = Vue.createApp({
         data() {
             return {
-                cartItems: JSON.parse(localStorage.getItem('cartItems')) || [],
+                cartItems: [],
                 shippingfees: [],
                 taxRate: 1.1,
             }
         },
         mounted() {
+            console.log('cart mounted')
+            this.cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
             Promise.all([
                 fetch('/api/get-shipping-fees').then((res) => res.json()),
                 fetch('/inventory').then((res) => res.json()),
@@ -49,11 +51,19 @@ $(document).ready(function () {
                 let total = this.cartItems.reduce((total, item) => {
                     return total + (item.quantity * item.price);
                 }, 0);
+
+                total = (parseFloat(total) + parseInt(this.shippingCost)) * 1.1;
                 localStorage.setItem('totalCost', JSON.stringify(total));
+                localStorage.setItem('shippingCost', JSON.stringify(this.shippingCost));
             },
             removeFromCart(index) {
                 this.cartItems.splice(index, 1);
-                localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+                if (this.cartItems.length === 0) {
+                    localStorage.removeItem('cartItems');
+                } else {
+                    localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+                }
+                // Workaround to get the navbar cart number to update
                 window.dispatchEvent(new CustomEvent('sb', {
                     detail: {
                       count: 1

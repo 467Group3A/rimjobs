@@ -21,7 +21,8 @@
     <div class="container-fluid borderSilver">
       <div id="carouselId" class="carousel slide" data-bs-ride="carousel">
         <ol class="carousel-indicators">
-          <li data-bs-target="#carouselId" data-bs-slide-to="0" class="active" aria-current="true" aria-label="First slide"></li>
+          <li data-bs-target="#carouselId" data-bs-slide-to="0" class="active" aria-current="true"
+            aria-label="First slide"></li>
           <li data-bs-target="#carouselId" data-bs-slide-to="1" aria-label="Second slide"></li>
           <li data-bs-target="#carouselId" data-bs-slide-to="2" aria-label="Third slide"></li>
           <li data-bs-target="#carouselId" data-bs-slide-to="3" aria-label="Fourth slide"></li>
@@ -55,7 +56,8 @@
           </div>
 
           <div class="carousel-item">
-            <img src=" https://i.redd.it/tvldydnu3vi91.jpg" height="600" class="w-50 mx-auto d-block" alt="Fourth slide">
+            <img src=" https://i.redd.it/tvldydnu3vi91.jpg" height="600" class="w-50 mx-auto d-block"
+              alt="Fourth slide">
             <div class="carousel-caption d-none d-md-block">
               <h3>From our A-Team to yours.</h3>
               <p>Customer Said: "I had a problem and no one else could help."</p>
@@ -74,12 +76,14 @@
             <img src="https://i.redd.it/wxeadjzo1e641.jpg" height="600" class="w-50 mx-auto d-block" alt="Sixth slide">
             <div class="carousel-caption d-none d-md-block">
               <h3>For expensive tastes.</h3>
-              <p>Witb this $200,000 paintjob, you might actually increase the value of other cars in the event of a collision.</p>
+              <p>Witb this $200,000 paintjob, you might actually increase the value of other cars in the event of a
+                collision.</p>
             </div>
           </div>
 
           <div class="carousel-item">
-            <img src="https://i.redd.it/83helnlrdcsa1.jpg" height="600" class="w-50 mx-auto d-block" alt="Seventh slide">
+            <img src="https://i.redd.it/83helnlrdcsa1.jpg" height="600" class="w-50 mx-auto d-block"
+              alt="Seventh slide">
             <div class="carousel-caption d-none d-md-block">
               <h3>For questionable tastes.</h3>
               <p>The customer is always right (in matters of taste).</p>
@@ -94,7 +98,7 @@
         <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
-          </button>
+        </button>
       </div>
     </div>
 
@@ -111,13 +115,22 @@
                   <div v-for="row in finalRows" class="col">
                     <div class="card text-center StillwaterBG">
                       <div class="card-header">
-                        <h4 class="card-title textCutoff Ultor fw-bold text-capitalize" v-bind:title="capitalize(row.description)">{{row.description}}</h4>
+                        <h4 class="card-title textCutoff Ultor fw-bold" v-bind:title="capitalize(row.description)">
+                          {{capitalize(row.description)}}</h4>
                       </div>
                       <div class="card-body StillwaterBG">
-                        <img v-bind:src="row.pictureURL" v-bind:title="capitalize(row.description)" class="borderSilver dropShadow">
-                        <div class="d-flex justify-content-around mt-3">
-                            <span class="badge rounded-pill UltorBG Stillwater lineHeight2 fs-6">${{row.price}}</span>
-                            <a href="#" class="btn btn-rim">Add To Cart</a>
+                        <img v-bind:src="row.pictureURL" v-bind:title="capitalize(row.description)"
+                          class="borderSilver dropShadow" style="margin-bottom:15px;">
+                        <div class="d-flex justify-content-around">
+                          <span class="badge rounded-pill UltorBG Stillwater lineHeight2 fs-6">${{row.price}}</span>
+                          <button v-if="!isInCart(row.number) && !(inventory[row.number - 1].quantity === 0)"
+                            class="btn btn-rim btn-grn" onclick="greenlight(this)" type="Submit"
+                            @click="addToCart(row.pictureURL, row.number, row.description, row.weight, row.price, inventory[row.number - 1].quantity, 1)">Add
+                            to Cart</button>
+                          <button v-else-if="inventory[row.number - 1].quantity === 0" class="btn btn-rim" type="Submit"
+                            disabled> Out of Stock </button>
+                          <a v-else class="in-cart btn btn-cart" href="/cart">In Cart <i
+                              class="fa-solid fa-check"></i></a>
                         </div>
                       </div>
                     </div>
@@ -129,13 +142,22 @@
                   <div v-for="row in finalRows" class="col">
                     <div class="card text-center StillwaterBG">
                       <div class="card-header">
-                        <h4 class="card-title textCutoff Ultor fw-bold text-capitalize" v-bind:title="capitalize(row.description)">{{row.description}}</h4>
+                        <h4 class="card-title textCutoff Ultor fw-bold text-capitalize" v-bind:title="capitalize(row.description)">
+                          {{capitalize(row.description)}}</h4>
                       </div>
                       <div class="card-body StillwaterBG">
-                        <img v-bind:src="row.pictureURL" v-bind:title="capitalize(row.description)" class="borderSilver dropShadow">
-                        <div class="d-flex justify-content-around mt-3">
-                            <span class="badge rounded-pill UltorBG Stillwater lineHeight2 fs-6">${{row.price}}</span>
-                            <a href="#" class="btn btn-rim">Add To Cart</a>
+                        <img v-bind:src="row.pictureURL" v-bind:title="capitalize(row.description)"
+                          class="borderSilver dropShadow" style="margin-bottom:15px;">
+                        <div class="d-flex justify-content-around ">
+                          <span class="badge rounded-pill UltorBG Stillwater lineHeight2 fs-6">${{row.price}}</span>
+                          <button v-if="!isInCart(row.number) && !(inventory[row.number - 1].quantity === 0)"
+                            class="btn btn-rim btn-grn" onclick="greenlight(this)" type="Submit"
+                            @click="addToCart(row.pictureURL, row.number, row.description, row.weight, row.price, inventory[row.number - 1].quantity, 1)">Add
+                            to Cart</button>
+                          <button v-else-if="inventory[row.number - 1].quantity === 0" class="btn btn-rim" type="Submit"
+                            disabled> Out of Stock </button>
+                          <a v-else class="in-cart btn btn-cart" href="/cart">In Cart <i
+                              class="fa-solid fa-check"></i></a>
                         </div>
                       </div>
                     </div>
@@ -143,12 +165,14 @@
                 </div>
               </div>
             </div>
-            <a class="carousel-control-prev w-auto" href="#thumbCarousel" role="button" data-bs-slide="prev" @click="subPage">
+            <a class="carousel-control-prev w-auto" href="#thumbCarousel" role="button" data-bs-slide="prev"
+              @click="subPage">
               <div class="fa-4x">
                 <i class="fas fa-angle-left Ultor"></i>
               </div>
             </a>
-            <a class="carousel-control-next w-auto" href="#thumbCarousel" role="button" data-bs-slide="next" @click="addPage">
+            <a class="carousel-control-next w-auto" href="#thumbCarousel" role="button" data-bs-slide="next"
+              @click="addPage">
               <div class="fa-4x">
                 <i class="fas fa-angle-right Ultor"></i>
               </div>
@@ -170,7 +194,7 @@
           <img class="featurette-image img-fluid mx-auto borderSilver dropShadow" width="500" height="500" src="/img/Rim_jobs_garagedoorred.webp" preserveAspectRatio="xMidYMid slice" focusable="false">
         </div>
       </div>
-  
+
       <hr class="featurette-divider">
       <div class="row featurette UltorBG Stillwater borderSilver py-2">
         <div class="col-md-7 order-md-2">
@@ -182,7 +206,7 @@
           <img class="featurette-image img-fluid mx-auto borderSilver dropShadow" width="500" height="500" src="https://i.redd.it/ods92vdvnjn51.jpg" preserveAspectRatio="xMidYMid slice" focusable="false">
         </div>
       </div>
-  
+
       <hr class="featurette-divider">
       <div class="row featurette UltorBG Stillwater borderSilver py-2">
         <div class="col-md-7">
@@ -241,7 +265,6 @@
           <img class="featurette-image img-fluid mx-auto borderSilver dropShadow" width="500" height="500" src="https://i.redd.it/5a0zc26srtn61.jpg" preserveAspectRatio="xMidYMid slice" focusable="false">
         </div>
       </div>
-
       <hr class="featurette-divider">
       <div class="row featurette UltorBG Stillwater borderSilver py-2">
         <div class="col-md-7 order-md-1">
@@ -260,14 +283,21 @@
     </footer>
   </main>
 </body>
-  <!-- Bootstrap JavaScript Libraries -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-  <!-- JQuery -->
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-  <!-- Vue.js -->
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  <!-- Components -->
-  <script src="/fetchNavbar.js"></script>
-  <script src="/featured.js"></script>
+<!-- Bootstrap JavaScript Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+  crossorigin="anonymous"></script>
+<!-- JQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"
+  integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+<!-- Vue.js -->
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<!-- Components -->
+<script src="/fetchNavbar.js"></script>
+<script src="/featured.js"></script>
 
+<script>
+  function greenlight( elem ) {
+      $(elem).closest('button.btn-grn').addClass("btn-cart")
+  }
+</script>
 </html>
