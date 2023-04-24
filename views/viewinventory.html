@@ -26,19 +26,23 @@
   <main class="drawer">
     <div id="inventory" v-cloak>
       <div class="container-lg UltorBG borderSilver">
-        <h1 class="Stillwater Shrikhand dropShadow">Product Catalog</h1>
+        <h1 class="Stillwater Shrikhand dropShadow m-2"><i class="far fa-rectangle-list"></i> Product Catalog</h1>
         <form @submit.prevent="searchPart">
-          <input type="text" v-model="searchTerm" placeholder="Search...">
-          <button type="submit">Search</button>
+          <div class="container mt-3 mb-3">
+            <civ class="row">
+              <input type="text" class="form-control col" v-model="searchTerm" placeholder="Search...">
+              <button type="submit" class="col btn btn-rim StillwaterBG dropShadow mx-2"><i class="fas fa-magnifying-glass"></i> Search</button>
+            </civ>
+          </div>
         </form>
-        <div class="container mt-3 mb-3">
-          <div class="row" v-if="visible === true">
+        <div class="container mt-3 mb-3" v-if="visible === true">
+          <div class="row">
             <div class="col">
-              <button class="btn btn-rim StillwaterBG w-100" @click="subPage">Previous
+              <button class="btn btn-rim StillwaterBG w-100 dropShadow" @click="subPage"><i class="fas fa-arrow-left"></i> Previous
                 Page</button>
             </div>
             <div class="col">
-              <button class="btn btn-rim StillwaterBG w-100 dropShadow" @click="addPage">Next Page</button>
+              <button class="btn btn-rim StillwaterBG w-100 dropShadow" @click="addPage">Next Page <i class="fas fa-arrow-right"></i></button>
             </div>
           </div>
         </div>
@@ -59,7 +63,7 @@
                       type="number" :disabled="inventory[row.number - 1].quantity === 0" placeholder="Quantity" v-model="qty[index]"
                       required="">
                     <button v-if="!isInCart(row.number) && !(inventory[row.number - 1].quantity === 0)" class="btn btn-rim btn-grn" onclick="greenlight(this)" type="Submit"
-                      @click="addToCart(row.pictureURL, row.number, row.description, row.weight, row.price, inventory[row.number - 1].quantity, qty[index])">Add to Cart</button>
+                      @click="addToCart(row.pictureURL, row.number, row.description, row.weight, row.price, inventory[row.number - 1].quantity, qty[index])">Add to Cart <i class="fas fa-cart-plus"></i></button>
                     <button v-else-if="inventory[row.number - 1].quantity === 0" class="btn btn-rim" type="Submit" disabled> Out of Stock </button>
                     <a v-else class="in-cart btn btn-cart" href="/cart">In Cart <i class="fa-solid fa-check"></i></a>
                 </form>
@@ -70,11 +74,11 @@
         <div class="container mt-3 mb-3">
           <div class="row" v-if="visible === true">
             <div class="col">
-              <button class="btn btn-rim StillwaterBG w-100 dropShadow" @click="subPage">Previous
+              <button class="btn btn-rim StillwaterBG w-100 dropShadow" @click="subPage"><i class="fas fa-arrow-left"></i> Previous
                 Page</button>
             </div>
             <div class="col">
-              <button class="btn btn-rim StillwaterBG w-100 dropShadow" @click="addPage">Next Page</button>
+              <button class="btn btn-rim StillwaterBG w-100 dropShadow" @click="addPage">Next Page <i class="fas fa-arrow-right"></i></button>
             </div>
           </div>
         </div>
