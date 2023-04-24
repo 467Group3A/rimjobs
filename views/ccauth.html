@@ -97,11 +97,11 @@
         <p> Shipping: ${{ shipping }}</p>
         </div>
         <div class="col-md-6 col-lg-8 Ultor StillwaterBG borderSilver">
-          <div class="m-2 UltorBG borderSilver">
+          <div class="m-2 UltorBG borderSilver dropShadow">
             <h4 class="p-2 mb-2 Shrikhand Stillwater dropShadow"><i class="fas fa-truck-fast"></i> Shipping Details</h4>
           </div>
           <form class="needs-validation" action="" onsubmit="return false" novalidate>
-            <div class="row g-3">
+            <div class="row mt-2 g-3">
               <div class="col-12">
                 <label for="cusName" class="form-label"> <i class="fas fa-user-tie"></i> Full name</label>
                 <input type="text" class="form-control" id="cusName" placeholder="Joshua Birk" v-model="formData.name" required>
@@ -201,10 +201,10 @@
             </div>
 
             <hr class="my-4">
-            <div class="m-2 UltorBG borderSilver">
+            <div class="m-2 UltorBG borderSilver dropShadow">
               <h4 class="p-2 mb-2 Shrikhand Stillwater dropShadow"><i class="fas fa-cash-register"></i> Payment Details</h4>
             </div>
-            <div class="row gy-3">
+            <div class="row mt-2 gy-3">
               <div class="col-md-6">
                 <label for="cc-name" class="form-label"><i class="fas fa-id-badge"></i> Name on card</label>
                 <input type="text" class="form-control" id="cc-name" placeholder="Joshua Birk" required>
@@ -267,7 +267,7 @@
             </div>
             <hr class="my-2">
             <div class="p-2">
-              <button class="btn btn-rim btn-lg StillwaterBG fw-bold w-25" type="submit" @click="submitForm">Submit Order</button>
+              <button class="btn btn-rim btn-lg StillwaterBG fw-bold w-25 dropShadow" type="submit" @click="submitForm">Submit Order</button>
             </div>
             <h3>{{ message }}</h3>
             <div v-if="errormessage">
@@ -279,7 +279,9 @@
         </div>
       </div>
 	  </div>
-
+    <footer class="d-flex justify-content-center">
+      <img class="mx-auto w-25" src="/img/handle.png">
+    </footer>
   </main>
 </body>
   <!-- Bootstrap JavaScript Libraries -->
