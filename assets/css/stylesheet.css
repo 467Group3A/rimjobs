@@ -66,22 +66,23 @@ a:hover:before {
   width: 100%;
 }
 
+.table {
+  --bs-table-hover-color: $Ultor ;
+}
+
 .table-striped {
   --bs-table-striped-color: $Steelport ;
+}
+
+.form-floating:not(.form-control:disabled)::before {
+  position: unset;
+  background-color: transparent;
 }
 
 .list-group-item {
   background-color: #DDD8CF;
   color: #686868;
   border-color: #686868;
-}
-
-.form-control {
-  background-color: #e6e5e7;
-}
-
-.form-select {
-  background-color: #e6e5e7;
 }
 
 .carousel-indicators .active {
@@ -95,11 +96,6 @@ a:hover:before {
 body {
   font-family: Alkatra;
   background-color: #DDD8CF;
-}
-
-.blurit {
-  filter: blur(4px);
-  -webkit-filter: blur(4px);
 }
 
 .dropShadow {
@@ -207,9 +203,16 @@ body {
   border: 10px solid #686868;
 }
 
+.borderStill {
+  border: 5px solid #DDD8CF;
+}
+
 @media print and (max-width: 600px) {
   #navbar {
     display: none !important;
+  }
+  .dropShadow {
+    filter: none;
   }
 }
 .cssanimation, .cssanimation span {
@@ -249,14 +252,32 @@ body {
 
 .stripe-alt {
   background-color: #2a2929;
-  background-image: repeating-linear-gradient(-25deg, transparent, transparent 1rem, #414141 1rem, #1b1a1a 2rem);
+  background-image: repeating-linear-gradient(-45deg, transparent, transparent 1rem, #414141 1rem, #1b1a1a 2rem);
   background-size: 200% 200%;
-  animation: barberpole 60s linear infinite;
+  animation: barberpole 70s linear infinite;
 }
 
 @keyframes barberpole {
   100% {
     background-position: 100% 100%;
+  }
+}
+header {
+  z-index: 1;
+  position: sticky;
+}
+
+.drawer {
+  z-index: -1;
+  animation: slide-down 2s;
+}
+
+@keyframes slide-down {
+  0% {
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
   }
 }
 

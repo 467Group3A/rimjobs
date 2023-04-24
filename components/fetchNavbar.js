@@ -8,7 +8,7 @@ $(document).ready(function () {
             }
         },
         template: `
-        <nav class="navbar navbar-expand-lg UltorBG borderSilver">
+        <nav class="navbar navbar-expand-lg UltorBG borderSilver dropShadow">
             <div class="container-fluid">
                 <div class="navbar-brand dropdown">
                     <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
@@ -23,7 +23,7 @@ $(document).ready(function () {
                     </ul>
                 </div>
                 <div class="collapse navbar-collapse" id="collapsibleNavId">
-                    <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                    <ul class="navbar-nav me-auto mt-2 mt-lg-0 Stillwater">
                         <li class="nav-item">
                             <a id="bouncify" class="nav-link Stillwater fs-5 dropShadow" href="/">
                                 <i class="fa-solid fa-warehouse"></i> Home</a>
