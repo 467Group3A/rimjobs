@@ -518,6 +518,9 @@ app.post('/api/creditcardauth', (req, res) => {
 
         const db = newConnection()
 
+        // Set total price to 2 decimal places before inserting
+        totalPrice = parseFloat(totalPrice).toFixed(2)
+
         // Insert the customer data and transaction number into the Orders table
         db.run('INSERT INTO orders (id, name, email, amount, weight, shipping, address, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [formData.trans, customerData.name, customerData.email, totalPrice, totalWeight, customerData.weightCost, customerData.address, "In Progress"], (err) => {
           if (err) {
