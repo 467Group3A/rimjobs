@@ -36,11 +36,16 @@ $(document).ready(function () {
                 }, 0);
             },
             shippingCost() {
+                var ship = 0
                 for (let i = 0; i < this.shippingfees.length; i++) {
                     if (this.totalWeight <= this.shippingfees[i].weight) {
-                        return parseInt(this.shippingfees[i].cost);
+                        ship =  parseInt(this.shippingfees[i].cost);
+                        break
+                    } else {
+                        ship =  parseInt(this.shippingfees[i].cost);
                     }
                 }
+                return ship
             }
         },
         methods: {
