@@ -60,7 +60,7 @@
                 <td>{{ order.id }}</td>
                 <td>{{ order.status }}</td>
                 <td>{{ order.weight }} lbs</td>
-                <td>${{ order.shipping + order.amount }}</td>
+                <td>$ {{ parseFloat(((order.amount + order.shipping) * 1.1)).toFixed(2) }}</td>
                 <td><button class="btn btn-lg btn-rim StillwaterBG" @click="goToOrderDetails(order.id)"><i class="fas fa-info"></i> View Details</button></td>
               </tr>          
             </tbody>
