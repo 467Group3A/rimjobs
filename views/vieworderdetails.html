@@ -45,7 +45,7 @@
                 <p class="col-4 SevenSegment borderSilver">Shipping cost: ${{ selectedOrder.order.shipping }}</p>
                 <p class="col-4 SevenSegment borderSilver">Tax: 10%</p>
               </div>
-              <p class="SevenSegment fw-bold fs-4 borderSilver px-2 dropShadow">Total: ${{ selectedOrder.order.amount + selectedOrder.order.shipping * 1.1}}</p>
+              <p class="SevenSegment fw-bold fs-4 borderSilver px-2 dropShadow">Total: ${{ parseFloat(((selectedOrder.order.amount + selectedOrder.order.shipping) * 1.1)).toFixed(2) }}</p>
             </div>
             <div class="row mt-2">
               <div class="col">
