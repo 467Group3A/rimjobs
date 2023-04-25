@@ -653,6 +653,13 @@ async function isAdmin(req, res, next) {
   }
 }
 
+// add a catch-all route that will match any request 
+// that hasn't been handled by a previous route 
+// THIS MUST BE DOWN BELOW ALL OTHER ROUTES
+app.get('*', (req, res) => {
+  res.sendFile(__dirname + "/views/404.html");
+});
+
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   console.error(err.message, err.stack);
