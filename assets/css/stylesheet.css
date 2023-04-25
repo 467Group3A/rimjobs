@@ -109,6 +109,13 @@ body {
   max-width: 250px;
 }
 
+.textCutoff2 {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 150px;
+}
+
 .Shrikhand {
   font-family: Shrikhand !important;
 }
@@ -122,6 +129,9 @@ body {
   color: #21b26e;
 }
 .SevenSegment.col-4 {
+  color: #f7ae00;
+}
+.SevenSegment.yield {
   color: #f7ae00;
 }
 
@@ -213,6 +223,9 @@ body {
   }
   .dropShadow {
     filter: none;
+  }
+  .hideme {
+    display: none !important;
   }
 }
 .cssanimation, .cssanimation span {

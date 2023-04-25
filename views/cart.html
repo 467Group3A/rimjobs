@@ -19,9 +19,11 @@
   <header id="navbar"></header>
   <main class="drawer">
     <div id="cart">
-      <div v-if="cartItems.length === 0" class="container-lg UltorBG borderSilver">
+      <div v-if="cartItems.length === 0" class="container-lg UltorBG borderSilver mx-auto">
         <h1 class="Stillwater Shrikhand dropShadow text-center">Your cart is currently empty.</h1>
-        <a href="/viewinventory" class="btn btn-lg fw-bold StillwaterBG btn-rim dropShadow mb-2">See our products.</a>
+        <div class="mx-auto text-center m-3">
+          <a href="/viewinventory" class="btn btn-lg fw-bold StillwaterBG btn-rim dropShadow mb-2 w-50">See our products.</a>
+        </div>
       </div>
       <div v-else>
         <div class="container-lg UltorBG borderSilver">
