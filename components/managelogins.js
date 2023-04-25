@@ -47,7 +47,7 @@ $(document).ready(function () {
                 })
                     .then(response => {
                         if (response.status === 200) {
-                            this.message = `User: ${this.username} with Permissions: ${this.perms} `
+                            location.reload()
                         } else if (response.status === 500) {
                             this.message = `Cannot connect to the database at this moment, contact an Administrator`
                         } else if (response.status === 501) {
