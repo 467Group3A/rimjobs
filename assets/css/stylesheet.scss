@@ -122,6 +122,13 @@ body {
     max-width: 250px;
 }
 
+.textCutoff2 {
+    text-overflow: ellipsis; 
+    white-space: nowrap; 
+    overflow: hidden;
+    max-width: 150px;
+}
+
 .Shrikhand {
     font-family: Shrikhand!important;
 }
@@ -134,6 +141,9 @@ body {
         color:#21b26e
     }
     &.col-4 {
+        color: #f7ae00
+    }
+    &.yield {
         color: #f7ae00
     }
 }
@@ -228,6 +238,9 @@ body {
     .dropShadow {
         filter: none;
     }
+    .hideme {
+        display: none !important;
+    }
 }
 
 //Animations
@@ -273,24 +286,7 @@ body {
         #1b1a1a 2rem
       );
     background-size: 200% 200%;
-    animation: barberpole 240s linear infinite;
 }
-
-.stripe-alt {
-    background-color: #2a2929;
-    background-image: 
-      repeating-linear-gradient(
-        -45deg, 
-        transparent, 
-        transparent 1rem,
-        #414141 1rem,
-        #1b1a1a 2rem
-      );
-    background-size: 200% 200%;
-    animation: barberpole 70s linear infinite;
-}
-  
-@keyframes barberpole {100% {background-position: 100% 100%;}}
 
 header {
     z-index: 1;
