@@ -518,6 +518,9 @@ app.post('/api/creditcardauth', (req, res) => {
 
         const db = newConnection()
 
+        // Set total price to 2 decimal places before inserting
+        totalPrice = parseFloat(totalPrice).toFixed(2)
+
         // Insert the customer data and transaction number into the Orders table
         db.run('INSERT INTO orders (id, name, email, amount, weight, shipping, address, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [formData.trans, customerData.name, customerData.email, totalPrice, totalWeight, customerData.weightCost, customerData.address, "In Progress"], (err) => {
           if (err) {
@@ -654,6 +657,9 @@ app.post('/api/create-user', async (req, res) => {
   const password = req.body.password
   const perms = req.body.perms
 
+  const salt = await bcrypt.genSalt()
+  const hashedPassword = await bcrypt.hash(req.body.password, salt)
+
   const db = newConnection()
 
   // Check if username exists first
@@ -665,20 +671,17 @@ app.post('/api/create-user', async (req, res) => {
       // if row is there, existing username
       if(row) {
         res.status(501).send("Username already exists!")
-        return
+      } else {
+        // If it doesnt exist insert it
+        db.run('INSERT INTO users (username, password, role) VALUES (?, ?, ?)', username, hashedPassword, perms, (err) => {
+          if(err) {
+            console.log(err)
+            res.status(502).send("Could not insert new user")
+          } else {
+            res.status(200).send("Inserted new user successfully!")
+          }
+        })
       }
-    }
-  })
-
-  // If it doesnt exist insert it
-  const salt = await bcrypt.genSalt()
-  const hashedPassword = await bcrypt.hash(req.body.password, salt)
-  db.run('INSERT INTO users (username, password, role) VALUES (?, ?, ?)', username, hashedPassword, perms, (err) => {
-    if(err) {
-      console.log(err)
-      res.status(502).send("Could not insert new user")
-    } else {
-      res.status(200).send("Inserted new user successfully!")
     }
   })
 
