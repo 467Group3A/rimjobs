@@ -17,6 +17,9 @@ $(document).ready(function () {
         };
         },
         methods: {
+        fixed(number){
+            return number.toFixed(2);
+        },
         async getOrderDetails(orderId) {
         try {
             const response = await fetch(`/api/orderdetails/${orderId}`);
