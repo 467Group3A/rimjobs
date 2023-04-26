@@ -111,6 +111,16 @@ body {
     background-color: $Stillwater;
 }
 
+.error {
+    background-image: url(/img/error.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.err404 {
+    backdrop-filter: blur(4px);
+}
+
 .dropShadow {
     filter: drop-shadow(10px 10px 8px #3d3d3d);
 }
@@ -243,6 +253,13 @@ body {
     }
 }
 
+@media screen and (max-width: 600px) {
+    #carouselId {
+      visibility: hidden;
+      display: none;
+    }
+  }
+
 //Animations
 
 .cssanimation, .cssanimation span {
@@ -286,6 +303,9 @@ body {
         #1b1a1a 2rem
       );
     background-size: 200% 200%;
+    &.s200 {
+        background-size: 400% 400%;
+    }
 }
 
 header {
