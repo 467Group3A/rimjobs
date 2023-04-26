@@ -932,13 +932,10 @@ app.post('/api/find-order', async (req, res) => {
   db.get(`SELECT * FROM orders WHERE id = "${orderId}"`, (error, result) => {
     if (error) {
       console.error(error);
-      console.log('Server error');
       res.status(500).json({ error: 'Server error' });
     } else if (!result) {
-      console.log('Order not found');
       res.status(404).json({ error: 'Order not found' });
     } else {
-      console.log(result);
       res.json(result);
     }
     db.close();

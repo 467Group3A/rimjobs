@@ -25,7 +25,13 @@
         <button type="submit">Submit</button>
       </form>
       <p v-if="error">{{ error }}</p>
-      <p v-if="order">{{ order.id }}</p>
+      <p v-if="order">
+        <ul>
+          <li v-for="(value, key) in order">
+            {{ key }}: {{ value }}
+          </li>
+        </ul>
+      </p>      
     </div>
   </main>
 </body>
