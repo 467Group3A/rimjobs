@@ -14,61 +14,62 @@
   <!-- Rim Jobs CSS -->
   <link rel="stylesheet" href="/css/stylesheet.css">
 </head>
-<body class="stripe-alt">
-    <header id="navbar"></header>
-    <main>
-        <div id="cart" v-cloak>
-            <div v-if="cartItems.length === 0" class="container-lg UltorBG borderSilver">
-                <h1 class="Stillwater Shrikhand dropShadow text-center">Your cart is currently empty.</h1>
-                <div class="mx-auto text-center">
-                    <a href="/viewinventory" class="w-50 btn btn-lg fw-bold StillwaterBG btn-rim mb-2">See our products.</a>
-                </div>
-            </div>
-            <div v-else>
-                <div class="container-lg UltorBG borderSilver">
-                    <h1 class="Stillwater Shrikhand dropShadow">Your Cart</h1>
-                    <table class="table table-striped SteelportBG Pierce borderSilver fs-4">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Product Name</th>
-                                <th>Quantity</th>
-                                <th>Price Each</th>
-                                <th>Weight</th>
-                                <th>Total</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(item, index) in cartItems" :key="item.item_id" class="Ultor StillwaterBG silverBorder fs-5">
-                                <td><img class="borderSilver" v-bind:src="item.pictureURL" width="50" height="50"></td>
-                                <td>{{ capitalize(item.item_name) }}</td>
-                                <td>
-                                    <input type="number" min="1" :max="item.max" v-model="item.quantity" @change="updateQuantity(index, item.quantity)" onkeydown="return false">
-                                </td>
-                                <td>${{ item.price }}</td>
-                                <td>{{ fixed(item.weight) }} lbs</td>
-                                <td>{{ fixed(item.quantity * item.price) }}</td>
-                                <td>
-                                    <button class="btn btn-rim" @click="removeFromCart(index)">Remove</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p class="SevenSegment fw-bold fs-1 borderSilver px-2 dropShadow">Total Weight: {{ fixed(totalWeight) }} lbs</p>
-                    <div class="row fw-bold fs-1 px-2 dropShadow">
-                        <p class="col-4 SevenSegment borderSilver">Subtotal: ${{ fixed(total) }}</p>
-                        <p class="col-4 SevenSegment borderSilver">Shipping: ${{ shippingCost }}</p>
-                        <p class="col-4 SevenSegment borderSilver">Tax: 10%</p>
-                    </div>
-                    <p class="SevenSegment fw-bold fs-1 borderSilver px-2 dropShadow">Total: ${{ fixed((total + shippingCost) * taxRate) }}</p>
-                    <button class="btn btn-lg StillwaterBG btn-rim m-2" @click="checkout"><a class="Pierce" href="/ccauth"><i class="fas fa-cash-register"></i> Checkout</a></button>
-                </div>
-            </div>
+
+<body class="stripe s200">
+  <header id="navbar"></header>
+  <main class="drawer">
+    <div id="cart">
+      <div v-if="cartItems.length === 0" class="container-lg UltorBG borderSilver mx-auto">
+        <h1 class="Stillwater Shrikhand dropShadow text-center">Your cart is currently empty.</h1>
+        <div class="mx-auto text-center m-3">
+          <a href="/viewinventory" class="btn btn-lg fw-bold StillwaterBG btn-rim dropShadow mb-2 w-50">See our products.</a>
+        </div>
+      </div>
+      <div v-else>
+        <div class="container-lg UltorBG borderSilver">
+          <h1 class="Stillwater Shrikhand dropShadow m-2"><i class="fas fa-cart-flatbed"></i> Your Cart</h1>
+          <div class="dropShadow StillwaterBG borderSilver">
+            <table class="table table-striped table-hover fw-bold fs-4 m-0">
+              <thead class="SteelportBG borderStill Pierce">
+                <tr class="dropShadow">
+                  <th></th>
+                  <th><i class="fas fa-tag"></i> Product Name</th>
+                  <th><i class="fas fa-x"></i> Quantity</th>
+                  <th><i class="fas fa-filter-circle-dollar"></i> Price Each</th>
+                  <th><i class="fas fa-weight-hanging"></i> Weight</th>
+                  <th><i class="fas fa-dollar-sign"></i> Total</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                <tr v-for="(item, index) in cartItems" :key="item.item_id" class="Ultor silverBorder fs-5">
+                  <td><img class="borderSilver" v-bind:src="item.pictureURL" width="50" height="50"></td>
+                  <td class="text-capitalize" v-bind:title="capitalize(item.item_name)">{{ item.item_name }}</td>
+                  <td>
+                    <input type="number" min="1" :max="item.max" v-model="item.quantity" @change="updateQuantity(index, item.quantity)" onkeydown="return false">
+                  </td>
+                  <td>${{ item.price }}</td>
+                  <td>{{ fixed(item.weight) }} lbs</td>
+                  <td>${{ fixed(item.quantity * item.price) }}</td>
+                  <td>
+                    <button class="btn btn-rim" @click="removeFromCart(index)"><i class="fas fa-delete-left"></i> Remove</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="SevenSegment fw-bold fs-1 borderSilver px-2 dropShadow mt-3">Total Weight: {{ fixed(totalWeight) }} lbs</p>
+          <div class="row fw-bold fs-1 px-2 dropShadow">
+            <p class="col-4 SevenSegment borderSilver">Subtotal: ${{ fixed(total) }}</p>
+            <p class="col-4 SevenSegment borderSilver">Shipping: ${{ shippingCost }}</p>
+            <p class="col-4 SevenSegment borderSilver">Tax: 10%</p>
+          </div>
+          <p class="SevenSegment fw-bold fs-1 borderSilver px-2 dropShadow">Total: ${{ fixed((total + shippingCost) * taxRate) }}</p>
+          <button class="btn btn-lg StillwaterBG btn-rim mb-3 dropShadow" @click="checkout"><a class="Pierce" href="/checkout"><i class="fas fa-cash-register"></i> Checkout</a></button>
         </div>
       </div>
     </div>
-    <footer class="d-flex justify-content-center">
+    <footer class="d-flex justify-content-center hideme">
       <img class="mx-auto w-25" src="/img/handle.png">
     </footer>
   </main>

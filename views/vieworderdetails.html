@@ -45,7 +45,7 @@
                 <p class="col-4 SevenSegment borderSilver">Shipping cost: ${{ selectedOrder.order.shipping }}</p>
                 <p class="col-4 SevenSegment borderSilver">Tax: 10%</p>
               </div>
-              <p class="SevenSegment fw-bold fs-4 borderSilver px-2 dropShadow">Total: ${{ selectedOrder.order.amount + selectedOrder.order.shipping * 1.1}}</p>
+              <p class="SevenSegment fw-bold fs-4 borderSilver px-2 dropShadow">Total: ${{ parseFloat(((selectedOrder.order.amount + selectedOrder.order.shipping) * 1.1)).toFixed(2) }}</p>
             </div>
             <div class="row mt-2">
               <div class="col">
@@ -86,7 +86,7 @@
             </div>
           </div> <!-- Section for shipping label printed-->
           <div v-if="printingLabel" class="col-4 border border-dark">
-            <img src="http://www.api2pdf.com/wp-content/uploads/2018/07/download-1.png" />
+            <img src="/img/barcode.png" />
             <!--<h4>Order Information</h4> -->
             <p class="lead">Order Number: {{ selectedOrder.orderId}}</p>
             <p>Purchased: {{ selectedOrder.order.date }}</p>
@@ -98,7 +98,7 @@
         </div>
       </div>
     </div>
-    <footer class="d-flex justify-content-center">
+    <footer class="d-flex justify-content-center hideme">
       <img class="mx-auto w-25" src="/img/handle.png">
     </footer>
   </main>

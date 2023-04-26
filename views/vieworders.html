@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="/css/stylesheet.css">
 </head>
 
-<body class="stripe-alt">
+<body class="stripe">
   <header id="navbar"></header>
   <main class="drawer">
     <div class="container UltorBG Stillwater borderSilver">
@@ -60,7 +60,7 @@
                 <td>{{ order.id }}</td>
                 <td>{{ order.status }}</td>
                 <td>{{ order.weight }} lbs</td>
-                <td>${{ order.shipping + order.amount }}</td>
+                <td>$ {{ parseFloat(((order.amount + order.shipping) * 1.1)).toFixed(2) }}</td>
                 <td><button class="btn btn-lg btn-rim StillwaterBG" @click="goToOrderDetails(order.id)"><i class="fas fa-info"></i> View Details</button></td>
               </tr>          
             </tbody>
@@ -68,7 +68,7 @@
         </div>
       </div>
     </div>
-    <footer class="d-flex justify-content-center">
+    <footer class="d-flex justify-content-center hideme">
       <img class="mx-auto w-25" src="/img/handle.png">
     </footer>
   </main>

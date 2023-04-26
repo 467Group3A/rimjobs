@@ -20,10 +20,6 @@
   --bs-nav-link-hover-color: #e6e5e7;
 }
 
-[v-cloak] {
-  display: none;
-}
-
 .dropdown-toggle::after {
   display: none;
 }
@@ -102,6 +98,16 @@ body {
   background-color: #DDD8CF;
 }
 
+.error {
+  background-image: url(/img/error.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.err404 {
+  backdrop-filter: blur(4px);
+}
+
 .dropShadow {
   filter: drop-shadow(10px 10px 8px #3d3d3d);
 }
@@ -111,6 +117,13 @@ body {
   white-space: nowrap;
   overflow: hidden;
   max-width: 250px;
+}
+
+.textCutoff2 {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 150px;
 }
 
 .Shrikhand {
@@ -126,6 +139,9 @@ body {
   color: #21b26e;
 }
 .SevenSegment.col-4 {
+  color: #f7ae00;
+}
+.SevenSegment.yield {
   color: #f7ae00;
 }
 
@@ -218,6 +234,15 @@ body {
   .dropShadow {
     filter: none;
   }
+  .hideme {
+    display: none !important;
+  }
+}
+@media screen and (max-width: 600px) {
+  #carouselId {
+    visibility: hidden;
+    display: none;
+  }
 }
 .cssanimation, .cssanimation span {
   animation-duration: 1s;
@@ -251,21 +276,11 @@ body {
   background-color: #2a2929;
   background-image: repeating-linear-gradient(-25deg, transparent, transparent 1rem, #414141 1rem, #1b1a1a 2rem);
   background-size: 200% 200%;
-  animation: barberpole 240s linear infinite;
+}
+.stripe.s200 {
+  background-size: 400% 400%;
 }
 
-.stripe-alt {
-  background-color: #2a2929;
-  background-image: repeating-linear-gradient(-45deg, transparent, transparent 1rem, #414141 1rem, #1b1a1a 2rem);
-  background-size: 200% 200%;
-  animation: barberpole 70s linear infinite;
-}
-
-@keyframes barberpole {
-  100% {
-    background-position: 100% 100%;
-  }
-}
 header {
   z-index: 1;
   position: sticky;

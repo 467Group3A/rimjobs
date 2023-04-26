@@ -40,7 +40,15 @@ const app = Vue.createApp({
       this.formData.exp = this.month + '/' + this.year;
       this.customer.name = this.formData.name;
       this.orderInfo = JSON.parse(localStorage.getItem('cartItems'));
-      this.formData.amount = localStorage.getItem('totalCost');
+
+      // Fix the amount to 2 decimal places
+      let amount = localStorage.getItem('totalCost');
+      if(!isNaN(parseFloat(amount))) {
+        this.formData.amount = parseFloat(amount).toFixed(2).toString()
+      } else {
+        console.log("Error fixing total cost decimal place")
+      }
+
       this.customer.address = this.customer.address + ' ' + this.customer.city + ' ' + this.customer.state + ' ' + this.customer.zip;
       let totalWeight = 0;
       // set the vendor to our name later
@@ -98,6 +106,32 @@ const app = Vue.createApp({
                 this.subtitle = "Thank you for your shopping with us.";
                 this.confirmation = data
                 localStorage.removeItem('cartItems');
+
+                // Send this.confirmation to backend, used for email confirmation
+                let date = this.normalDate(this.confirmation.timeStamp)
+                fetch('/api/email-confirmation', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    confirmation: this.confirmation,
+                    customer: this.customer,
+                    date: date
+                  })
+                })
+                .then(response => {
+                  if(response.ok){
+                    console.log("Email sent!")
+                  } else{
+                    console.log("Error sending email!")
+                  }
+                })
+                .catch(err => {
+                  console.log(err)
+                })
+                // End of email confirmation
+
               });
             }
           })
@@ -160,3 +194,5 @@ const app = Vue.createApp({
 });
 
 app.mount('#ccauth');
+
+

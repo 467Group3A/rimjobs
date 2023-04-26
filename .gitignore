@@ -1,2 +1,3 @@
 node_modules/
 rimjobs.db
+/services/emailconfig.js

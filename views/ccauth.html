@@ -15,21 +15,21 @@
   <link rel="stylesheet" href="/css/stylesheet.css">
 </head>
 
-<body class="stripe-alt">
+<body class="stripe">
   <header id="navbar"></header>
-  <main id="ccauth" v-cloak>
+  <main class="drawer" id="ccauth" v-cloak>
     <div class="container UltorBG Stillwater borderSteel">
       <div class="py-2 text-center">
-        <img class="d-block mx-auto mb-2 dropShadow" src="/img/Logo.png">
+        <img class="d-block mx-auto mb-2 dropShadow" src="/img/ChromeRims.webp">
         <h2><i class="fa-solid fa-cart-shopping"></i> {{title}}</h2>
         <p class="lead">{{subtitle}}</p>
       </div>
       <div class="mx-auto text-center" v-if="cartItems === 0">
-        <a href="/viewinventory" class="w-50 btn btn-lg fw-bold StillwaterBG btn-rim mb-2">See our products.</a>
+        <a href="/viewinventory" class="w-50 btn btn-lg fw-bold StillwaterBG btn-rim mb-3 dropShadow">See our products.</a>
       </div>
       <div class="row g-4" v-else-if="confirmation">
         <div class="center">
-          <table class="table text-white w-50 mx-auto">
+          <table class="table table table-striped table-hover fw-bold w-50 mx-auto borderSilver StillwaterBG Ultor dropShadow">
             <tr>
               <td class="text-end">Vendor:</td>
               <td>{{ confirmation.vendor }}</td>
@@ -71,30 +71,40 @@
               <td>{{ confirmation._id }}</td>
             </tr>
             <tr>
-              <td colspan="2"><a onClick="window.print()" class="w-100 btn btn-lg fw-bold StillwaterBG btn-rim mb-2">Print for your records.</a></td>
+              <td colspan="2"><a onClick="window.print()" class="hideme w-100 btn btn-lg fw-bold StillwaterBG btn-rim mb-2">Print for your records.</a></td>
             </tr>
-        </table>
+          </table>
         </div>
       </div>
       <div class="row g-4" v-else>
         <div id="cart" class="col-md-6 col-lg-4 order-md-last borderSilver">
           <h4 class="d-flex justify-content-between align-items-center py-2">
-            <span class="">Your cart</span>
-            <span class=""> {{cartTotal}} items</span>
-          </h4><hr />
-          <table class="table table-striped SteelportBG Pierce borderSilver fs-4">
-            <tbody>
-                <tr v-for="(item, index) in cartItems" :key="item.item_id" class="Ultor StillwaterBG silverBorder fs-5">
-                    <td><img class="borderSilver" v-bind:src="item.pictureURL" width="50" height="50"></td>
-                    <td>{{ capitalize(item.item_name) }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>{{ fixed(item.weight) }} lbs</td>
-                    <td>{{ fixed(item.quantity * item.price) }}</td>
+            <span class="Shrikhand dropShadow"><i class="fas fa-cart-shopping"></i> Your cart</span>
+            <span class="Shrikhand dropShadow"> {{cartTotal}} items</span>
+          </h4><hr/>
+          <div class="dropShadow StillwaterBG borderSilver">
+            <table class="table table-striped table-hover Pierce fw-bold">
+              <thead class="SteelportBG borderStill Pierce">
+                <tr class="dropShadow">
+                  <th></th>
+                  <th><i class="fas fa-tag"></i> Name</th>
+                  <th>Quantity</th>
+                  <th><i class="fas fa-dollar-sign"></i> Total</th>
                 </tr>
-            </tbody>
-        </table>
-        <p> Subtotal: ${{ subtotal }}</p>
-        <p> Shipping: ${{ shipping }}</p>
+              </thead>
+              <tbody class="table-group-divider">
+                  <tr v-for="(item, index) in cartItems" :key="item.item_id" class="Ultor silverBorder fs-5">
+                      <td><img class="borderSilver" v-bind:src="item.pictureURL" v-bind:title="capitalize(item.item_name)" width="50" height="50"></td>
+                      <td class="textCutoff2 text-capitalize" v-bind:title="capitalize(item.item_name)" v-bind>{{ item.item_name }}</td>
+                      <td>{{ item.quantity }}</td>
+                      <td>{{ fixed(item.quantity * item.price) }}</td>
+                  </tr>
+              </tbody>
+          </table>
+        </div>
+        <p class="SevenSegment fw-bold fs-1 borderSilver px-2 dropShadow mt-3"> Shipping: ${{ shipping }}</p>
+        <p class="SevenSegment yield fw-bold fs-1 borderSilver px-2 dropShadow mt-3"> Subtotal: ${{ parseFloat((subtotal /1.1) - shipping).toFixed(2) }}</p>
+        <p class="SevenSegment fw-bold fs-1 borderSilver px-2 dropShadow mt-3"> Total: ${{ parseFloat(subtotal).toFixed(2) }}</p>
         </div>
         <div class="col-md-6 col-lg-8 Ultor StillwaterBG borderSilver">
           <div class="m-2 UltorBG borderSilver dropShadow">
@@ -279,7 +289,7 @@
         </div>
       </div>
 	  </div>
-    <footer class="d-flex justify-content-center">
+    <footer class="d-flex justify-content-center hideme">
       <img class="mx-auto w-25" src="/img/handle.png">
     </footer>
   </main>

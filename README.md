@@ -15,7 +15,7 @@ We promise you'll always leave satisfied.
 - [X] Checkout system
 	- [X] Third party cc authorization linked
 	- [X] Creates order in db
-	- [ ] Upon succesfull payment received by 3rd party, a confirmation is sent to the customers email
+	- [X] Upon succesfull payment received by 3rd party, a confirmation is sent to the customers email
 	
 ### **Employee**
 - [X] View all orders
@@ -28,9 +28,10 @@ We promise you'll always leave satisfied.
 - [X] View all orders
    - [X] Should be able to sort by status, total cost, weight, ECT...
 - [X] Set shipping and handling charges (based on weight brackets)
+- [X] Employee and or Administrator login / verification system
 
 ### **Features to implement**
-- [X] Employee and or Administrator login / verification system
+- [ ] Find My Order Page
 
 # Rimjobs Details
 
@@ -70,5 +71,5 @@ Group members responsibilities are listed below:
 
 ### Heres a chained command
 
-`git clone https://github.com/467Group3A/rimjobs.git && cd rimjobs/ && npm i && python3 generateDB.py && npm run start`
+`git clone https://github.com/467Group3A/rimjobs.git && cd rimjobs/ && npm i && pip install bcrypt && python3 generateDB.py && npm run dev`
 

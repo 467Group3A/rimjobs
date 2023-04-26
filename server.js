@@ -4,6 +4,7 @@ const session = require('express-session');
 const axios = require("axios");
 const mysql = require('mysql2');
 const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer')
 const bodyParser = require('body-parser');
 const path = require('path');
 const router = express.Router();
@@ -18,6 +19,7 @@ const port = process.argv[2] || 3500;
 
 const { loadInventory } = require('./services/loadinventory')
 const { legacyConnection, newConnection, initializeNewDB, cleanOrders, getOrderDetails } = require('./services/dbconfig') // Some of these functions will be removed
+const emailConfig = require('./services/emailconfig')
 
 const app = express();
 
@@ -181,7 +183,7 @@ app.get('/cart', (req, res) => {
 })
 
 // Checkout page
-app.get('/ccauth', (req, res) => {
+app.get('/checkout', (req, res) => {
   res.sendFile(__dirname + "/views/ccauth.html");
 })
 
@@ -217,6 +219,10 @@ app.get('/replenish', isEmployee, (req, res) => {
 
 app.get('/shippingfees', isAdmin, (req, res) => {
   res.sendFile(__dirname + "/views/shippingfees.html");
+})
+
+app.get('/managelogins', isAdmin, (req, res) => {
+  res.sendFile(__dirname + "/views/managelogins.html");
 })
 
 /* -------------------------------------------------------- 
@@ -407,8 +413,6 @@ app.post('/api/updateorder', async (req, res) => {
   // Take the order id and new status
   const updateTo = req.body.orderStatus;
   const orderId = req.body.orderId;
-  console.log(updateTo)
-  console.log(orderId)
 
   const db = newConnection()
 
@@ -617,6 +621,9 @@ app.post('/api/creditcardauth', (req, res) => {
 
         const db = newConnection()
 
+        // Set total price to 2 decimal places before inserting
+        totalPrice = parseFloat(totalPrice).toFixed(2)
+
         // Insert the customer data and transaction number into the Orders table
         db.run('INSERT INTO orders (id, name, email, amount, weight, shipping, address, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [formData.trans, customerData.name, customerData.email, totalPrice, totalWeight, customerData.weightCost, customerData.address, "In Progress"], (err) => {
           if (err) {
@@ -651,6 +658,60 @@ app.post('/api/creditcardauth', (req, res) => {
     });
 });
 
+// Used to send an email confirmation upon checkout
+app.post('/api/email-confirmation', (req, res) => { 
+  const confirmation = req.body.confirmation
+  const customer = req.body.customer
+  const date = req.body.date
+
+  // Establish contents of email
+  const emailText = `
+  <h2>Rimjobs order invoice</h2>
+  <p>Order ID: ${confirmation.trans}</p>
+  <p>--------------------------</p>
+  <p>Name: ${confirmation.name}</p>
+  <p>Amount: $${confirmation.amount}</p>
+  <p>Date: ${date}</p>
+  <p>Confirmation code: ${confirmation._id}</p>
+  <p>Thank you for shopping with Rimjobs.store!</p>
+  <p>--------------------------</p>
+  <p>If you wish to track the progress please do this:</p>
+  <p>1. Navigate to <a href="rimjobs.store/findmyorder">rimjobs.store/findmyorder</a></p>
+  <p>2. Enter your order id shown at the top of this email.</p>
+  `
+
+  // Establish namecheap email
+  const transporter = nodemailer.createTransport({
+    host: 'mail.privateemail.com',
+    port: 465,
+    secure: true,
+    auth: {
+      user: emailConfig.email,
+      pass: emailConfig.password
+    }
+  })
+
+  // Establish who/and what the email contains
+  const emailOptions = {
+    from: emailConfig.email,
+    to: customer.email,
+    subject: 'Rimjobs.store invoice confirmation',
+    html: emailText
+  }
+  
+  // Send email
+  transporter.sendMail(emailOptions, (err, info) => {
+    if(err) {
+      console.log(err);
+    }
+    else{
+      res.status(200).send('Email confirmation sent')
+    }
+  })
+  
+})
+
+
 // Used for employee/admin login verification
 app.post('/api/login', async (req, res) => {
   const username = req.body.username
@@ -665,7 +726,7 @@ app.post('/api/login', async (req, res) => {
     // Check if that username exists
     if(!row) {
       res.status(500).json({ message: 'Invalid username' })
-      console.log('invalid username')
+      console.log(`${username} has failed to login: Invalid username`)
       // if invalid username dont continue
       return
     }
@@ -675,7 +736,7 @@ app.post('/api/login', async (req, res) => {
     //If its a match authenticate accordingly
     if(checkPassword) {
       res.status(200).json({ message: 'Correct login info!'} )
-      console.log('correct login')
+      console.log(`${username} has logged in.`)
       // Set their session variable to admin/employee
       if(row.role == 'admin') {
         req.session.isAdmin = true;
@@ -686,12 +747,92 @@ app.post('/api/login', async (req, res) => {
       //console.log(req.session) - Server side testing
     } else { // Otherwise send back error
       res.status(501).json({ message: 'Invalid password' }) 
-      console.log('invalid password')
+      console.log(`${username} has failed to login: Invalid password`)
     }
   })
 
   db.close();
 });
+
+// Creates a new employee/admin in the db
+app.post('/api/create-user', async (req, res) => {
+  const username = req.body.username
+  const password = req.body.password
+  const perms = req.body.perms
+
+  const salt = await bcrypt.genSalt()
+  const hashedPassword = await bcrypt.hash(req.body.password, salt)
+
+  const db = newConnection()
+
+  // Check if username exists first
+  db.get('SELECT * FROM users WHERE username = ?', [username], (err, row) => {
+    if(err) {
+      console.log(err)
+      res.status(500).send("Unable to query new database")
+    } else {
+      // if row is there, existing username
+      if(row) {
+        res.status(501).send("Username already exists!")
+      } else {
+        // If it doesnt exist insert it
+        db.run('INSERT INTO users (username, password, role) VALUES (?, ?, ?)', username, hashedPassword, perms, (err) => {
+          if(err) {
+            console.log(err)
+            res.status(502).send("Could not insert new user")
+          } else {
+            res.status(200).send("Inserted new user successfully!")
+          }
+        })
+      }
+    }
+  })
+
+  db.close();
+});
+
+// Sends a list of users to an administrator of the site
+app.get('/api/get-users', async (req, res) => {
+
+  const db = newConnection()
+  db.all('SELECT * FROM users', (err, rows) => {
+    if (err) {
+      console.log(err)
+    }
+    else {
+      res.json(rows)
+    }
+    db.close()
+  })
+})
+
+// Delete a user from the login system
+app.post('/api/del-users', async (req, res) => {
+  const username = req.body.username
+  const db = newConnection();
+
+  // Check if username exists first
+  db.get('SELECT * FROM users WHERE username = ?', [username], (err, row) => {
+    if(err) {
+      console.log(err)
+      res.status(500).send("Unable to query new database")
+    } else {
+      // if row is there, existing username, delete it!
+      if(row) {
+        db.run('DELETE FROM users WHERE username = ?', [username], (err, row) => {
+          if(err) {
+            console.log(err)
+            res.status(501).send("Unable to delete user from database")
+          } else {
+            res.status(200).send(`Deleted ${username} successfully`)
+          }
+        })
+      } else { // User is not in the database, which should be impossible given front end list
+        res.status(502).send(`Unable to delete ${username} from database`)
+      }
+    }
+  })
+})
 
 // Endpoint for employee portal
 app.get('/api/userRole', (req, res) => {
@@ -756,6 +897,13 @@ async function isAdmin(req, res, next) {
     }
   }
 }
+
+// add a catch-all route that will match any request 
+// that hasn't been handled by a previous route 
+// THIS MUST BE DOWN BELOW ALL OTHER ROUTES
+app.get('*', (req, res) => {
+  res.sendFile(__dirname + "/views/404.html");
+});
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
