@@ -228,6 +228,12 @@ body {
     display: none !important;
   }
 }
+@media screen and (max-width: 600px) {
+  #carouselId {
+    visibility: hidden;
+    display: none;
+  }
+}
 .cssanimation, .cssanimation span {
   animation-duration: 1s;
   animation-fill-mode: both;
@@ -260,6 +266,9 @@ body {
   background-color: #2a2929;
   background-image: repeating-linear-gradient(-25deg, transparent, transparent 1rem, #414141 1rem, #1b1a1a 2rem);
   background-size: 200% 200%;
+}
+.stripe.s200 {
+  background-size: 400% 400%;
 }
 
 header {

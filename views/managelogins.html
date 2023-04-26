@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Manage logins</title>
+  <title>Login Management</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,43 +15,77 @@
   <link rel="stylesheet" href="/css/stylesheet.css">
 </head>
 
-<body>
+<body class="stripe s200">
   <header id="navbar"></header>
+  <main class="drawer">
+    <div id="app">
+      <div class="container UltorBG Stillwater borderSilver">
+        <h1 class="Shrikhand dropShadow m-2"><i class="fas fa-user-lock"></i> Login Management</h1>
+        <div class="row">
 
-  <div id="app">
-    <h2>Create a user login</h2>
-    <form @submit.prevent="createUser">
-      <label for="username">Username:</label>
-      <input type="text" id="username" v-model="username" required>
-      <label for="password">Password:</label>
-      <input type="password" id="password" v-model="password" required>
-      <label for="password2">Confirm Password:</label>
-      <input type="password" id="password2" v-model="password2" required>
-      <label for="perms">Permissions:</label>
-      <select v-model="perms" required>
-        <option value="employee"> Employee</option>
-        <option value="admin"> Admin</option>
-      </select>
-      <p>{{ message }}</p>
-      <button type="submit">Register user</button>
-    </form>
-    <h2>Existing user logins:</h2>
-    <table>
-      <thead>
-        <tr>
-          <th> Username</th>
-          <th> Role</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="user in users" :key="user.username">
-          <td>{{ user.username }}</td>
-          <td>{{ user.role }}</td>
-          <td><button @click="deleteUser(user.username)"> Delete user</button></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+          <div class="col">
+            <h2 class="UltorBG borderSilver dropShadow p-2 Stillwater"><span class="dropShadow"><i class="fas fa-users"></i> Existing Users:</span></h2>
+            <div class="StillwaterBG borderSilver dropShadow mb-3">
+              <table class="table table-striped table-hover table-sm fw-bold fs-3">
+                <thead class="SteelportBG borderStill Pierce">
+                  <tr class="dropShadow">
+                    <th><i class="fa-regular fa-id-card"></i> Username</th>
+                    <th><i class="fas fa-circle-info"></i> Role</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                  <tr class="Ultor fw-bold fs-4" v-for="user in users" :key="user.username">
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.role }}</td>
+                    <td><button class="btn btn-lg btn-rim StillwaterBG" @click="deleteUser(user.username)"><i class="fas fa-delete-left"></i> Delete user</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="col">
+            <h2 class="UltorBG borderSilver dropShadow p-2 Stillwater"><span class="dropShadow"><i class="fas fa-user-plus"></i> Create New User</span></h2>
+            <div class="Steelport">
+              <form @submit.prevent="createUser" validate>
+
+                <div class="form-floating p-0 m-2 dropShadow">
+                  <input type="text" id="username" class="form-control" v-model="username" placeholder="Username:" required>
+                  <label for="username">Username:</label>
+                </div>
+
+                <div class="form-floating p-0 m-2 dropShadow">
+                  <input type="text" id="password" class="form-control" v-model="password" placeholder="Password:" required>
+                  <label for="password">Password:</label>
+                </div>
+
+                <div class="form-floating p-0 m-2 dropShadow">
+                  <input type="text" id="password2" class="form-control" v-model="password2" placeholder="Confirm Password:" required>
+                  <label for="password2">Confirm Password:</label>
+                </div>
+
+                <div class="row">
+                  <label class="Pierce" for="perms">Permissions:</label>
+                  <div class="dropShadow col">
+                    <select class="form-select-lg" v-model="perms" required>
+                      <option value="employee"> Employee</option>
+                      <option value="admin"> Admin</option>
+                    </select>
+                  </div>
+                  <button class="col btn btn-lg btn-rim StillwaterBG dropShadow m-2" type="submit"><i class="fas fa-plus"></i> Register user</button>
+                  <h4 class="Pierce">{{ message }}</h4>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="d-flex justify-content-center hideme">
+      <img class="mx-auto w-25" src="/img/handle.png">
+    </footer>
+  </main>
 </body>
 <!-- Bootstrap JavaScript Libraries -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"

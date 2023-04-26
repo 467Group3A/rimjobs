@@ -243,6 +243,13 @@ body {
     }
 }
 
+@media screen and (max-width: 600px) {
+    #carouselId {
+      visibility: hidden;
+      display: none;
+    }
+  }
+
 //Animations
 
 .cssanimation, .cssanimation span {
@@ -286,6 +293,9 @@ body {
         #1b1a1a 2rem
       );
     background-size: 200% 200%;
+    &.s200 {
+        background-size: 400% 400%;
+    }
 }
 
 header {
