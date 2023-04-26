@@ -31,9 +31,10 @@ $(document).ready(function () {
               this.error = 'Order not found';
             }
         })
-
           .then(data => {
-            this.order = data
+            if(data){
+              this.order = data
+            }
           })
           .catch(err => {
             console.log(err)

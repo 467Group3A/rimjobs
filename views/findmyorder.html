@@ -25,13 +25,25 @@
         <button type="submit">Submit</button>
       </form>
       <p v-if="error">{{ error }}</p>
-      <p v-if="order">
-        <ul>
-          <li v-for="(value, key) in order">
-            {{ key }}: {{ value }}
-          </li>
-        </ul>
-      </p>      
+      <ul v-if="order">
+        <h3>Order Detail</h3>
+        <li>
+          <p>Order ID: {{ order.foundOrder.id }}</p>
+          <p>Name: {{ order.foundOrder.name }}</p>
+          <p>Email: {{ order.foundOrder.email }}</p>
+          <p>Date: {{ order.foundOrder.date }}</p>
+          <p>Amount: {{ order.foundOrder.amount }}</p>
+          <p>Weight: {{ order.foundOrder.weight }}</p>
+          <p>Shipping: {{ order.foundOrder.shipping }}</p>
+          <p>Address: {{ order.foundOrder.address }}</p>
+          <p>Status: {{ order.foundOrder.status }}</p>
+        </li>
+        <h3>Order Items</h3>
+        <li v-for="part in order.orderItems">
+          <p>Part Number: {{ part.partnumber }}</p>
+          <p>Quantity: {{ part.quantity }}</p>
+        </li>
+      </ul>     
     </div>
   </main>
 </body>

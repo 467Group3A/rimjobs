@@ -925,20 +925,31 @@ app.listen(port, () => {
 //findmyorder query to check order id
 app.post('/api/find-order', async (req, res) => {
   const orderId = req.body.orderId;
-  
-  const db = newConnection()
 
-  console.log(`SELECT * FROM orders WHERE id = "${orderId}"`);
-  db.get(`SELECT * FROM orders WHERE id = "${orderId}"`, (error, result) => {
+  const db = newConnection();
+
+  // get order from table
+  db.get('SELECT * FROM orders WHERE id = ?', orderId, (error, order) => {
     if (error) {
       console.error(error);
       res.status(500).json({ error: 'Server error' });
-    } else if (!result) {
+    } else if (!order) {
       res.status(404).json({ error: 'Order not found' });
     } else {
-      res.json(result);
+      // grab orderitems from table
+      db.all('SELECT * FROM orderitems WHERE orderid = ?', orderId, (err, orderItems) => {
+        if (err) {
+          console.error(err);
+          res.status(500).json({ error: 'Server error' });
+        } else {
+          const orderDetails = {
+            foundOrder: order,
+            orderItems: orderItems 
+          };
+          res.json(orderDetails);
+        }
+        db.close();
+      });
     }
-    db.close();
   });
 });
-
