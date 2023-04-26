@@ -111,6 +111,16 @@ body {
     background-color: $Stillwater;
 }
 
+.error {
+    background-image: url(/img/error.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.err404 {
+    backdrop-filter: blur(4px);
+}
+
 .dropShadow {
     filter: drop-shadow(10px 10px 8px #3d3d3d);
 }
