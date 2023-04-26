@@ -83,7 +83,7 @@ app.get('/cart', (req, res) => {
 })
 
 // Checkout page
-app.get('/ccauth', (req, res) => {
+app.get('/checkout', (req, res) => {
   res.sendFile(__dirname + "/views/ccauth.html");
 })
 
