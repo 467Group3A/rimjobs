@@ -103,8 +103,8 @@
           </table>
         </div>
         <p class="SevenSegment fw-bold fs-1 borderSilver px-2 dropShadow mt-3"> Shipping: ${{ shipping }}</p>
-        <p class="SevenSegment yield fw-bold fs-1 borderSilver px-2 dropShadow mt-3"> Subtotal: ${{ (subtotal /1.1) - shipping }}</p>
-        <p class="SevenSegment fw-bold fs-1 borderSilver px-2 dropShadow mt-3"> Total: ${{ (subtotal) }}</p>
+        <p class="SevenSegment yield fw-bold fs-1 borderSilver px-2 dropShadow mt-3"> Subtotal: ${{ parseFloat((subtotal /1.1) - shipping).toFixed(2) }}</p>
+        <p class="SevenSegment fw-bold fs-1 borderSilver px-2 dropShadow mt-3"> Total: ${{ parseFloat(subtotal).toFixed(2) }}</p>
         </div>
         <div class="col-md-6 col-lg-8 Ultor StillwaterBG borderSilver">
           <div class="m-2 UltorBG borderSilver dropShadow">

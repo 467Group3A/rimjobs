@@ -12,8 +12,7 @@ const promise = require('mysql2/promise');
 
 // PRODUCTION PORT, REQUESTS ON PORT 80 ARE REDIRECTED TO THIS PORT
 // const port = 2048;
-//const port = process.argv[2] || 4000;
-const port = 3001;
+const port = process.argv[2] || 4000;
 
 const { loadInventory } = require('./services/loadinventory')
 const { legacyConnection, newConnection, initializeNewDB, cleanOrders, getOrderDetails } = require('./services/dbconfig') // Some of these functions will be removed
@@ -84,7 +83,7 @@ app.get('/cart', (req, res) => {
 })
 
 // Checkout page
-app.get('/ccauth', (req, res) => {
+app.get('/checkout', (req, res) => {
   res.sendFile(__dirname + "/views/ccauth.html");
 })
 
