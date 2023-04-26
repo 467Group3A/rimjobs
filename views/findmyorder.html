@@ -19,12 +19,14 @@
   <header id="navbar"></header>
   <main>
     <div id="app">
-      <form>
+      <form v-on:submit.prevent="searchForOrder">
         <label for="orderNumber">Order Number:</label>
-        <input type="text" id="orderNumber" name="orderNumber" required>
-        <button type="submit" onclick="submitForm()">Submit</button>
-      </form>      
-     </div>
+        <input type="text" id="orderNumber" name="orderNumber" v-model="orderToFind" required>
+        <button type="submit">Submit</button>
+      </form>
+      <p v-if="error">{{ error }}</p>
+      <p v-if="order">{{ order.id }}</p>
+    </div>
   </main>
 </body>
 
@@ -36,6 +38,6 @@
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <!-- Components -->
   <script src="/fetchNavbar.js"></script>
-  <script src="/vieworderdetails.js"></script>
+  <script src="/findmyorder.js"></script>
 
 </html>

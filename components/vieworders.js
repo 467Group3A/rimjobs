@@ -1,5 +1,5 @@
 // Used to list orders for an employee/admin
-$(document).ready(function () {
+
     const app = Vue.createApp({
         data() {
         return {
