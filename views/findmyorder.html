@@ -41,9 +41,7 @@
             <div class="col">
               <h2 class="UltorBG borderSilver dropShadow p-2 Stillwater"><span class="dropShadow"><i class="fas fa-hashtag"></i> Order ID: {{ order.foundOrder.id }}</span></h2>
               <h2 class="borderStill SteelportBG dropShadow p-2 Pierce"><span class="dropShadow"><i class="fas fa-calendar-check"></i> Order Date: {{ order.foundOrder.date }}</span></h2>
-              <div v-if="!hideForPrint">
-                <h2 class="borderStill SteelportBG dropShadow p-2 Pierce"><span class="dropShadow"><i class="fas fa-circle-dot"></i> Order Status: {{ order.foundOrder.status }}</span></h2>
-              </div>
+              <h2 class="borderStill SteelportBG dropShadow p-2 Pierce"><span class="dropShadow"><i class="fas fa-circle-dot"></i> Order Status: {{ order.foundOrder.status }}</span></h2>
             </div>
             <div class="col">
               <h2 class="UltorBG borderSilver dropShadow p-2 Stillwater"><span class="dropShadow"><i class="fas fa-id-card"></i> Customer Information:</span></h2>
@@ -70,12 +68,20 @@
                 <tr class="dropShadow">
                   <th><i class="fas fa-hashtag"></i> Part Number</th>
                   <th><i class="fas fa-x"></i> Part Quantity</th>
+                  <th><i class="fas fa-hashtag"></i> Part Description</th>
+                  <th><i class="fas fa-x"></i> Part Price</th>
+                  <th><i class="fas fa-hashtag"></i> Part Weight</th>
+                  <th><i class="fas fa-x"></i> Part Preview</th>
                 </tr>
               </thead>
               <tbody class="table-group-divider">
                 <tr class="Ultor fw-bold fs-4" v-for="part in order.orderItems">
-                  <td>{{ part.partnumber }}</td>
-                  <td>{{ part.quantity }}</td>
+                  <td>{{ part.number }}</td>
+                  <td>{{ part.amount }}</td>
+                  <td>{{ part.description }}</td>
+                  <td>${{ part.price }}</td>
+                  <td>{{ part.weight }}lbs</td>
+                  <td><img :src="part.pictureURL" alt="prev" width="30" height="30"></td>                  
                 </tr>
               </tbody>
             </table>
