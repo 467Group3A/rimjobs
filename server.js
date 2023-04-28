@@ -272,10 +272,9 @@ app.get('/api/combine-parts-quantity', async (req, res) => {
 
     // Send the final rows to Vue
     res.json(combinedRows);
-    console.log('Retrieved information from legacy database correctly!');
+    console.log(SUCCESS + 'Retrieved information from legacy database correctly!');
   } catch (err) {
-    console.log(err);
-    console.log('Problem connecting and querying from legacy database!');
+    console.log(ERROR + 'Problem connecting and querying from legacy database:' + err);
   }
 });
 
