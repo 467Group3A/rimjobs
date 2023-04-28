@@ -15,36 +15,77 @@
   <link rel="stylesheet" href="/css/stylesheet.css">
 </head>
 
-<body>
+<body class="stripe s200">
   <header id="navbar"></header>
-  <main>
-    <div id="app">
-      <form v-on:submit.prevent="searchForOrder">
-        <label for="orderNumber">Order Number:</label>
-        <input type="text" id="orderNumber" name="orderNumber" v-model="orderToFind" required>
-        <button type="submit">Submit</button>
-      </form>
-      <p v-if="error">{{ error }}</p>
-      <ul v-if="order">
-        <h3>Order Detail</h3>
-        <li>
-          <p>Order ID: {{ order.foundOrder.id }}</p>
-          <p>Name: {{ order.foundOrder.name }}</p>
-          <p>Email: {{ order.foundOrder.email }}</p>
-          <p>Date: {{ order.foundOrder.date }}</p>
-          <p>Amount: {{ order.foundOrder.amount }}</p>
-          <p>Weight: {{ order.foundOrder.weight }}</p>
-          <p>Shipping: {{ order.foundOrder.shipping }}</p>
-          <p>Address: {{ order.foundOrder.address }}</p>
-          <p>Status: {{ order.foundOrder.status }}</p>
-        </li>
-        <h3>Order Items</h3>
-        <li v-for="part in order.orderItems">
-          <p>Part Number: {{ part.partnumber }}</p>
-          <p>Quantity: {{ part.quantity }}</p>
-        </li>
-      </ul>     
+  <main class="drawer">
+    <div class="container UltorBG Stillwater borderSilver">
+      <div id="app">
+        <h1 class="Shrikhand dropShadow m-2"><i class="fas fa-truck-fast"></i></i> Find My Order</h1>
+        <div class="py-2 text-center">
+          <img class="d-block mx-auto mb-2 dropShadow" src="/img/ChromeRims.webp">
+          <h2><i class="fas fa-hashtag"></i> Enter your order number to to look up order information.</h2>
+        </div>
+        <form class="py-2" v-on:submit.prevent="searchForOrder">
+          <div class="row m-2">
+            <div class="form-floating Steelport col">
+              <input type="text" class="form-control dropShadow" id="orderNumber" v-model="orderToFind" placeholder="Order number:" required>
+              <label class="ps-4" for="orderNumber">Order Number:</label>
+            </div>
+            <button class="btn btn-lg btn-rim StillwaterBG fw-bold fs-3 dropShadow col" type="submit">Submit</button>
+          </div>
+          <h4 class="Pierce fs-5 mx-4" v-if="error">{{ error }}</h4>
+        </form>
+        
+        <div v-if="order">
+          <div class="row">
+            <div class="col">
+              <h2 class="UltorBG borderSilver dropShadow p-2 Stillwater"><span class="dropShadow"><i class="fas fa-hashtag"></i> Order ID: {{ order.foundOrder.id }}</span></h2>
+              <h2 class="borderStill SteelportBG dropShadow p-2 Pierce"><span class="dropShadow"><i class="fas fa-calendar-check"></i> Order Date: {{ order.foundOrder.date }}</span></h2>
+              <div v-if="!hideForPrint">
+                <h2 class="borderStill SteelportBG dropShadow p-2 Pierce"><span class="dropShadow"><i class="fas fa-circle-dot"></i> Order Status: {{ order.foundOrder.status }}</span></h2>
+              </div>
+            </div>
+            <div class="col">
+              <h2 class="UltorBG borderSilver dropShadow p-2 Stillwater"><span class="dropShadow"><i class="fas fa-id-card"></i> Customer Information:</span></h2>
+              <h4 class="borderStill SteelportBG dropShadow p-2 Pierce"><span class="dropShadow"><i class="fas fa-id-badge"></i> Name: {{ order.foundOrder.name }}</span></h4>
+              <h4 class="borderStill SteelportBG dropShadow p-2 Pierce"><span class="dropShadow"><i class="fas fa-envelope"></i> Email: {{ order.foundOrder.email }}</span></h4>
+              <h4 class="borderStill SteelportBG dropShadow p-2 Pierce"><span class="dropShadow"><i class="fas fa-map-location-dot"></i> Address: {{ order.foundOrder.address }}</span></h4>
+            </div>
+          </div>
+
+          <div class="mt-1">
+            <p class="SevenSegment fw-bold fs-4 borderSilver px-2 dropShadow">Total Weight: {{ order.foundOrder.weight }} lbs</p>
+            <div class="row fw-bold fs-4 px-2 dropShadow">
+              <p class="col-4 SevenSegment borderSilver">Part cost: ${{ order.foundOrder.amount }}</p>
+              <p class="col-4 SevenSegment borderSilver">Shipping cost: ${{ order.foundOrder.shipping }}</p>
+              <p class="col-4 SevenSegment borderSilver">Tax: 10%</p>
+            </div>
+            <p class="SevenSegment fw-bold fs-4 borderSilver px-2 dropShadow">Total: ${{ parseFloat(((order.foundOrder.amount + order.foundOrder.shipping) * 1.1)).toFixed(2) }}</p>
+          </div>
+
+          <h2 class="UltorBG borderSilver dropShadow p-2 Stillwater"><span class="dropShadow"><i class="fas fa-boxes-stacked"></i> Order Contents:</span></h2>
+          <div class="StillwaterBG borderSilver dropShadow mb-3">
+            <table class="table table-striped table-hover table-sm fw-bold fs-3">
+              <thead class="SteelportBG borderStill Pierce">
+                <tr class="dropShadow">
+                  <th><i class="fas fa-hashtag"></i> Part Number</th>
+                  <th><i class="fas fa-x"></i> Part Quantity</th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                <tr class="Ultor fw-bold fs-4" v-for="part in order.orderItems">
+                  <td>{{ part.partnumber }}</td>
+                  <td>{{ part.quantity }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>     
+      </div>
     </div>
+    <footer class="d-flex justify-content-center hideme">
+      <img class="mx-auto w-25" src="/img/handle.png">
+    </footer>
   </main>
 </body>
 
