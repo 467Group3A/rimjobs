@@ -17,7 +17,7 @@ $(document).ready(function () {
                     <ul class="dropdown-menu UltorBG borderSilver dropShadow">
                         <li><a class="dropdown-item" href="/"><i class="fa-solid fa-warehouse"></i> Home</a></li>
                         <li><a class="dropdown-item" href="/viewinventory"><i class="fas fa-dharmachakra"></i> View All Products</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-truck-plane"></i> Find My Order</a></li>
+                        <li><a class="dropdown-item" href="/findmyorder"><i class="fas fa-truck-plane"></i> Find My Order</a></li>
                         <li><a class="dropdown-item" href="/employee"><i class="fas fa-door-closed"></i> Employee Portal</a></li>
                         <li><a class="dropdown-item" href="/cart"><i class="fas fa-shopping-cart"></i> My Cart</a></li>
                     </ul>
