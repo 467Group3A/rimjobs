@@ -35,7 +35,6 @@
           </div>
           <h4 class="Pierce fs-5 mx-4" v-if="error">{{ error }}</h4>
         </form>
-        
         <div v-if="order">
           <div class="row">
             <div class="col">
@@ -50,41 +49,39 @@
               <h4 class="borderStill SteelportBG dropShadow p-2 Pierce"><span class="dropShadow"><i class="fas fa-map-location-dot"></i> Address: {{ order.foundOrder.address }}</span></h4>
             </div>
           </div>
-
-          <div class="mt-1">
-            <p class="SevenSegment fw-bold fs-4 borderSilver px-2 dropShadow">Total Weight: {{ order.foundOrder.weight }} lbs</p>
-            <div class="row fw-bold fs-4 px-2 dropShadow">
-              <p class="col-4 SevenSegment borderSilver">Part cost: ${{ order.foundOrder.amount }}</p>
-              <p class="col-4 SevenSegment borderSilver">Shipping cost: ${{ order.foundOrder.shipping }}</p>
-              <p class="col-4 SevenSegment borderSilver">Tax: 10%</p>
-            </div>
-            <p class="SevenSegment fw-bold fs-4 borderSilver px-2 dropShadow">Total: ${{ parseFloat(((order.foundOrder.amount + order.foundOrder.shipping) * 1.1)).toFixed(2) }}</p>
-          </div>
-
-          <h2 class="UltorBG borderSilver dropShadow p-2 Stillwater"><span class="dropShadow"><i class="fas fa-boxes-stacked"></i> Order Contents:</span></h2>
+          <h2 class="UltorBG borderSilver dropShadow p-2 Stillwater mt-1"><span class="dropShadow"><i class="fas fa-boxes-stacked"></i> Order Contents:</span></h2>
           <div class="StillwaterBG borderSilver dropShadow mb-3">
             <table class="table table-striped table-hover table-sm fw-bold fs-3">
               <thead class="SteelportBG borderStill Pierce">
                 <tr class="dropShadow">
+                  <th></th>
                   <th><i class="fas fa-hashtag"></i> Part Number</th>
-                  <th><i class="fas fa-x"></i> Part Quantity</th>
-                  <th><i class="fas fa-hashtag"></i> Part Description</th>
-                  <th><i class="fas fa-x"></i> Part Price</th>
-                  <th><i class="fas fa-hashtag"></i> Part Weight</th>
-                  <th><i class="fas fa-x"></i> Part Preview</th>
+                  <th><i class="fas fa-tag"></i> Product Name</th>
+                  <th><i class="fas fa-x"></i> Quantity</th>
+                  <th><i class="fas fa-filter-circle-dollar"></i> Price Each</th>
+                  <th><i class="fas fa-weight-hanging"></i> Weight Each</th>
                 </tr>
               </thead>
               <tbody class="table-group-divider">
-                <tr class="Ultor fw-bold fs-4" v-for="part in order.orderItems">
+                <tr class="Ultor fw-bold fs-4 text-capitalize" v-for="part in order.orderItems">
+                  <td><img class="borderSilver m-2" :src="part.pictureURL" alt="prev" width="50" height="50"></td>
                   <td>{{ part.number }}</td>
-                  <td>{{ part.amount }}</td>
                   <td>{{ part.description }}</td>
+                  <td>{{ part.amount }}</td>
                   <td>${{ part.price }}</td>
-                  <td>{{ part.weight }}lbs</td>
-                  <td><img :src="part.pictureURL" alt="prev" width="30" height="30"></td>                  
+                  <td>{{ part.weight }} lbs</td>    
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div>
+            <p class="SevenSegment fw-bold fs-2 borderSilver px-2 dropShadow">Total Weight: {{ order.foundOrder.weight }} lbs</p>
+            <div class="row fw-bold fs-2 px-2 dropShadow">
+              <p class="col-4 SevenSegment borderSilver">Part cost: ${{ order.foundOrder.amount }}</p>
+              <p class="col-4 SevenSegment borderSilver">Shipping cost: ${{ order.foundOrder.shipping }}</p>
+              <p class="col-4 SevenSegment borderSilver">Tax: 10%</p>
+            </div>
+            <p class="SevenSegment fw-bold fs-2 borderSilver px-2 dropShadow">Total: ${{ parseFloat(((order.foundOrder.amount + order.foundOrder.shipping) * 1.1)).toFixed(2) }}</p>
           </div>
         </div>     
       </div>
