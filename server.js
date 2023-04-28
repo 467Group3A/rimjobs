@@ -224,6 +224,86 @@ app.get('/api/search', async (req, res) => {
   });
 });
 
+// Customer endpoint that allows them to find their order information given orderId
+app.post('/api/find-order', async (req, res) => {
+  const orderId = req.body.orderId;
+
+  const db = newConnection();
+
+  // get order from table
+  db.get('SELECT * FROM orders WHERE id = ?', orderId, async (error, order) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Server error' });
+    } else if (!order) {
+      res.status(404).json({ error: 'Order not found' });
+    } else {
+      // grab orderitems from table
+      db.all('SELECT * FROM orderitems WHERE orderid = ?', orderId, async (err, orderItems) => {
+        if (err) {
+          console.error(err);
+          res.status(500).json({ error: 'Server error' });
+        } else {
+
+            // orderItems now contains each part/id select those only from legacy db
+              let sql = "SELECT * FROM parts WHERE"
+
+              for(let i=0; i<orderItems.length; i++) {
+                if(i===0) {
+                  sql += ` number = '${orderItems[i].partnumber}'`
+                } else {
+                  sql += ` OR number = '${orderItems[i].partnumber}'`
+                }
+              }
+
+              // Declare variable to hold each orderItem info
+              let orderItemsInfo = null
+
+              try{
+                // Connect to legacy database
+                const connect = await legacyConnection.getConnection()
+
+                // Query the parts from legacy
+                const [row] = await connect.query(sql)
+                orderItemsInfo = row // Assign from query
+
+                // Drop connection
+                connect.release()
+              } catch(err){
+                console.log(err)
+              }
+
+          // Now we should append the quantity to orderItemsInfo
+          const combinedRows = orderItemsInfo.map((row) => {
+            const matchedRow = orderItems.find((orderItems) => orderItems.partnumber === row.number);
+            
+            // Add the .amount if the number(part_id) are the same
+            if (matchedRow) {
+              return {
+                ...row,
+                amount: matchedRow.quantity,
+              };
+            } else { // If part ID is not found amount is 0, idealy this wont occur
+              return {
+                ...row,
+                amount: 0,
+              };
+            }
+          });
+
+          // Combine and send to front end
+          const orderDetails = {
+            foundOrder: order,
+            orderItems: combinedRows 
+          };
+          res.json(orderDetails);
+        }
+        db.close();
+      });
+    }
+  });
+});
+
 // Sends back json objects that combine legacy parts with a random inventory
 app.get('/api/combine-parts-quantity', async (req, res) => {
   console.log(API + "Combine Parts + Quantity");
@@ -862,14 +942,6 @@ async function isAdmin(req, res, next) {
   }
 }
 
-// add a catch-all route that will match any request 
-// that hasn't been handled by a previous route 
-// THIS MUST BE DOWN BELOW ALL OTHER ROUTES
-app.get('*', (req, res) => {
-  console.log(SUCCESS + "404 Page")
-  res.sendFile(__dirname + "/views/404.html");
-});
-
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   console.error(err.message, err.stack);
@@ -909,6 +981,14 @@ app.post('/api/find-order', async (req, res) => {
       });
     }
   });
+});
+
+// add a catch-all route that will match any request 
+// that hasn't been handled by a previous route 
+// THIS MUST BE DOWN BELOW ALL OTHER ROUTES
+app.get('*', (req, res) => {
+  console.log(SUCCESS + "404 Page")
+  res.sendFile(__dirname + "/views/404.html");
 });
 
 // Displays the port number the server is listening on
