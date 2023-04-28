@@ -16,6 +16,7 @@ We promise you'll always leave satisfied.
 	- [X] Third party cc authorization linked
 	- [X] Creates order in db
 	- [X] Upon succesfull payment received by 3rd party, a confirmation is sent to the customers email
+- [X] Find My Order Page
 	
 ### **Employee**
 - [X] View all orders
@@ -29,9 +30,6 @@ We promise you'll always leave satisfied.
    - [X] Should be able to sort by status, total cost, weight, ECT...
 - [X] Set shipping and handling charges (based on weight brackets)
 - [X] Employee and or Administrator login / verification system
-
-### **Features to implement**
-- [ ] Find My Order Page
 
 # Rimjobs Details
 
