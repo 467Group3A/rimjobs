@@ -350,7 +350,6 @@ app.post('/api/find-order', async (req, res) => {
             }
           });
 
-          console.log(combinedRows)
           // Combine and send to front end
           const orderDetails = {
             foundOrder: order,
