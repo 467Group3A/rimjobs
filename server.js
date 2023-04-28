@@ -9,10 +9,13 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const router = express.Router();
 const promise = require('mysql2/promise');
+const LocalStorage = require('node-localstorage').LocalStorage;
 
 // PRODUCTION PORT, REQUESTS ON PORT 80 ARE REDIRECTED TO THIS PORT
 // const port = 2048;
-const port = process.argv[2] || 4000;
+
+const localStorage = new LocalStorage('./localStorage');
+const port = process.argv[2] || 3500;
 
 const { loadInventory } = require('./services/loadinventory')
 const { legacyConnection, newConnection, initializeNewDB, cleanOrders, getOrderDetails } = require('./services/dbconfig') // Some of these functions will be removed
@@ -63,6 +66,103 @@ connection.connect((error) => {
   }
 });
 
+//array to store products added to cart
+// const products = [];
+
+
+let products = JSON.parse(localStorage.getItem('products')) || [];
+
+//viewinventory post
+app.post('/viewinventory', (req, res) => {
+
+  const number = req.body.number;
+  const description = req.body.description;
+  const price = req.body.price;
+  const weight = req.body.weight;
+  const image = req.body.image;
+  const quantity = req.body.quantity;
+
+  //check to see if product is in cart already, if it is append quantity with added quantity and dont create new instance of product
+  const existingProductIndex = products.findIndex(product => product.number === number);
+  if (existingProductIndex !== -1) {
+    products[existingProductIndex].quantity = Number(products[existingProductIndex].quantity) + Number(quantity);
+  } else {
+
+    // add the product to the products array
+    products.push({
+      number: number,
+      description: description,
+      price: price,
+      weight: weight,
+      image: image,
+      quantity: Number(quantity)
+    });
+    
+    localStorage.setItem('products', JSON.stringify(products));
+
+  }
+
+  //localstorage var
+  req.app.locals.products = products;
+
+  res.redirect('/viewinventory');
+});
+
+app.post('/cart', (req, res) => {
+  const number = req.body.number;
+  const quantity = req.body.quantity;
+
+  const existingProductIndex = products.findIndex(product => product.number === number);
+  if (existingProductIndex !== -1) {
+    // update the quantity of the existing product
+    products[existingProductIndex].quantity = Number(quantity);
+  }
+
+  res.redirect('/cart');
+});
+
+//button to delete products in cart
+app.delete('/cart', (req, res) => {
+  const number = req.body.number;
+  
+  // Find the index of the product to be updated in the products array
+  const productIndex = products.findIndex(product => product.number === number);
+  
+  if (productIndex !== -1) {
+    // Update the product object with the new quantity
+    products[productIndex].quantity = 0;
+    localStorage.setItem('products', JSON.stringify(products));
+  }
+  
+  // Update the localstorage variable
+  req.app.locals.products = products;
+
+  // Redirect back to the cart page
+  res.redirect('/cart');
+});
+
+
+
+
+//cart number total
+app.get('/cartTotal', (req, res) => {
+  const cartTotal = products.length;//Gets total amount of products in cart
+  localStorage.setItem('cartTotal', cartTotal);//store cartTotal as localstorage var
+  res.json({ cartTotal });
+});
+
+//endpoint to send info of items in cart 
+app.get('/cartItems', (req, res) => {
+  // res.send(JSON.stringify(products));
+  res.send(JSON.stringify(req.app.locals.products));
+});
+
+//if url is /cart, send to cart.html file
+app.get('/cart', (req, res) => {
+  res.sendFile(__dirname + "/views/cart.html");
+});
+
+// If url is /, send the index.html file
 /* -------------------------------------------------------- 
                    CUSTOMER FACING VIEWS
    -------------------------------------------------------- */
@@ -128,6 +228,10 @@ app.get('/managelogins', isAdmin, (req, res) => {
 /* -------------------------------------------------------- 
                    API ENDPOINTS
    -------------------------------------------------------- */
+
+app.get('/findmyorder', (req, res) => {
+  res.sendFile(__dirname + "/views/findmyorder.html");
+})
 
 // This function is to clean SQL queries (mainly for the search)
 function cleanText(text) {
@@ -816,4 +920,36 @@ app.listen(port, () => {
   else {
     console.log(`Node Server listening at http://rimjobs.store:${port}`);
   }
+});
+
+//findmyorder query to check order id
+app.post('/api/find-order', async (req, res) => {
+  const orderId = req.body.orderId;
+
+  const db = newConnection();
+
+  // get order from table
+  db.get('SELECT * FROM orders WHERE id = ?', orderId, (error, order) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Server error' });
+    } else if (!order) {
+      res.status(404).json({ error: 'Order not found' });
+    } else {
+      // grab orderitems from table
+      db.all('SELECT * FROM orderitems WHERE orderid = ?', orderId, (err, orderItems) => {
+        if (err) {
+          console.error(err);
+          res.status(500).json({ error: 'Server error' });
+        } else {
+          const orderDetails = {
+            foundOrder: order,
+            orderItems: orderItems 
+          };
+          res.json(orderDetails);
+        }
+        db.close();
+      });
+    }
+  });
 });

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Find my Order</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+  <!-- Bootstrap CSS v5.3.0 Alpha -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css">
+  <!-- FontAwesome 6.4.0 CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Rim Jobs CSS -->
+  <link rel="stylesheet" href="/css/stylesheet.css">
+</head>
+
+<body>
+  <header id="navbar"></header>
+  <main>
+    <div id="app">
+      <form v-on:submit.prevent="searchForOrder">
+        <label for="orderNumber">Order Number:</label>
+        <input type="text" id="orderNumber" name="orderNumber" v-model="orderToFind" required>
+        <button type="submit">Submit</button>
+      </form>
+      <p v-if="error">{{ error }}</p>
+      <ul v-if="order">
+        <h3>Order Detail</h3>
+        <li>
+          <p>Order ID: {{ order.foundOrder.id }}</p>
+          <p>Name: {{ order.foundOrder.name }}</p>
+          <p>Email: {{ order.foundOrder.email }}</p>
+          <p>Date: {{ order.foundOrder.date }}</p>
+          <p>Amount: {{ order.foundOrder.amount }}</p>
+          <p>Weight: {{ order.foundOrder.weight }}</p>
+          <p>Shipping: {{ order.foundOrder.shipping }}</p>
+          <p>Address: {{ order.foundOrder.address }}</p>
+          <p>Status: {{ order.foundOrder.status }}</p>
+        </li>
+        <h3>Order Items</h3>
+        <li v-for="part in order.orderItems">
+          <p>Part Number: {{ part.partnumber }}</p>
+          <p>Quantity: {{ part.quantity }}</p>
+        </li>
+      </ul>     
+    </div>
+  </main>
+</body>
+
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+  <!-- Vue.js -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <!-- Components -->
+  <script src="/fetchNavbar.js"></script>
+  <script src="/findmyorder.js"></script>
+
+</html>
