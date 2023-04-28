@@ -81,9 +81,9 @@ for i in range(150):
     i = i + 1
     con.execute(f"INSERT INTO inventory (id, quantity) VALUES ({i}, {random.randint(0,75)});")
 
-cursor.execute("INSERT INTO orders (id, name, email, amount, weight, shipping, address, status) VALUES ('1681-5893-9054', 'Pierce Washington', 'Pce@saints.crew', 50.0, 3.0, 5.0, '311 Third Street, Steelport, USA', 'In Progress');")
-cursor.execute("INSERT INTO orders (id, name, email, amount, weight, shipping, address, status) VALUES ('1681-5893-7261', 'Eddie Pryor', 'killbane@syndi.cat', 75.0, 6.0, 8.0, '101 Port Pryor, Steelport, USA', 'In Progress');")
-cursor.execute("INSERT INTO orders (id, name, email, amount, weight, shipping, address, status) VALUES ('1681-5893-6621', 'Jane Valderama', 'JaneV@Steelport6.org', 75.0, 6.0, 8.0, '678 Sunset Park, Steelport, USA', 'Filled');")
+cursor.execute("INSERT INTO orders (id, name, email, amount, weight, shipping, address, status) VALUES ('1681-5893-9054', 'Pierce Washington', 'Pce@saints.crew', 380.89, 3.60, 10.0, '311 Third Street, Steelport, USA', 'In Progress');")
+cursor.execute("INSERT INTO orders (id, name, email, amount, weight, shipping, address, status) VALUES ('1681-5893-7261', 'Eddie Pryor', 'killbane@syndi.cat', 788.20, 6.20, 10.0, '101 Port Pryor, Steelport, USA', 'In Progress');")
+cursor.execute("INSERT INTO orders (id, name, email, amount, weight, shipping, address, status) VALUES ('1681-5893-6621', 'Jane Valderama', 'JaneV@Steelport6.org', 697.63, 56.85, 250.0, '678 Sunset Park, Steelport, USA', 'Filled');")
 
 
 cursor.execute("INSERT INTO orderitems (orderid, partnumber, quantity) VALUES ('1681-5893-9054', 1, 2);")
