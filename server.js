@@ -20,7 +20,7 @@ const localStorage = new LocalStorage('./localStorage');
 const port = process.argv[2] || 3500;
 
 const { loadInventory } = require('./services/loadinventory')
-const { legacyConnection, newConnection, initializeNewDB, cleanOrders, getOrderDetails } = require('./services/dbconfig') // Some of these functions will be removed
+const { legacyConnection, newConnection, getOrderDetails } = require('./services/dbconfig') // Some of these functions will be removed
 const emailConfig = require('./services/emailconfig')
 
 // These are terminal color escape codes
