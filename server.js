@@ -19,7 +19,6 @@ require('console-stamp')(console, {
 const localStorage = new LocalStorage('./localStorage');
 const port = process.argv[2] || 3500;
 
-const { loadInventory } = require('./services/loadinventory')
 const { legacyConnection, newConnection, getOrderDetails } = require('./services/dbconfig') // Some of these functions will be removed
 const emailConfig = require('./services/emailconfig')
 
