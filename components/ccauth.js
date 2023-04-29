@@ -46,7 +46,7 @@ const app = Vue.createApp({
       if(!isNaN(parseFloat(amount))) {
         this.formData.amount = parseFloat(amount).toFixed(2).toString()
       } else {
-        console.log("Error fixing total cost decimal place")
+        console.error("Error fixing total cost decimal place")
       }
 
       this.customer.address = this.customer.address + ' ' + this.customer.city + ' ' + this.customer.state + ' ' + this.customer.zip;
@@ -131,14 +131,12 @@ const app = Vue.createApp({
                   console.log(err)
                 })
                 // End of email confirmation
-
               });
             }
           })
           .catch(error => {
             console.error(error)
           });
-          //localStorage.removeItem('cartItems');
         }
     },
     orderNumber() {
