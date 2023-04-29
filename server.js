@@ -82,12 +82,6 @@ connection.connect((error) => {
   }
 });
 
-//if url is /cart, send to cart.html file
-app.get('/cart', (req, res) => {
-  res.sendFile(__dirname + "/views/cart.html");
-});
-
-// If url is /, send the index.html file
 /* -------------------------------------------------------- 
                    CUSTOMER FACING VIEWS
    -------------------------------------------------------- */
@@ -170,11 +164,6 @@ app.get('/managelogins', isAdmin, (req, res) => {
 /* -------------------------------------------------------- 
                    API ENDPOINTS
    -------------------------------------------------------- */
-
-// This function is to clean SQL queries (mainly for the search)
-function cleanText(text) {
-  return connection.escape(text);
-}
 
 // Start of endpoints
 app.get('/legacyparts', async (req, res) => {
@@ -984,7 +973,6 @@ app.post('/api/find-order', async (req, res) => {
 
 // add a catch-all route that will match any request 
 // that hasn't been handled by a previous route 
-// THIS MUST BE DOWN BELOW ALL OTHER ROUTES
 app.get('*', (req, res) => {
   console.log(SUCCESS + "404 Page")
   res.sendFile(__dirname + "/views/404.html");
