@@ -1,5 +1,3 @@
-// This is a work in progress
-// This does not show up on the page yet
 $(document).ready(function () {
     const cart = Vue.createApp({
         data() {
@@ -10,7 +8,6 @@ $(document).ready(function () {
             }
         },
         mounted() {
-            console.log('cart mounted')
             this.cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
             Promise.all([
                 fetch('/api/get-shipping-fees').then((res) => res.json()),
