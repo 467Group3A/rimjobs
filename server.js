@@ -10,6 +10,7 @@ const path = require('path');
 const router = express.Router();
 const promise = require('mysql2/promise');
 const LocalStorage = require('node-localstorage').LocalStorage;
+
 require('console-stamp')(console, { 
   format: ':date(HH:MM:ss)' 
 } );
@@ -28,6 +29,7 @@ const GREEN = "\033[92m"
 const RED = "\033[91m"
 const ORANGE = "\033[33m"
 const MAGENTA = "\033[35m"
+const GREY = "\033[37m"
 
 // Smashed into nice variables for use in console.log
 const SUCCESS = GREEN + "SUCCESS: " + DEFAULT
@@ -36,6 +38,7 @@ const SENT = ORANGE + "SENT: " + DEFAULT
 const API = MAGENTA + "API: " + DEFAULT
 const PROD = ORANGE + "[PRODUCTION PORT]" + DEFAULT
 const DEV = GREEN + "[DEVELOPMENT PORT]" + DEFAULT
+const INFO = GREY + "INFO: " + DEFAULT
 
 const app = express();
 
@@ -72,14 +75,6 @@ const connection = mysql.createConnection({
   user: 'student',
   password: 'student',
   database: 'csci467',
-});
- 
-connection.connect((error) => {
-  if (error) {
-    console.error(ERROR + 'connecting to database:', error);
-  } else {
-    console.log(SUCCESS + "Connected to Legacy Database");
-  }
 });
 
 /* -------------------------------------------------------- 
@@ -164,9 +159,15 @@ app.get('/managelogins', isAdmin, (req, res) => {
 /* -------------------------------------------------------- 
                    API ENDPOINTS
    -------------------------------------------------------- */
-
 // Start of endpoints
 app.get('/legacyparts', async (req, res) => {
+  connection.connect((error) => {
+    if (error) {
+      console.error(ERROR + 'connecting to database:', error);
+    } else {
+      console.log(SUCCESS + "Connected to Legacy Database");
+    }
+  });
   console.log(API + "Legacy Parts Endpoint")
   const perPage = parseInt(req.query.per) || 10;
   let page = parseInt(req.query.page) || 1;
@@ -199,6 +200,13 @@ app.get('/inventory', (req, res) => {
 });
 
 app.get('/api/search', async (req, res) => {
+  connection.connect((error) => {
+    if (error) {
+      console.error(ERROR + 'connecting to database:', error);
+    } else {
+      console.log(SUCCESS + "Connected to Legacy Database");
+    }
+  });
   const item = req.query.searchTerm
   console.log(API + "Search For: " + item);
 
@@ -210,6 +218,7 @@ app.get('/api/search', async (req, res) => {
       res.json(results);
     }
   });
+  connection.end()
 });
 
 // Customer endpoint that allows them to find their order information given orderId
@@ -974,7 +983,7 @@ app.post('/api/find-order', async (req, res) => {
 // add a catch-all route that will match any request 
 // that hasn't been handled by a previous route 
 app.get('*', (req, res) => {
-  console.log(SUCCESS + "404 Page")
+  console.log(SUCCESS + "404: User Tried Requesting -> " + req.url)
   res.sendFile(__dirname + "/views/404.html");
 });
 
