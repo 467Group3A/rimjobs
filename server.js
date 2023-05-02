@@ -1,4 +1,7 @@
 //modules
+const fs = require('fs');
+const http = require('http')
+const https = require('https')
 const express = require('express');
 const session = require('express-session');
 const axios = require("axios");
@@ -10,15 +13,25 @@ const path = require('path');
 const router = express.Router();
 const promise = require('mysql2/promise');
 const LocalStorage = require('node-localstorage').LocalStorage;
-
 require('console-stamp')(console, { 
   format: ':date(HH:MM:ss)' 
 } );
-// PRODUCTION PORT, REQUESTS ON PORT 80 ARE REDIRECTED TO THIS PORT
-// const port = 2048;
+
+const privateKey = fs.readFileSync('', 'utf8');
+const certificate = fs.readFileSync('', 'utf8');
+const ca = fs.readFileSync('', 'utf8');
+
+const credentials = {
+  key: privateKey,
+  cert: certificate,
+  ca: ca
+};
+
+const httpPort = 2048;
+const httpsPort = 2443;
 
 const localStorage = new LocalStorage('./localStorage');
-const port = process.argv[2] || 3500;
+//const port = process.argv[2] || 3500;
 
 const { legacyConnection, newConnection, getOrderDetails } = require('./services/dbconfig') // Some of these functions will be removed
 const emailConfig = require('./services/emailconfig')
@@ -41,6 +54,9 @@ const DEV = GREEN + "[DEVELOPMENT PORT]" + DEFAULT
 const INFO = GREY + "INFO: " + DEFAULT
 
 const app = express();
+
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
 
 // Allow for session storage
 app.use(session({
@@ -75,6 +91,7 @@ const connection = mysql.createConnection({
   user: 'student',
   password: 'student',
   database: 'csci467',
+  connectTimeout: 60000
 });
 
 /* -------------------------------------------------------- 
@@ -988,11 +1005,19 @@ app.get('*', (req, res) => {
 });
 
 // Displays the port number the server is listening on
-app.listen(port, () => {
-  if (port == 2048) {
-    console.log(`${PROD} Node Server listening at http://rimjobs.store/`);
-  }
-  else {
-    console.log(`${DEV} Node Server listening at http://rimjobs.store:${port}`);
-  }
+// app.listen(port, () => {
+//   if (port == 2048) {
+//     console.log(`${PROD} Node Server listening at http://rimjobs.store/`);
+//   }
+//   else {
+//     console.log(`${DEV} Node Server listening at http://rimjobs.store:${port}`);
+//   }
+// });
+
+httpServer.listen(httpPort, () => {
+  console.log(INFO + 'HTTP: http://rimjobs.store');
+});
+
+httpsServer.listen(httpsPort, () => {
+  console.log(INFO + 'HTTPS: https://rimjobs.store');
 });
