@@ -1,4 +1,6 @@
-//modules
+//
+// - - - - - - - - - - - - NPM MODULES - - - - - - - - - - - - 
+//
 const fs = require('fs');
 const http = require('http')
 const https = require('https')
@@ -13,10 +15,16 @@ const path = require('path');
 const router = express.Router();
 const promise = require('mysql2/promise');
 const LocalStorage = require('node-localstorage').LocalStorage;
-require('console-stamp')(console, { 
-  format: ':date(HH:MM:ss)' 
-} );
 
+//
+// - - - - - - - - - - - -  Local Modules - - - - - - - - - - - - 
+//
+const localStorage = new LocalStorage('./localStorage');
+const { legacyConnection, newConnection, getOrderDetails } = require('./services/dbconfig') // Some of these functions will be removed
+const emailConfig = require('./services/emailconfig')
+
+// 
+// - - - - - - - - - - - - Server Related - - - - - - - - - - - - 
 const privateKey = fs.readFileSync('', 'utf8');
 const certificate = fs.readFileSync('', 'utf8');
 const ca = fs.readFileSync('', 'utf8');
@@ -30,13 +38,8 @@ const credentials = {
 const httpPort = 2048;
 const httpsPort = 2443;
 
-const localStorage = new LocalStorage('./localStorage');
-//const port = process.argv[2] || 3500;
-
-const { legacyConnection, newConnection, getOrderDetails } = require('./services/dbconfig') // Some of these functions will be removed
-const emailConfig = require('./services/emailconfig')
-
-// These are terminal color escape codes
+//
+// - - - - - - - - - - - -  Logging Related - - - - - - - - - - - - 
 const DEFAULT = "\033[39m"
 const GREEN = "\033[92m"
 const RED = "\033[91m"
@@ -52,6 +55,13 @@ const API = MAGENTA + "API: " + DEFAULT
 const PROD = ORANGE + "[PRODUCTION PORT]" + DEFAULT
 const DEV = GREEN + "[DEVELOPMENT PORT]" + DEFAULT
 const INFO = GREY + "INFO: " + DEFAULT
+
+// Console timestamp for logging
+require('console-stamp')(console, { 
+  format: ':date(HH:MM:ss)' 
+} );
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 const app = express();
 
@@ -1004,20 +1014,12 @@ app.get('*', (req, res) => {
   res.sendFile(__dirname + "/views/404.html");
 });
 
-// Displays the port number the server is listening on
-// app.listen(port, () => {
-//   if (port == 2048) {
-//     console.log(`${PROD} Node Server listening at http://rimjobs.store/`);
-//   }
-//   else {
-//     console.log(`${DEV} Node Server listening at http://rimjobs.store:${port}`);
-//   }
-// });
-
+// Run http Server
 httpServer.listen(httpPort, () => {
   console.log(INFO + 'HTTP: http://rimjobs.store');
 });
 
+// Run https server
 httpsServer.listen(httpsPort, () => {
   console.log(INFO + 'HTTPS: https://rimjobs.store');
 });
