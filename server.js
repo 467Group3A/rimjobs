@@ -17,9 +17,9 @@ require('console-stamp')(console, {
 // const port = 2048;
 
 const localStorage = new LocalStorage('./localStorage');
-const port = process.argv[2] || 3500;
+const port = process.argv[2] || 3001;
 
-const { legacyConnection, newConnection, getOrderDetails } = require('./services/dbconfig') // Some of these functions will be removed
+const { legacyConnection, newConnection} = require('./services/dbconfig') // Some of these functions will be removed
 const emailConfig = require('./services/emailconfig')
 
 // These are terminal color escape codes
