@@ -727,6 +727,7 @@ app.post('/api/email-confirmation', (req, res) => {
 
   // Establish contents of email
   const emailText = `
+  <html><body>
   <h2>Rimjobs order invoice</h2>
   <p>Order ID: ${confirmation.trans}</p>
   <p>--------------------------</p>
@@ -737,8 +738,9 @@ app.post('/api/email-confirmation', (req, res) => {
   <p>Thank you for shopping with Rimjobs.store!</p>
   <p>--------------------------</p>
   <p>If you wish to track the progress please do this:</p>
-  <p>1. Navigate to <a href="rimjobs.store/findmyorder">rimjobs.store/findmyorder</a></p>
+  <p>1. Navigate to <a href="https://rimjobs.store/findmyorder">rimjobs.store/findmyorder</a></p>
   <p>2. Enter your order id shown at the top of this email.</p>
+  </body></html>
   `
 
   // Establish namecheap email
