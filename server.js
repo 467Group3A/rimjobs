@@ -25,6 +25,7 @@ const emailConfig = require('./services/emailconfig')
 
 // 
 // - - - - - - - - - - - - Server Related - - - - - - - - - - - - 
+//
 const privateKey = fs.readFileSync('', 'utf8');
 const certificate = fs.readFileSync('', 'utf8');
 const ca = fs.readFileSync('', 'utf8');
@@ -40,6 +41,7 @@ const httpsPort = 2443;
 
 //
 // - - - - - - - - - - - -  Logging Related - - - - - - - - - - - - 
+//
 const DEFAULT = "\033[39m"
 const GREEN = "\033[92m"
 const RED = "\033[91m"
