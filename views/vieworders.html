@@ -59,7 +59,7 @@
               <tr class="Ultor fw-bold fs-2" v-for="order in filteredOrders" :key="order.id">
                 <td>{{ order.id }}</td>
                 <td>{{ order.status }}</td>
-                <td>{{ order.weight }} lbs</td>
+                <td>{{ parseFloat(order.weight).toFixed(2) }} lbs</td>
                 <td>$ {{ parseFloat(((order.amount + order.shipping) * 1.1)).toFixed(2) }}</td>
                 <td><button class="btn btn-lg btn-rim StillwaterBG" @click="goToOrderDetails(order.id)"><i class="fas fa-info"></i> View Details</button></td>
               </tr>          

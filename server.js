@@ -1,4 +1,9 @@
-//modules
+//
+// - - - - - - - - - - - - NPM MODULES - - - - - - - - - - - - 
+//
+const fs = require('fs');
+const http = require('http')
+const https = require('https')
 const express = require('express');
 const session = require('express-session');
 const axios = require("axios");
@@ -10,24 +15,37 @@ const path = require('path');
 const router = express.Router();
 const promise = require('mysql2/promise');
 const LocalStorage = require('node-localstorage').LocalStorage;
-require('console-stamp')(console, { 
-  format: ':date(HH:MM:ss)' 
-} );
-// PRODUCTION PORT, REQUESTS ON PORT 80 ARE REDIRECTED TO THIS PORT
-// const port = 2048;
 
+//
+// - - - - - - - - - - - -  Local Modules - - - - - - - - - - - - 
+//
 const localStorage = new LocalStorage('./localStorage');
-const port = process.argv[2] || 3500;
-
 const { legacyConnection, newConnection, getOrderDetails } = require('./services/dbconfig') // Some of these functions will be removed
 const emailConfig = require('./services/emailconfig')
 
-// These are terminal color escape codes
+// 
+// - - - - - - - - - - - - Server Related - - - - - - - - - - - - 
+const privateKey = fs.readFileSync('', 'utf8');
+const certificate = fs.readFileSync('', 'utf8');
+const ca = fs.readFileSync('', 'utf8');
+
+const credentials = {
+  key: privateKey,
+  cert: certificate,
+  ca: ca
+};
+
+const httpPort = 2048;
+const httpsPort = 2443;
+
+//
+// - - - - - - - - - - - -  Logging Related - - - - - - - - - - - - 
 const DEFAULT = "\033[39m"
 const GREEN = "\033[92m"
 const RED = "\033[91m"
 const ORANGE = "\033[33m"
 const MAGENTA = "\033[35m"
+const GREY = "\033[37m"
 
 // Smashed into nice variables for use in console.log
 const SUCCESS = GREEN + "SUCCESS: " + DEFAULT
@@ -36,8 +54,19 @@ const SENT = ORANGE + "SENT: " + DEFAULT
 const API = MAGENTA + "API: " + DEFAULT
 const PROD = ORANGE + "[PRODUCTION PORT]" + DEFAULT
 const DEV = GREEN + "[DEVELOPMENT PORT]" + DEFAULT
+const INFO = GREY + "INFO: " + DEFAULT
+
+// Console timestamp for logging
+require('console-stamp')(console, { 
+  format: ':date(HH:MM:ss)' 
+} );
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 const app = express();
+
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
 
 // Allow for session storage
 app.use(session({
@@ -72,14 +101,7 @@ const connection = mysql.createConnection({
   user: 'student',
   password: 'student',
   database: 'csci467',
-});
- 
-connection.connect((error) => {
-  if (error) {
-    console.error(ERROR + 'connecting to database:', error);
-  } else {
-    console.log(SUCCESS + "Connected to Legacy Database");
-  }
+  connectTimeout: 60000
 });
 
 /* -------------------------------------------------------- 
@@ -164,9 +186,15 @@ app.get('/managelogins', isAdmin, (req, res) => {
 /* -------------------------------------------------------- 
                    API ENDPOINTS
    -------------------------------------------------------- */
-
 // Start of endpoints
 app.get('/legacyparts', async (req, res) => {
+  connection.connect((error) => {
+    if (error) {
+      console.error(ERROR + 'connecting to database:', error);
+    } else {
+      console.log(SUCCESS + "Connected to Legacy Database");
+    }
+  });
   console.log(API + "Legacy Parts Endpoint")
   const perPage = parseInt(req.query.per) || 10;
   let page = parseInt(req.query.page) || 1;
@@ -199,6 +227,13 @@ app.get('/inventory', (req, res) => {
 });
 
 app.get('/api/search', async (req, res) => {
+  connection.connect((error) => {
+    if (error) {
+      console.error(ERROR + 'connecting to database:', error);
+    } else {
+      console.log(SUCCESS + "Connected to Legacy Database");
+    }
+  });
   const item = req.query.searchTerm
   console.log(API + "Search For: " + item);
 
@@ -210,6 +245,7 @@ app.get('/api/search', async (req, res) => {
       res.json(results);
     }
   });
+  connection.end()
 });
 
 // Customer endpoint that allows them to find their order information given orderId
@@ -691,6 +727,7 @@ app.post('/api/email-confirmation', (req, res) => {
 
   // Establish contents of email
   const emailText = `
+  <html><body>
   <h2>Rimjobs order invoice</h2>
   <p>Order ID: ${confirmation.trans}</p>
   <p>--------------------------</p>
@@ -701,8 +738,9 @@ app.post('/api/email-confirmation', (req, res) => {
   <p>Thank you for shopping with Rimjobs.store!</p>
   <p>--------------------------</p>
   <p>If you wish to track the progress please do this:</p>
-  <p>1. Navigate to <a href="rimjobs.store/findmyorder">rimjobs.store/findmyorder</a></p>
+  <p>1. Navigate to <a href="https://rimjobs.store/findmyorder">rimjobs.store/findmyorder</a></p>
   <p>2. Enter your order id shown at the top of this email.</p>
+  </body></html>
   `
 
   // Establish namecheap email
@@ -974,16 +1012,16 @@ app.post('/api/find-order', async (req, res) => {
 // add a catch-all route that will match any request 
 // that hasn't been handled by a previous route 
 app.get('*', (req, res) => {
-  console.log(SUCCESS + "404 Page")
+  console.log(SUCCESS + "404: User Tried Requesting -> " + req.url)
   res.sendFile(__dirname + "/views/404.html");
 });
 
-// Displays the port number the server is listening on
-app.listen(port, () => {
-  if (port == 2048) {
-    console.log(`${PROD} Node Server listening at http://rimjobs.store/`);
-  }
-  else {
-    console.log(`${DEV} Node Server listening at http://rimjobs.store:${port}`);
-  }
+// Run http Server
+httpServer.listen(httpPort, () => {
+  console.log(INFO + 'HTTP: http://rimjobs.store');
+});
+
+// Run https server
+httpsServer.listen(httpsPort, () => {
+  console.log(INFO + 'HTTPS: https://rimjobs.store');
 });

@@ -26,6 +26,7 @@
     "node-localstorage": "^2.2.1",
     "nodemailer": "^6.9.1",
     "package.json": "^0.0.0",
+    "pm2": "^5.3.0",
     "scss": "^0.2.4",
     "sqlite3": "^5.1.6",
     "vue": "^3.2.47",
