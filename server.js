@@ -1032,7 +1032,6 @@ httpServer.listen(httpPort, () => {
   console.log(INFO + 'HTTP: http://rimjobs.store');
 });
 
-
 // Run https server
 httpsServer.listen(httpsPort, () => {
   console.log(INFO + 'HTTPS: https://rimjobs.store');
