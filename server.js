@@ -70,6 +70,15 @@ const app = express();
 const httpServer = http.createServer(app);
 const httpsServer = https.createServer(credentials, app);
 
+
+// Redirection from http to https
+app.use((req, res, next) => {
+  if (!req.secure && req.get('x-forwarded-proto') !== 'https') {
+    return res.redirect(`https://${req.get('host')}${req.url}`);
+  }
+  next();
+}); 
+
 // Allow for session storage
 app.use(session({
   secret: 'rimjobsKey',
@@ -1026,4 +1035,4 @@ httpServer.listen(httpPort, () => {
 // Run https server
 httpsServer.listen(httpsPort, () => {
   console.log(INFO + 'HTTPS: https://rimjobs.store');
-});
+}); 
