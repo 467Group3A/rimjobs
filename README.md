@@ -4,32 +4,38 @@ Autoparts and vehicles through air, sea and land.
 
 We promise you'll always leave satisfied.
 
-#  To Do List
+# Showcase
 
-### **Customer**
+## Customer Facing Views
 
-- [X] View all products
-- [X] Shopping cart
-	- [X] Add items to cart
-	- [X] Remove items from cart
-- [X] Checkout system
-	- [X] Third party cc authorization linked
-	- [X] Creates order in db
-	- [X] Upon succesfull payment received by 3rd party, a confirmation is sent to the customers email
-- [X] Find My Order Page
-	
-### **Employee**
-- [X] View all orders
-	-  [X] Should be able to sort by status, total cost, weight, ECT...
-- [X] Update orders status
-- [X] Update inventory upon arrival of new merchandise
-- [X] Add shipping label and invoice 
+Landing Page
 
-### **Administrator**
-- [X] View all orders
-   - [X] Should be able to sort by status, total cost, weight, ECT...
-- [X] Set shipping and handling charges (based on weight brackets)
-- [X] Employee and or Administrator login / verification system
+https://user-images.githubusercontent.com/20436145/236588233-f1d3f9c7-29fc-41d0-914d-a654c945987e.mp4
+
+All Products
+
+https://user-images.githubusercontent.com/20436145/236588237-f1a79974-2407-48b0-92cd-70d72a6f3982.mp4
+
+Checkout Process
+
+https://user-images.githubusercontent.com/20436145/236588249-969bb289-e3a0-4e3b-ac43-527aa07bc00d.mp4
+
+Find My Order
+
+https://user-images.githubusercontent.com/20436145/236588258-9cf38931-0d88-4a44-b11b-95016cf7385b.mp4
+
+## Employee Facing Views
+
+Admin View
+
+https://user-images.githubusercontent.com/20436145/236588292-a621c309-627d-4192-bc58-dddf80efe491.mp4
+
+Employee View
+
+Employees see less options on the portal, compared to administrators.
+
+https://user-images.githubusercontent.com/20436145/236588287-b2aaf245-264d-4845-8adc-7a90be9f060a.mp4
+
 
 # Rimjobs Details
 
