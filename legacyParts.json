@@ -1,0 +1,989 @@
+[
+    {
+        "number": 1,
+        "description": "windshield w/ polymer",
+        "price": 178.76,
+        "weight": 0.55,
+        "pictureURL": "img/shi.jpg"
+    },
+    {
+        "number": 2,
+        "description": "wiper blade pair",
+        "price": 23.37,
+        "weight": 2.5,
+        "pictureURL": "img/wip.jpg"
+    },
+    {
+        "number": 3,
+        "description": "solenoid",
+        "price": 36.58,
+        "weight": 2,
+        "pictureURL": "img/sol.jpg"
+    },
+    {
+        "number": 4,
+        "description": "tiresome mettle",
+        "price": 157.46,
+        "weight": 2,
+        "pictureURL": "img/met.jpg"
+    },
+    {
+        "number": 5,
+        "description": "bucket seat pair",
+        "price": 315.94,
+        "weight": 3.5,
+        "pictureURL": "img/sea.jpg"
+    },
+    {
+        "number": 6,
+        "description": "5 point harness",
+        "price": 177.79,
+        "weight": 12.45,
+        "pictureURL": "img/har.jpg"
+    },
+    {
+        "number": 7,
+        "description": "turbo intake valve",
+        "price": 659.83,
+        "weight": 2,
+        "pictureURL": "img/val.jpg"
+    },
+    {
+        "number": 8,
+        "description": "supercharger",
+        "price": 711.14,
+        "weight": 99.99,
+        "pictureURL": "img/anc.jpg"
+    },
+    {
+        "number": 9,
+        "description": "inter cooler sweep",
+        "price": 202.17,
+        "weight": 2,
+        "pictureURL": "img/int.jpg"
+    },
+    {
+        "number": 10,
+        "description": "gas cap - chrome",
+        "price": 25.38,
+        "weight": 2,
+        "pictureURL": "img/gas.jpg"
+    },
+    {
+        "number": 11,
+        "description": "chrome brake pedals kit-manual",
+        "price": 45.71,
+        "weight": 0.55,
+        "pictureURL": "img/bra.jpg"
+    },
+    {
+        "number": 12,
+        "description": "chrome brake pedals kit-automatic",
+        "price": 41.65,
+        "weight": 1.95,
+        "pictureURL": "img/bra.jpg"
+    },
+    {
+        "number": 13,
+        "description": "intel inside window decal",
+        "price": 2.03,
+        "weight": 2,
+        "pictureURL": "img/itl.jpg"
+    },
+    {
+        "number": 14,
+        "description": "niu alumni window decal",
+        "price": 1.85,
+        "weight": 2,
+        "pictureURL": "img/niu.jpg"
+    },
+    {
+        "number": 15,
+        "description": "air freshener - lemon",
+        "price": 1.85,
+        "weight": 3.5,
+        "pictureURL": "img/lem.jpg"
+    },
+    {
+        "number": 16,
+        "description": "air freshener - cherry",
+        "price": 1.85,
+        "weight": 12.45,
+        "pictureURL": "img/che.jpg"
+    },
+    {
+        "number": 17,
+        "description": "air freshener - new car smell",
+        "price": 2.06,
+        "weight": 2,
+        "pictureURL": "img/usa.jpg"
+    },
+    {
+        "number": 18,
+        "description": "cargo net (new model)",
+        "price": 25.36,
+        "weight": 2,
+        "pictureURL": "img/net.jpg"
+    },
+    {
+        "number": 19,
+        "description": "trunk liner",
+        "price": 25.38,
+        "weight": 2,
+        "pictureURL": "img/tru.jpg"
+    },
+    {
+        "number": 20,
+        "description": "floor mat - driver side",
+        "price": 13.21,
+        "weight": 2,
+        "pictureURL": "img/mat.jpg"
+    },
+    {
+        "number": 21,
+        "description": "floor mat - passenger side",
+        "price": 13.21,
+        "weight": 0.55,
+        "pictureURL": "img/mat.jpg"
+    },
+    {
+        "number": 22,
+        "description": "car detail kit",
+        "price": 88.38,
+        "weight": 1.95,
+        "pictureURL": "img/cdk.jpg"
+    },
+    {
+        "number": 23,
+        "description": "tachometer",
+        "price": 30.48,
+        "weight": 2,
+        "pictureURL": "img/tach.jpg"
+    },
+    {
+        "number": 24,
+        "description": "speedometer mph edition",
+        "price": 34.55,
+        "weight": 2,
+        "pictureURL": "img/spe.jpg"
+    },
+    {
+        "number": 25,
+        "description": "gps navigation",
+        "price": 152.39,
+        "weight": 3.5,
+        "pictureURL": "img/gps.jpg"
+    },
+    {
+        "number": 26,
+        "description": "CD/DVD/DB holder",
+        "price": 20.31,
+        "weight": 0.5,
+        "pictureURL": "img/dvd.jpg"
+    },
+    {
+        "number": 27,
+        "description": "car charger - micro usb, 2 ft",
+        "price": 17.26,
+        "weight": 2,
+        "pictureURL": "img/cha.jpg"
+    },
+    {
+        "number": 28,
+        "description": "Backup camera peephole",
+        "price": 10.12,
+        "weight": 2,
+        "pictureURL": "img/bac.jpg"
+    },
+    {
+        "number": 30,
+        "description": "USB car adapter, NaviPro 2.1",
+        "price": 220.45,
+        "weight": 2,
+        "pictureURL": "img/usb.jpg"
+    },
+    {
+        "number": 31,
+        "description": "Reverse Sensor, mitigatable",
+        "price": 50.75,
+        "weight": 0.55,
+        "pictureURL": "img/tac.jpg"
+    },
+    {
+        "number": 33,
+        "description": "Part: 23-05-05 17:25",
+        "price": 101.58,
+        "weight": 99.99,
+        "pictureURL": "img/033.jpg"
+    },
+    {
+        "number": 40,
+        "description": "1969 Harley Davidson Ultimate Chopper",
+        "price": 49.59,
+        "weight": 2,
+        "pictureURL": "img/mop.jpg"
+    },
+    {
+        "number": 41,
+        "description": "1952 Alpine Renault 1300",
+        "price": 100.16,
+        "weight": 0.55,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 42,
+        "description": "1996 Moto Guzzi 1100i",
+        "price": 70.08,
+        "weight": 1.95,
+        "pictureURL": "img/mop.jpg"
+    },
+    {
+        "number": 43,
+        "description": "2003 Harley-Davidson Eagle Drag Bike",
+        "price": 92.47,
+        "weight": 2,
+        "pictureURL": "img/any.jpg"
+    },
+    {
+        "number": 44,
+        "description": "1972 Alfa Romeo GTA",
+        "price": 87.06,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 45,
+        "description": "1962 LanciaA Delta 16V",
+        "price": 105.05,
+        "weight": 3.5,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 46,
+        "description": "1968 Ford Mustang",
+        "price": 96.84,
+        "weight": 12.45,
+        "pictureURL": "img/ford.jpg"
+    },
+    {
+        "number": 47,
+        "description": "2001 Ferrari Enzo",
+        "price": 97.11,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 48,
+        "description": "1958 Setra Bus",
+        "price": 79.14,
+        "weight": 2,
+        "pictureURL": "img/bus.jpg"
+    },
+    {
+        "number": 49,
+        "description": "2002 Suzuki XERO",
+        "price": 67.32,
+        "weight": 2,
+        "pictureURL": "img/mop.jpg"
+    },
+    {
+        "number": 50,
+        "description": "1969 Corvair Monza",
+        "price": 90.55,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 51,
+        "description": "1968 Dodge Charger",
+        "price": 76.36,
+        "weight": 99.99,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 52,
+        "description": "1969 Ford Falcon",
+        "price": 84.38,
+        "weight": 1.95,
+        "pictureURL": "img/ford.jpg"
+    },
+    {
+        "number": 53,
+        "description": "1970 Plymouth Hemi Cuda",
+        "price": 32.42,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 54,
+        "description": "1957 Chevy Pickup",
+        "price": 56.59,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 55,
+        "description": "1969 Dodge Charger",
+        "price": 59.66,
+        "weight": 3.5,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 56,
+        "description": "1940 Ford Pickup Truck",
+        "price": 59.25,
+        "weight": 12.45,
+        "pictureURL": "img/ford.jpg"
+    },
+    {
+        "number": 57,
+        "description": "1993 Mazda RX-7",
+        "price": 84.84,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 58,
+        "description": "1937 Lincoln Berline",
+        "price": 61.58,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 59,
+        "description": "1936 Mercedes-Benz 500K Special Roadster",
+        "price": 24.64,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 60,
+        "description": "1965 Aston Martin DB5",
+        "price": 67.01,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 61,
+        "description": "1980s Black Hawk Helicopter",
+        "price": 78.5,
+        "weight": 0.55,
+        "pictureURL": "img/heli.jpg"
+    },
+    {
+        "number": 62,
+        "description": "1917 Grand Touring Sedan",
+        "price": 88.07,
+        "weight": 1.95,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 63,
+        "description": "1948 Porsche 356-A Roadster",
+        "price": 54.77,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 64,
+        "description": "1995 Honda Civic",
+        "price": 95.39,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 65,
+        "description": "1998 Chrysler Plymouth Prowler",
+        "price": 103.14,
+        "weight": 3.5,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 66,
+        "description": "1911 Ford Town Car",
+        "price": 33.83,
+        "weight": 12.45,
+        "pictureURL": "img/ford.jpg"
+    },
+    {
+        "number": 67,
+        "description": "1964 Mercedes Tour Bus",
+        "price": 76.06,
+        "weight": 2,
+        "pictureURL": "img/bus.jpg"
+    },
+    {
+        "number": 68,
+        "description": "1932 Model A Ford J-Coupe",
+        "price": 59.42,
+        "weight": 2,
+        "pictureURL": "img/ford.jpg"
+    },
+    {
+        "number": 69,
+        "description": "1926 Ford Fire Engine",
+        "price": 25.32,
+        "weight": 2,
+        "pictureURL": "img/ford.jpg"
+    },
+    {
+        "number": 70,
+        "description": "P-51-D Mustang",
+        "price": 49.77,
+        "weight": 2,
+        "pictureURL": "img/air.jpg"
+    },
+    {
+        "number": 71,
+        "description": "1936 Harley Davidson El Knucklehead",
+        "price": 24.62,
+        "weight": 0.55,
+        "pictureURL": "img/mop.jpg"
+    },
+    {
+        "number": 72,
+        "description": "1928 Mercedes-Benz SSK",
+        "price": 73.72,
+        "weight": 1.95,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 73,
+        "description": "1999 Indy 500 Monte Carlo SS",
+        "price": 57.66,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 74,
+        "description": "1913 Ford Model T Speedster",
+        "price": 61.75,
+        "weight": 2,
+        "pictureURL": "img/ford.jpg"
+    },
+    {
+        "number": 75,
+        "description": "1934 Ford V8 Coupe",
+        "price": 34.89,
+        "weight": 3.5,
+        "pictureURL": "img/ford.jpg"
+    },
+    {
+        "number": 76,
+        "description": "1999 Yamaha Speed Boat",
+        "price": 52.43,
+        "weight": 12.45,
+        "pictureURL": "img/mop.jpg"
+    },
+    {
+        "number": 77,
+        "description": "18th Century Vintage Horse Carriage",
+        "price": 61.68,
+        "weight": 2,
+        "pictureURL": "img/horse.jpg"
+    },
+    {
+        "number": 78,
+        "description": "1903 Ford Model A",
+        "price": 69.39,
+        "weight": 2,
+        "pictureURL": "img/ford.jpg"
+    },
+    {
+        "number": 79,
+        "description": "1992 Ferrari 360 Spider red",
+        "price": 79.14,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 80,
+        "description": "1985 Toyota Supra",
+        "price": 57.91,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 81,
+        "description": "Collectable Wooden Train",
+        "price": 68.65,
+        "weight": 0.55,
+        "pictureURL": "img/train.jpg"
+    },
+    {
+        "number": 82,
+        "description": "1969 Dodge Super Bee",
+        "price": 49.82,
+        "weight": 1.95,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 83,
+        "description": "1917 Maxwell Touring Car",
+        "price": 58.44,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 84,
+        "description": "1976 Ford Gran Torino",
+        "price": 74.67,
+        "weight": 2,
+        "pictureURL": "img/ford.jpg"
+    },
+    {
+        "number": 85,
+        "description": "1948 Porsche Type 356 Roadster",
+        "price": 63.16,
+        "weight": 3.5,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 86,
+        "description": "1957 Vespa GS150",
+        "price": 33.48,
+        "weight": 12.45,
+        "pictureURL": "img/mop.jpg"
+    },
+    {
+        "number": 87,
+        "description": "1941 Chevrolet Special Deluxe Cabriolet",
+        "price": 65.61,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 88,
+        "description": "1970 Triumph Spitfire",
+        "price": 93.39,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 89,
+        "description": "1932 Alfa Romeo 8C2300 Spider Sport",
+        "price": 43.96,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 90,
+        "description": "1904 Buick Runabout",
+        "price": 53.5,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 91,
+        "description": "1940s Ford truck",
+        "price": 86.11,
+        "weight": 0.55,
+        "pictureURL": "img/ford.jpg"
+    },
+    {
+        "number": 92,
+        "description": "1939 Cadillac Limousine",
+        "price": 23.51,
+        "weight": 1.95,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 93,
+        "description": "1957 Corvette Convertible",
+        "price": 71.04,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 94,
+        "description": "1957 Ford Thunderbird",
+        "price": 34.75,
+        "weight": 2,
+        "pictureURL": "img/ford.jpg"
+    },
+    {
+        "number": 95,
+        "description": "1970 Chevy Chevelle SS 454",
+        "price": 50.02,
+        "weight": 3.5,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 96,
+        "description": "1970 Dodge Coronet",
+        "price": 32.89,
+        "weight": 12.45,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 97,
+        "description": "1997 BMW R 1100 S",
+        "price": 61.83,
+        "weight": 2,
+        "pictureURL": "img/mop.jpg"
+    },
+    {
+        "number": 98,
+        "description": "1966 Shelby Cobra 427 S/C",
+        "price": 29.64,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 99,
+        "description": "1928 British Royal Navy Airplane",
+        "price": 67.8,
+        "weight": 2,
+        "pictureURL": "img/air.jpg"
+    },
+    {
+        "number": 100,
+        "description": "1939 Chevrolet Deluxe Coupe",
+        "price": 22.92,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 101,
+        "description": "1960 BSA Gold Star DBD34",
+        "price": 37.91,
+        "weight": 0.55,
+        "pictureURL": "img/mop.jpg"
+    },
+    {
+        "number": 102,
+        "description": "18th century schooner",
+        "price": 83.65,
+        "weight": 1.95,
+        "pictureURL": "img/ship.jpg"
+    },
+    {
+        "number": 103,
+        "description": "1938 Cadillac V-16 Presidential Limousine",
+        "price": 20.94,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 104,
+        "description": "1962 Volkswagen Microbus",
+        "price": 62.31,
+        "weight": 2,
+        "pictureURL": "img/bus.jpg"
+    },
+    {
+        "number": 105,
+        "description": "1982 Ducati 900 Monster",
+        "price": 47.85,
+        "weight": 3.5,
+        "pictureURL": "img/mop.jpg"
+    },
+    {
+        "number": 106,
+        "description": "1949 Jaguar XK 120",
+        "price": 48,
+        "weight": 12.45,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 107,
+        "description": "1958 Chevy Corvette Limited Edition",
+        "price": 16.16,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 108,
+        "description": "1900s Vintage Bi-Plane",
+        "price": 34.78,
+        "weight": 2,
+        "pictureURL": "img/any.jpg"
+    },
+    {
+        "number": 109,
+        "description": "1952 Citroen-15CV",
+        "price": 73.98,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 110,
+        "description": "1982 Lamborghini Diablo",
+        "price": 16.5,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 111,
+        "description": "1912 Ford Model T Delivery Wagon",
+        "price": 47.65,
+        "weight": 0.55,
+        "pictureURL": "img/ford.jpg"
+    },
+    {
+        "number": 112,
+        "description": "1969 Chevrolet Camaro Z28",
+        "price": 51.31,
+        "weight": 1.95,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 113,
+        "description": "1971 Alpine Renault 1600s",
+        "price": 39.19,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 114,
+        "description": "1937 Horch 930V Limousine",
+        "price": 26.71,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 115,
+        "description": "2002 Chevy Corvette",
+        "price": 63.1,
+        "weight": 3.5,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 116,
+        "description": "1940 Ford Delivery Sedan",
+        "price": 49.41,
+        "weight": 12.45,
+        "pictureURL": "img/ford.jpg"
+    },
+    {
+        "number": 117,
+        "description": "1956 Porsche 356A Coupe",
+        "price": 99.87,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 118,
+        "description": "Corsair F4U ( Bird Cage)",
+        "price": 29.8,
+        "weight": 2,
+        "pictureURL": "img/cor.jpg"
+    },
+    {
+        "number": 119,
+        "description": "1936 Mercedes Benz 500k Roadster",
+        "price": 22.11,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 120,
+        "description": "1992 Porsche Cayenne Turbo Silver",
+        "price": 70.89,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 121,
+        "description": "1936 Chrysler Airflow",
+        "price": 58.39,
+        "weight": 0.55,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 122,
+        "description": "1900s Vintage Tri-Plane",
+        "price": 36.8,
+        "weight": 1.95,
+        "pictureURL": "img/any.jpg"
+    },
+    {
+        "number": 123,
+        "description": "1961 Chevrolet Impala",
+        "price": 32.83,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 124,
+        "description": "1980 GM Manhattan Express",
+        "price": 60.7,
+        "weight": 2,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 125,
+        "description": "1997 BMW F650 ST",
+        "price": 75.34,
+        "weight": 3.5,
+        "pictureURL": "img/mop.jpg"
+    },
+    {
+        "number": 126,
+        "description": "1982 Ducati 996 R",
+        "price": 27.17,
+        "weight": 12.45,
+        "pictureURL": "img/mop.jpg"
+    },
+    {
+        "number": 127,
+        "description": "1954 Greyhound Scenicruiser",
+        "price": 29.24,
+        "weight": 2,
+        "pictureURL": "img/bus.jpg"
+    },
+    {
+        "number": 128,
+        "description": "1950 Chicago Surface Lines Streetcar",
+        "price": 30.08,
+        "weight": 2,
+        "pictureURL": "img/scar.jpg"
+    },
+    {
+        "number": 129,
+        "description": "1996 Peterbilt 379 Stake Bed with Outrigger",
+        "price": 37.83,
+        "weight": 2,
+        "pictureURL": "img/peter.jpg"
+    },
+    {
+        "number": 130,
+        "description": "1928 Ford Phaeton Deluxe",
+        "price": 37.17,
+        "weight": 2,
+        "pictureURL": "img/ford.jpg"
+    },
+    {
+        "number": 131,
+        "description": "1974 Ducati 350 Mk3 Desmo",
+        "price": 63.18,
+        "weight": 0.55,
+        "pictureURL": "img/mop.jpg"
+    },
+    {
+        "number": 132,
+        "description": "1930 Buick Marquette Phaeton",
+        "price": 30.47,
+        "weight": 1.95,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 133,
+        "description": "Diamond T620 Semi-Skirted Tanker",
+        "price": 76.87,
+        "weight": 2,
+        "pictureURL": "img/ship.jpg"
+    },
+    {
+        "number": 134,
+        "description": "1962 City of Detroit Streetcar",
+        "price": 42.2,
+        "weight": 2,
+        "pictureURL": "img/scar.jpg"
+    },
+    {
+        "number": 135,
+        "description": "2002 Yamaha YZR M1",
+        "price": 38.47,
+        "weight": 3.5,
+        "pictureURL": "img/mop.jpg"
+    },
+    {
+        "number": 136,
+        "description": "The Schooner Bluenose",
+        "price": 38.28,
+        "weight": 12.45,
+        "pictureURL": "img/ship.jpg"
+    },
+    {
+        "number": 137,
+        "description": "American Airlines: B767-300",
+        "price": 57.58,
+        "weight": 2,
+        "pictureURL": "img/air.jpg"
+    },
+    {
+        "number": 138,
+        "description": "The Mayflower",
+        "price": 48.74,
+        "weight": 2,
+        "pictureURL": "img/ship.jpg"
+    },
+    {
+        "number": 139,
+        "description": "HMS Bounty",
+        "price": 44.84,
+        "weight": 2,
+        "pictureURL": "img/ship.jpg"
+    },
+    {
+        "number": 140,
+        "description": "America West Airlines B757-200",
+        "price": 77.44,
+        "weight": 2,
+        "pictureURL": "img/air.jpg"
+    },
+    {
+        "number": 141,
+        "description": "The USS Constitution Ship",
+        "price": 38.25,
+        "weight": 0.55,
+        "pictureURL": "img/ship.jpg"
+    },
+    {
+        "number": 142,
+        "description": "1982 Camaro Z28",
+        "price": 52.38,
+        "weight": 1.95,
+        "pictureURL": "img/car.jpg"
+    },
+    {
+        "number": 143,
+        "description": "ATA: B757-300",
+        "price": 66.78,
+        "weight": 2,
+        "pictureURL": "img/air.jpg"
+    },
+    {
+        "number": 144,
+        "description": "F/A 18 Hornet 1/72",
+        "price": 61.24,
+        "weight": 2,
+        "pictureURL": "img/air.jpg"
+    },
+    {
+        "number": 145,
+        "description": "The Titanic",
+        "price": 57.5,
+        "weight": 3.5,
+        "pictureURL": "img/ship.jpg"
+    },
+    {
+        "number": 146,
+        "description": "The Queen Mary",
+        "price": 60.37,
+        "weight": 12.45,
+        "pictureURL": "img/ship.jpg"
+    },
+    {
+        "number": 147,
+        "description": "American Airlines: MD-11S",
+        "price": 40.83,
+        "weight": 2,
+        "pictureURL": "img/air.jpg"
+    },
+    {
+        "number": 148,
+        "description": "Boeing X-32A JSF",
+        "price": 36.9,
+        "weight": 2,
+        "pictureURL": "img/air.jpg"
+    },
+    {
+        "number": 149,
+        "description": "Pont Yacht",
+        "price": 37.48,
+        "weight": 2,
+        "pictureURL": "img/ship.jpg"
+    }
+]
