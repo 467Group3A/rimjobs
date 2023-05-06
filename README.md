@@ -53,30 +53,6 @@ Group members responsibilities are listed below:
 | Cesar | Express.js, Vue 3, SQLite3 |
 | David | Express.js, Vue 3, Linode Server |
 
-# Running The Project
+# Running the project
 
-
-### Clone the repo: 
-
-`git clone https://github.com/467Group3A/rimjobs.git`
-
-### cd into the repo:
-
-`cd rimjobs/` 
-
-### Install Dependencies:
-
-`npm i` 
-
-### Generate the DB (requires `bcrypt` pip package):
-
-`python3 generateDB.py` 
-
-### Start up the server:
-
-`npm run start` 
-
-### Heres a chained command
-
-`git clone https://github.com/467Group3A/rimjobs.git && cd rimjobs/ && npm i && pip install bcrypt && python3 generateDB.py && npm run dev`
-
+Please checkout the `local-version` branch. The main branch is still hooked up to the remote endpoints.
