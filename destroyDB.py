@@ -17,6 +17,7 @@ cursor.execute("DROP TABLE IF EXISTS orders;")
 cursor.execute("DROP TABLE IF EXISTS brackets;")
 cursor.execute("DROP TABLE IF EXISTS inventory;")
 cursor.execute("DROP TABLE IF EXISTS users;")
+cursor.execute("DROP TABLE IF EXISTS legacyParts;")
 
 con.commit()
 con.close()

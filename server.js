@@ -1,7 +1,13 @@
 //
+// The commented out lines are ones that are included to run the server
+// on a Linode with HTTPs setup. If you are running this locally they
+// will break.
+//
+// I have also changed the remote db to the loca sqlite3 one.
+//
 // - - - - - - - - - - - - NPM MODULES - - - - - - - - - - - - 
 //
-const fs = require('fs');
+//const fs = require('fs');
 const http = require('http')
 const https = require('https')
 const express = require('express');
@@ -26,15 +32,15 @@ const emailConfig = require('./services/emailconfig')
 // 
 // - - - - - - - - - - - - Server Related - - - - - - - - - - - - 
 //
-const privateKey = fs.readFileSync('', 'utf8');
-const certificate = fs.readFileSync('', 'utf8');
-const ca = fs.readFileSync('', 'utf8');
+// const privateKey = fs.readFileSync('', 'utf8');
+// const certificate = fs.readFileSync('', 'utf8');
+// const ca = fs.readFileSync('', 'utf8');
 
-const credentials = {
-  key: privateKey,
-  cert: certificate,
-  ca: ca
-};
+// const credentials = {
+//   key: privateKey,
+//   cert: certificate,
+//   ca: ca
+// };
 
 const httpPort = 2048;
 const httpsPort = 2443;
@@ -68,7 +74,7 @@ require('console-stamp')(console, {
 const app = express();
 
 const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, app);
+//const httpsServer = https.createServer(credentials, app);
 
 
 // Redirection from http to https
