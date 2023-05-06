@@ -43,7 +43,7 @@ const emailConfig = require('./services/emailconfig')
 // };
 
 const httpPort = 2048;
-const httpsPort = 2443;
+//const httpsPort = 2443;
 
 //
 // - - - - - - - - - - - -  Logging Related - - - - - - - - - - - - 
@@ -78,12 +78,12 @@ const httpServer = http.createServer(app);
 
 
 // Redirection from http to https
-app.use((req, res, next) => {
-  if (!req.secure && req.get('x-forwarded-proto') !== 'https') {
-    return res.redirect(`https://${req.get('host')}${req.url}`);
-  }
-  next();
-}); 
+// app.use((req, res, next) => {
+//   if (!req.secure && req.get('x-forwarded-proto') !== 'https') {
+//     return res.redirect(`https://${req.get('host')}${req.url}`);
+//   }
+//   next();
+// }); 
 
 // Allow for session storage
 app.use(session({
@@ -113,13 +113,13 @@ app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.static(path.join(__dirname, 'components')));
 
 // Legacy Database Connection Info
-const connection = mysql.createConnection({
-  host: 'blitz.cs.niu.edu',
-  user: 'student',
-  password: 'student',
-  database: 'csci467',
-  connectTimeout: 60000
-});
+// const connection = mysql.createConnection({
+//   host: '',
+//   user: '',
+//   password: '',
+//   database: '',
+//   connectTimeout: 60000
+// });
 
 /* -------------------------------------------------------- 
                    CUSTOMER FACING VIEWS
@@ -205,27 +205,30 @@ app.get('/managelogins', isAdmin, (req, res) => {
    -------------------------------------------------------- */
 // Start of endpoints
 app.get('/legacyparts', async (req, res) => {
-  connection.connect((error) => {
-    if (error) {
-      console.error(ERROR + 'connecting to database:', error);
-    } else {
-      console.log(SUCCESS + "Connected to Legacy Database");
-    }
-  });
+  // connection.connect((error) => {
+  //   if (error) {
+  //     console.error(ERROR + 'connecting to database:', error);
+  //   } else {
+  //     console.log(SUCCESS + "Connected to Legacy Database");
+  //   }
+  // });
+  const db = newConnection();
+
   console.log(API + "Legacy Parts Endpoint")
   const perPage = parseInt(req.query.per) || 10;
   let page = parseInt(req.query.page) || 1;
   const offset = (page - 1) * perPage;
 
-  connection.query(`SELECT * FROM parts LIMIT ${perPage} OFFSET ${offset}`, (error, results) => {
-    if (error) {
-      console.error(ERROR + "In /legacyparts: " + error);
-      res.status(500).send('Error retrieving data from database');
-    } else {
-      console.log(API + "Fetch " + perPage + " items with offset " + offset);
-      res.send(results);
-    }
+  const data = await new Promise((resolve, reject) => {
+    db.all(`SELECT * FROM legacyParts LIMIT ${offset},${perPage}`, (err, rows) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(rows);
+    });
   });
+  res.json(data);
+  db.close();
 });
 
 app.get('/inventory', (req, res) => {
@@ -244,25 +247,27 @@ app.get('/inventory', (req, res) => {
 });
 
 app.get('/api/search', async (req, res) => {
-  connection.connect((error) => {
-    if (error) {
-      console.error(ERROR + 'connecting to database:', error);
-    } else {
-      console.log(SUCCESS + "Connected to Legacy Database");
-    }
-  });
+  // connection.connect((error) => {
+  //   if (error) {
+  //     console.error(ERROR + 'connecting to database:', error);
+  //   } else {
+  //     console.log(SUCCESS + "Connected to Legacy Database");
+  //   }
+  // });
+  const db = new newConnection();
   const item = req.query.searchTerm
   console.log(API + "Search For: " + item);
 
-  console.log(`SELECT * FROM parts WHERE description LIKE "%${item}%"`);
-  connection.query(`SELECT * FROM parts WHERE Description LIKE "%${item}%"`, (error, results) => {
-    if (error) {
-      console.error(error);
+  console.log(`SELECT * FROM legacyParts WHERE description LIKE "%${item}%"`);
+  db.get(`SELECT * FROM legacyParts WHERE Description LIKE "%${item}%"`, (err, rows) => {
+    if (err) {
+      console.error(err);
     } else {
-      res.json(results);
+      resolve(rows);
     }
   });
-  connection.end()
+  res.json(rows);
+  db.close();
 });
 
 // Customer endpoint that allows them to find their order information given orderId
@@ -287,7 +292,7 @@ app.post('/api/find-order', async (req, res) => {
         } else {
 
             // orderItems now contains each part/id select those only from legacy db
-              let sql = "SELECT * FROM parts WHERE"
+              let sql = "SELECT * FROM legacyParts WHERE"
 
               for(let i=0; i<orderItems.length; i++) {
                 if(i===0) {
@@ -302,14 +307,15 @@ app.post('/api/find-order', async (req, res) => {
 
               try{
                 // Connect to legacy database
-                const connect = await legacyConnection.getConnection()
+                // const connect = await legacyConnection.getConnection()
+                const db = newConnection();
 
                 // Query the parts from legacy
-                const [row] = await connect.query(sql)
+                const [row] = await db.run(sql)
                 orderItemsInfo = row // Assign from query
 
                 // Drop connection
-                connect.release()
+                db.close();
               } catch(err){
                 console.log(err)
               }
@@ -350,15 +356,16 @@ app.get('/api/combine-parts-quantity', async (req, res) => {
   console.log(API + "Combine Parts + Quantity");
   try {
     // Connect to legacy database
-    const connect = await legacyConnection.getConnection();
+    // const connect = await legacyConnection.getConnection();
 
-    // Query the parts from legacy
-    const [rows] = await connect.query('SELECT * FROM parts');
+    // // Query the parts from legacy
+    // const [rows] = await connect.query('SELECT * FROM parts');
 
     // Drop connection
-    connect.release();
+    //connect.release();
 
     const db = newConnection()
+    const [rows] = await db.get('SELECT * FROM parts');
 
     // Grab inventory from new db taking number and amount
     const newRows = await new Promise((resolve, reject) => {
@@ -1035,10 +1042,10 @@ app.get('*', (req, res) => {
 
 // Run http Server
 httpServer.listen(httpPort, () => {
-  console.log(INFO + 'HTTP: http://rimjobs.store');
+  console.log(INFO + 'Running on localhost:' + httpPort);
 });
 
 // Run https server
-httpsServer.listen(httpsPort, () => {
-  console.log(INFO + 'HTTPS: https://rimjobs.store');
-}); 
+// httpsServer.listen(httpsPort, () => {
+//   console.log(INFO + 'HTTPS: https://rimjobs.store');
+// }); 
