@@ -36,6 +36,9 @@ Employees see less options on the portal, compared to administrators.
 
 https://user-images.githubusercontent.com/20436145/236588287-b2aaf245-264d-4845-8adc-7a90be9f060a.mp4
 
+And of course, the end confirmation email:
+
+![email](https://user-images.githubusercontent.com/20436145/236588568-5bcfdc21-ddf5-41e7-af12-8e48b3820a46.png)
 
 # Rimjobs Details
 
