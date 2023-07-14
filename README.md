@@ -1,8 +1,4 @@
-# Rim Jobs 
-
-Autoparts and vehicles through air, sea and land.
-
-We promise you'll always leave satisfied.
+A Group Project for CSCI 467: Software Engineering. For this project we we're given a purpose; Ours being an Online Auto Parts Store. This project had a few constraints, like a legacy database that was read only, to a remote Credit Card Authorization System. Other than that we had total freedom.
 
 # Showcase
 
